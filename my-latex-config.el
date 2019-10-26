@@ -1,0 +1,5 @@
+(defun my-config-latex ()
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (setq LaTeX-item-indent 0)
+  (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
+  )
