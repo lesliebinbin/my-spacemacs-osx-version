@@ -119,9 +119,9 @@ This function should only modify configuration layer settings."
                 emacs-lisp
                 git
                 github
-                ;; (helm :variables helm-enable-auto-resize t)
-                (ivy :variables
-                     ivy-enable-advanced-buffer-information t)
+                (helm :variables helm-enable-auto-resize t)
+                ;;(ivy :variables
+                ;;     ivy-enable-advanced-buffer-information t)
                 (markdown :variables
                           markdown-live-preview-engine 'vmd
                           markdown-mmm-auto-modes '("c" "c++" "scala" ("elisp" "emacs-lisp")))
@@ -633,8 +633,8 @@ before packages are loaded."
   (config-my-pdf-tools)
   ;;config pdf-tools
   ;;config-geolocation
-  (load-file "~/.spacemacs.d/my-geolocation-config.el")
-  (config-my-current-geolocation)
+  ;;(load-file "~/.spacemacs.d/my-geolocation-config.el")
+  ;;(config-my-current-geolocation)
   ;;config-geolocation
   (load-file "~/.spacemacs.d/my-emmet-config.el")
   (config-my-emmet)
@@ -643,12 +643,7 @@ before packages are loaded."
   (config-my-golang)
   ;;config golang
   (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
-  ;;(require 'lsp-java-boot)
-  ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-  ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-  (require 'lsp-java)
-  (add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
-  (setq treemacs-width 25)
+  (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
