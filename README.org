@@ -1,0 +1,8 @@
+* Spacemacs Mac Configuration
+** Java
+** Python
+** Org
+** Trello
+** C/C++
+** Gradle
+** Docker
