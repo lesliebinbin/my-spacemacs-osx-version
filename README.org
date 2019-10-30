@@ -6,3 +6,6 @@
 ** C/C++
 ** Gradle
 ** Docker
+** External private layers
+  - Just a suggestion put in under *.spacemacs.d/layers*
+    - myleetcode: [[https://github.com/anmoljagetia/leetcode-emacs-layer][leetcode-layer-for-spacemacs]]

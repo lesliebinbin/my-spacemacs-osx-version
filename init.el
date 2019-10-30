@@ -51,7 +51,7 @@ This function should only modify configuration layer settings."
                 clojure
                 (python :variables
                         python-fill-column 99
-                        python-backend 'anaconda
+                        ;;python-backend 'anaconda
                         python-formatter 'yapf
                         python-format-on-save t
                         python-sort-imports-on-save t
@@ -64,13 +64,14 @@ This function should only modify configuration layer settings."
                        ;; c-c++-lsp-executable (file-truename "~/Desktop/cquery_haha/bin/cquery")
                        ;; c-c++-lsp-executable (file-truename "~/Desktop/codes_from_github/ccls/Release/ccls")
                        c-c++-backend 'rtags
+                       ;; c-c++-backend 'lsp-ccls
                        c-c++-adopt-subprojects t
                        c-c++-lsp-sem-highlight-rainbow t
                        ;; the configuration using cquery or ccls
                        ;; the configuration of clangd perhaps
                        ;; c-c++-backend 'lsp-clangd
                        ;; c-c++-lsp-executable (file-truename "/usr/bin/clangd-8")
-                       ;; c-c++-enable-clang-support t
+                       c-c++-enable-clang-support t
                        ;; the configuration of clangd perhaps
                        c++-enable-organize-includes-on-save t
                        c-c++-enable-clang-format-on-save t
@@ -101,6 +102,8 @@ This function should only modify configuration layer settings."
                       rust-backend 'lsp
                       rust-format-on-save t)
                 groovy
+                haskell
+                elm
                 ;; ----------------------------------------------------------------
                 ;; Example of useful layers you may want to use right away.
                 ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -119,6 +122,7 @@ This function should only modify configuration layer settings."
                 emacs-lisp
                 git
                 github
+                myleetcode
                 (helm :variables helm-enable-auto-resize t)
                 ;;(ivy :variables
                 ;;     ivy-enable-advanced-buffer-information t)
@@ -156,7 +160,6 @@ This function should only modify configuration layer settings."
                              geolocation-enable-weather-forecast t)
                 ;;exwm
                 spotify
-                tmux
                 ;; chinese
                 ;;multiple-cursors
                 multiple-cursors

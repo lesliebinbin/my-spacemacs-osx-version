@@ -1,3 +1,4 @@
+(require 'cl-lib)
 (setq treemacs-width 25)
 (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
 (require 'lsp-java)
@@ -5,3 +6,6 @@
 ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
 ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
 (add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
+(setq leetcode-prefer-language "python3")
+(setq leetcode-prefer-sql "mysql")
+(setq url-debug t)
