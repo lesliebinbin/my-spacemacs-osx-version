@@ -17,3 +17,5 @@ gradle
 !/.gitignore
 *.db
 out
+calendars
+layers

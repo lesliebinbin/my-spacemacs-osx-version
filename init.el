@@ -78,7 +78,6 @@ This function should only modify configuration layer settings."
                        c-c++-enable-google-style t c-c++-enable-google-newline t
                        c-c++-enable-auto-newline t)
                 common-lisp
-                ;;(semantic :enable-for emacs-lisp)
                 semantic
                 (ruby :variables
                       ruby-backend 'lsp)
@@ -185,6 +184,7 @@ This function should only modify configuration layer settings."
                      osx-right-control-as 'left
                      osx-swap-option-and-command nil
                      osx-dictionary-dictionary-choice "English")
+               google-calendar
 
      )
 
@@ -199,7 +199,7 @@ This function should only modify configuration layer settings."
 
      ;; latex-preview-pane
      ;;sokoban
-     atomic-chrome dracula-theme company-tabnine
+     atomic-chrome dracula-theme company-tabnine calfw-org
      ;;exwm
      ;;xelb
      ;;(helm-company
@@ -651,3 +651,22 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files nil)
+ '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
