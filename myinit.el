@@ -18,3 +18,6 @@
       org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
       org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
 (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
+(setq browse-url-browser-function 'browse-url-generic
+      engine/browser-function 'browse-url-generic
+      browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")

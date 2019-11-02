@@ -185,6 +185,7 @@ This function should only modify configuration layer settings."
                      osx-swap-option-and-command nil
                      osx-dictionary-dictionary-choice "English")
                google-calendar
+               search-engine
 
      )
 
