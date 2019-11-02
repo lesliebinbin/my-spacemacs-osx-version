@@ -14,7 +14,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((gnuplot . t)))
-(setq org-gcal-client-id "494995794423-98b7kgbjjlij2rdp3fs57c2o3ll5v4r6.apps.googleusercontent.com"
-      org-gcal-client-secret "TCIw6xklHLK-cKZUNtHtHheB"
+(setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
+      org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
       org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
 (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
