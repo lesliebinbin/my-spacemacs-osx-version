@@ -22,4 +22,14 @@
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
         browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+  (slack-register-team
+   :name "UQIxDThesis"
+   :default t
+   :client-id (getenv "SLACK_CLIENT_ID")
+   :client-secret (getenv "SLACK_SECRET")
+   :token "token" (getenv "SLACK_TOKEN")
+   :subscribed-channels '(general slackbot))
+  (setq spotify-oauth2-client-secret (getenv "SPOTIFY_OAUTH_CLIENT_SECRET"))
+  (setq spotify-oauth2-client-id (getenv "SPOTIFY_OAUTH_CLIENT_ID"))
+  (setq spotify-transport 'connect)
 #+end_src
