@@ -106,6 +106,7 @@ This function should only modify configuration layer settings."
                 csharp
                 nim
                 racket
+                perl6
                 ;; ----------------------------------------------------------------
                 ;; Example of useful layers you may want to use right away.
                 ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -176,7 +177,12 @@ This function should only modify configuration layer settings."
                 spacemacs-language
                 ;;google-translate
                 (ranger :variables
-                        ranger-show-preview t)
+                        ranger-show-preview t
+                        ranger-show-hidden t
+                        ranger-cleanup-eagerly t
+                        ranger-cleanup-on-disable t
+                        ranger-show-literal nil
+                        ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
                 (osx :variables
                      osx-command-as 'hyper
                      osx-option-as 'meta
