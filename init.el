@@ -28,13 +28,13 @@ This function should only modify configuration layer settings."
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/custom-layers/")
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     
-                restclient 
+
+                restclient
                 php
                 (sql :variables sql-capitalize-keywords t)
                 lsp
@@ -194,7 +194,7 @@ This function should only modify configuration layer settings."
                search-engine
                slack
                tabnine
-	       csv
+         csv
      )
 
    ;; List of additional packages that will be installed without being
@@ -206,21 +206,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
 
-     ;; latex-preview-pane
-     ;;sokoban
      atomic-chrome dracula-theme calfw-org
-     ;;exwm
-     ;;xelb
-     ;;(helm-company
-     ;;:location (recipe
-     ;;          :fetcher github
-     ;;         :repo "Sodel-the-Vociferous/helm-company"
-     ;;        :commit "74ff4d0b99cc890aeb62723c086679e056092bf2"))
-     ;;(helm
-     ;; location (recipe
-     ;;           :fetcher github
-     ;;          :repo "emacs-helm/heml"
-     ;;         :commit "caaf1a9d306fa3b57a78b262ea665cc7f0019d65"))
    )
 
    ;; A list of packages that cannot be updated.
@@ -317,7 +303,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 100
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -585,7 +571,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'all
 
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
