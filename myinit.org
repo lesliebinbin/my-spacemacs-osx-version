@@ -7,7 +7,7 @@
   ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
   ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
   (add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
-  (setq leetcode-prefer-language "python3")
+  (setq leetcode-prefer-language "c")
   (setq leetcode-prefer-sql "mysql")
   (setq url-debug t)
   ;; (setq auto-mode-alist (append '(("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)) auto-mode-alist))

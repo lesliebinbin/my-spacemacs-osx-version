@@ -194,7 +194,8 @@ This function should only modify configuration layer settings."
                search-engine
                slack
                tabnine
-         csv
+               csv
+               emms-player
      )
 
    ;; List of additional packages that will be installed without being
