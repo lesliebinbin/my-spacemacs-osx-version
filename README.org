@@ -7,5 +7,11 @@
 ** Gradle
 ** Docker
 ** External private layers
-  - Just a suggestion put in under *.spacemacs.d/layers*
+  - Just a suggestion,put them under *.spacemacs.d/layers*
     - myleetcode: [[https://github.com/anmoljagetia/leetcode-emacs-layer][leetcode-layer-for-spacemacs]]
+    - google-calendar: [[https:github.com/mhkc/google-calendar-layer][google-calenda-for-spacemacs]]
+** Custom layers
+  - Just a suggestion put them under *.spacemacs.d/custom-layers*
+    - tabnine
+** Custom User Init
+  - The /*Custom User Init*/ is the[[file:myinit.org][ init file in org]]
