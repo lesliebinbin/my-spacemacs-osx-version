@@ -61,11 +61,13 @@ Each entry is either:
 (defun org-page/init-org-page ()
   (spacemacs/declare-prefix "ab" "blog")
   (use-package org-page
-    :config (progn (setq op/repository-directory "~/.spacemacs.d/"
-                         op/site-main-title "Leslie's blog"
-                         op/site-sub-title "A work in progress"
+    :config (progn (setq op/repository-directory "~/.spacemacs.d/docs/"
+                         op/site-main-title "Leslie's Geek Blog"
+                         op/site-sub-title "Coding In Live"
                          op/site-domain "https://lesliebinbin.github.io"
-                         op/personal-github-link "http://github.com/lesliebinbin"
+                         op/personal-github-link "https://github.com/lesliebinbin"
+                         op/personal-disqus-shortname "zhibin huang"
+                         op/personal-duoshuo-shortname "binbin"
                          )
                    )))
 ;;; packages.el ends here
