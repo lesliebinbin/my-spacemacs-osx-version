@@ -1,16 +1,10 @@
 (require 'cl-lib)
 (setq treemacs-width 25)
-(add-to-list 'spacemacs-default-company-backends #'company-tabnine)
-(require 'lsp-java)
-;;(require 'lsp-java-boot)
-;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-(add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
-(setq leetcode-prefer-language "c")
-(setq leetcode-prefer-sql "mysql")
-(setq url-debug t)
-;; (setq auto-mode-alist (append '(("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)) auto-mode-alist))
-(add-to-list 'auto-mode-alist '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode))
+
+(setq browse-url-browser-function 'browse-url-generic
+      engine/browser-function 'browse-url-generic
+      browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((gnuplot . t)
@@ -18,24 +12,15 @@
    (lisp . t)
    (clojure . t)
    ))
-
+;; Google Calendar Related
 (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
       org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
       org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
 (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
-(setq browse-url-browser-function 'browse-url-generic
-      engine/browser-function 'browse-url-generic
-      browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
-(slack-register-team
- :name "UQIxDThesis"
- :default t
- :client-id (getenv "SLACK_CLIENT_ID")
- :client-secret (getenv "SLACK_SECRET")
- :token "token" (getenv "SLACK_TOKEN")
- :subscribed-channels '(general slackbot))
-(setq spotify-oauth2-client-secret (getenv "SPOTIFY_OAUTH_CLIENT_SECRET"))
-(setq spotify-oauth2-client-id (getenv "SPOTIFY_OAUTH_CLIENT_ID"))
-(setq spotify-transport 'connect)
+
+(setq leetcode-prefer-language "c")
+(setq leetcode-prefer-sql "mysql")
+(setq url-debug t)
 
 (prodigy-define-service
   :name "nikola-auto"
@@ -106,3 +91,23 @@
 (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
 
 (setq-default enable-remote-dir-locals t)
+
+(require 'lsp-java)
+;;(require 'lsp-java-boot)
+(add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
+;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+
+(add-to-list 'auto-mode-alist '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode))
+
+(setq spotify-oauth2-client-secret (getenv "SPOTIFY_OAUTH_CLIENT_SECRET"))
+(setq spotify-oauth2-client-id (getenv "SPOTIFY_OAUTH_CLIENT_ID"))
+(setq spotify-transport 'connect)
+
+(slack-register-team
+ :name "UQIxDThesis"
+ :default t
+ :client-id (getenv "SLACK_CLIENT_ID")
+ :client-secret (getenv "SLACK_SECRET")
+ :token "token" (getenv "SLACK_TOKEN")
+ :subscribed-channels '(general slackbot))

@@ -1,95 +1,87 @@
 * Approaches to configure Spacemacs in org file
-#+begin_src emacs-lisp :tangle yes
-  (require 'cl-lib)
-  (setq treemacs-width 25)
-  (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
-  (require 'lsp-java)
-  ;;(require 'lsp-java-boot)
-  ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-  ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-  (add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
-  (setq leetcode-prefer-language "c")
-  (setq leetcode-prefer-sql "mysql")
-  (setq url-debug t)
-  ;; (setq auto-mode-alist (append '(("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)) auto-mode-alist))
-  (add-to-list 'auto-mode-alist '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((gnuplot . t)
-     (ruby . t)
-     (lisp . t)
-     (clojure . t)
-     ))
 
-  (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
-        org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
-        org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
-  (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
-  (setq browse-url-browser-function 'browse-url-generic
-        engine/browser-function 'browse-url-generic
-        browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
-  (slack-register-team
-   :name "UQIxDThesis"
-   :default t
-   :client-id (getenv "SLACK_CLIENT_ID")
-   :client-secret (getenv "SLACK_SECRET")
-   :token "token" (getenv "SLACK_TOKEN")
-   :subscribed-channels '(general slackbot))
-  (setq spotify-oauth2-client-secret (getenv "SPOTIFY_OAUTH_CLIENT_SECRET"))
-  (setq spotify-oauth2-client-id (getenv "SPOTIFY_OAUTH_CLIENT_ID"))
-  (setq spotify-transport 'connect)
-#+end_src
+** General Editor Configure
+   #+begin_src emacs-lisp :tangle yes
+     (require 'cl-lib)
+     (setq treemacs-width 25)
 
+     (setq browse-url-browser-function 'browse-url-generic
+           engine/browser-function 'browse-url-generic
+           browse-url-generic-program "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+   #+end_src
+
+** Configure Org Mode
+   #+begin_src emacs-lisp :tangle yes
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((gnuplot . t)
+        (ruby . t)
+        (lisp . t)
+        (clojure . t)
+        ))
+     ;; Google Calendar Related
+     (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
+           org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
+           org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
+     (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
+   #+end_src
+
+** Configure the LeetCode
+   #+begin_src emacs-lisp :tangle yes
+     (setq leetcode-prefer-language "c")
+     (setq leetcode-prefer-sql "mysql")
+     (setq url-debug t)
+   #+end_src
 ** Configure Prodigy for personal blogging
 
-#+begin_src emacs-lisp :tangle yes
-  (prodigy-define-service
-    :name "nikola-auto"
-    :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-    :args '("auto")
-    :cwd "/Users/lesliebinbin/Desktop/myproject/"
-    :tags '(nikola auto blog)
-    :stop-signal 'sigint
-    )
+   #+begin_src emacs-lisp :tangle yes
+     (prodigy-define-service
+       :name "nikola-auto"
+       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
+       :args '("auto")
+       :cwd "/Users/lesliebinbin/Desktop/myproject/"
+       :tags '(nikola auto blog)
+       :stop-signal 'sigint
+       )
 
-  (prodigy-define-service
-    :name "nikola-deploy"
-    :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-    :args '("github_deploy")
-    :cwd "/Users/lesliebinbin/Desktop/myproject/"
-    :tags '(nikola deploy github)
-    :stop-signal 'sigint
-    )
+     (prodigy-define-service
+       :name "nikola-deploy"
+       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
+       :args '("github_deploy")
+       :cwd "/Users/lesliebinbin/Desktop/myproject/"
+       :tags '(nikola deploy github)
+       :stop-signal 'sigint
+       )
 
-  (prodigy-define-service
-    :name "nikola-new-post"
-    :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-    :args '("new_post -f orgmode")
-    :cwd "/Users/lesliebinbin/Desktop/myproject/"
-    :tags '(nikola new-post org-mode)
-    :stop-signal 'sigint
-    )
-#+end_src
+     (prodigy-define-service
+       :name "nikola-new-post"
+       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
+       :args '("new_post -f orgmode")
+       :cwd "/Users/lesliebinbin/Desktop/myproject/"
+       :tags '(nikola new-post org-mode)
+       :stop-signal 'sigint
+       )
+   #+end_src
 
 ** Configure Nikola Blogging, even though currently I have no idea how it works
-#+begin_src emacs-lisp :tangle yes
-  (setq nikola-new-post-extension "org")
-#+end_src
+   #+begin_src emacs-lisp :tangle yes
+     (setq nikola-new-post-extension "org")
+   #+end_src
 
 ** Configure Easy-Hugo
-#+begin_src emacs-lisp :tangle yes
-  (setq easy-hugo-basedir "~/Desktop/myproject/")
-#+end_src
+   #+begin_src emacs-lisp :tangle yes
+     (setq easy-hugo-basedir "~/Desktop/myproject/")
+   #+end_src
 
 ** Configure Gradle to use Gradlew
-  #+begin_src emacs-lisp :tangle yes
-    (defun config-the-gradlew ()
-      (setq gradle-use-gradlew t)
-      (setq gradle-gradlew-executable "./gradlew")
-      )
+   #+begin_src emacs-lisp :tangle yes
+     (defun config-the-gradlew ()
+       (setq gradle-use-gradlew t)
+       (setq gradle-gradlew-executable "./gradlew")
+       )
 
-    (config-the-gradlew)
-  #+end_src
+     (config-the-gradlew)
+   #+end_src
 
 ** Configure Projectile
    #+begin_src emacs-lisp :tangle yes
@@ -143,5 +135,38 @@
 
 ** Configure Remote Tramp
    #+begin_src emacs-lisp :tangle yes
-  (setq-default enable-remote-dir-locals t)
+     (setq-default enable-remote-dir-locals t)
+   #+end_src
+
+** Configure Java
+   #+begin_src emacs-lisp :tangle yes
+     (require 'lsp-java)
+     ;;(require 'lsp-java-boot)
+     (add-to-list 'lsp-java-vmargs "-javaagent:/Users/lesliebinbin/.spacemacs.d/.some-tools/lombok-1.18.6.jar")
+     ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+     ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+   #+end_src
+
+** Let Gnuplot Mode be recognised
+   #+begin_src emacs-lisp :tangle yes
+     (add-to-list 'auto-mode-alist '("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode))
+   #+end_src
+
+
+** Configure The Spotify
+   #+begin_src emacs-lisp :tangle yes
+     (setq spotify-oauth2-client-secret (getenv "SPOTIFY_OAUTH_CLIENT_SECRET"))
+     (setq spotify-oauth2-client-id (getenv "SPOTIFY_OAUTH_CLIENT_ID"))
+     (setq spotify-transport 'connect)
+   #+end_src
+
+** Configure The Slack
+   #+begin_src emacs-lisp :tangle yes
+     (slack-register-team
+      :name "UQIxDThesis"
+      :default t
+      :client-id (getenv "SLACK_CLIENT_ID")
+      :client-secret (getenv "SLACK_SECRET")
+      :token "token" (getenv "SLACK_TOKEN")
+      :subscribed-channels '(general slackbot))
    #+end_src
