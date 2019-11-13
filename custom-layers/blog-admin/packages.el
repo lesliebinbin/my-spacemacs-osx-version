@@ -1,4 +1,4 @@
-;;; packages.el --- org-page layer packages file for Spacemacs.
+;;; packages.el --- blog-admin layer packages file for Spacemacs.
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
@@ -18,20 +18,19 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `org-page-packages'. Then, for each package PACKAGE:
+;; added to `blog-admin-packages'. Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `org-page/init-PACKAGE' to load and initialize the package.
+;;   function `blog-admin/init-PACKAGE' to load and initialize the package.
 
 ;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
-;;   define the functions `org-page/pre-init-PACKAGE' and/or
-;;   `org-page/post-init-PACKAGE' to customize the package as it is loaded.
+;;   define the functions `blog-admin/pre-init-PACKAGE' and/or
+;;   `blog-admin/post-init-PACKAGE' to customize the package as it is loaded.
 
 ;;; Code:
 
-(defconst org-page-packages
-  '(org-page)
-  "The list of Lisp packages required by the org-page layer.
+(defconst blog-admin-packages '(blog-admin)
+  "The list of Lisp packages required by the blog-admin layer.
 
 Each entry is either:
 
@@ -58,16 +57,17 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-(defun org-page/init-org-page ()
-  (spacemacs/declare-prefix "ab" "blog")
-  (use-package org-page
-    :config (progn (setq op/repository-directory "~/Desktop/myproject/"
-                         op/site-main-title "Leslie's Geek Blog"
-                         op/site-sub-title "Coding In Live"
-                         op/site-domain "https://lesliebinbin.github.io"
-                         op/personal-github-link "https://github.com/lesliebinbin"
-                         op/repository-org-branch "gh-pages"
-                         op/repository-html-branch "master"
-                         )
-                   )))
+(defun blog-admin/init-blog-admin ()
+  (use-package blog-admin
+    :ensure t
+    :defer t
+    :init (progn
+              (setq blog-admin-backend-type 'nikola)
+              (setq blog-admin-backend-path "~/Desktop/myproject/")
+              (setq blog-admin-backend-new-post-in-drafts
+                    t)
+              (setq blog-admin-backend-nikola-executable
+                    "~/Desktop/myproject/.venv/bin/nikola") ;; path to nikola executable
+              )))
+
 ;;; packages.el ends here
