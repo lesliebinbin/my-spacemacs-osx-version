@@ -153,7 +153,10 @@ This function should only modify configuration layer settings."
                 nginx
                 pdf
                 ;;chrome
-                ;; mu4e
+                (mu4e :variables mu4e-installation-path "/usr/local/share/emacs/site-lisp/mu/"
+                      mu4e-enable-notifications t
+                      mu4e-enable-async-operations t
+                      )
                 (geolocation :variables
                              geolocation-enable-location-service t
                              geolocation-enable-weather-forecast t)
@@ -615,6 +618,83 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
+;;mu4e
+  (require 'mu4e)
+  (setq mu4e-maildir "~/.mail"
+        mu4e-update-interval 600
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+  (setq mu4e-contexts
+        `(
+          ;; gmail
+          ,(make-mu4e-context
+             :name "Gmail"
+             :enter-func (lambda () (mu4e-message "Switch to the Gmail context"))
+             ;; leave-func not defined
+             :match-func (lambda (msg)
+                           (when msg
+                             (mu4e-message-contact-field-matches msg
+                                                                 :to "lesliebinbin19900129@gmail.com")))
+             :vars '(  ( user-mail-address      . "lesliebinbin19900129@gmail.com")
+                       ( user-full-name     . "Leslie Binbin" )
+                       ( mu4e-compose-signature .
+                                                (concat
+                                                 "Best regards,\n"
+                                                 "Leslie Binbin\n"))
+                       (mu4e-get-mail-command . "offlineimap -a Gmail")
+                       (mu4e-sent-messages-behavior . delete)
+                       (mu4e-sent-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Sent Mail")
+                       (mu4e-drafts-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Drafts")
+                       (mu4e-trash-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Trash")
+                       (mu4e-retfile-folder . "/lesliebinbin19900129@gmail.com/[Gmail].All Mail")
+                       (user-mail-address . "lesliebinbin19900129@gmail.com")
+                       ;; (smtpmail-stream-type . 'starttls)
+                       (smtpmail-default-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-service . 587)
+                       (smtpmail-smtp-user . "lesliebinbin19900129@gmail.com")
+                       (smtpmail-debug-verb . t)
+                       (smtpmail-stream-type . 'ssl')
+                       ))
+          ;; gmail
+          ;;UQ
+          ,(make-mu4e-context
+             :name "UQ"
+             :enter-func (lambda () (mu4e-message "Switch to the UQ context"))
+             ;; leave-func not defined
+             :match-func (lambda (msg)
+                           (when msg
+                             (mu4e-message-contact-field-matches msg
+                                                                 :to "zhibin.huang@uqconnect.edu.au")))
+             :vars '(  ( user-mail-address      . "zhibin.huang@uqconnect.edu.au"  )
+                       ( user-full-name     . "Zhibin Huang" )
+                       ( mu4e-compose-signature .
+                                                (concat
+                                                 "Best regards,\n"
+                                                 "Zhibin Huang\n"))
+                       (mu4e-get-mail-command . "offlineimap -a UQ-Outlook")
+                       (mu4e-sent-messages-behavior . delete)
+                       (mu4e-sent-folder . "/zhibin.huang@uqconnect.edu.au/Sent Items")
+                       (mu4e-drafts-folder . "/zhibin.huang@uqconnect.edu.au/Drafts")
+                       (mu4e-trash-folder . "/zhibin.huang@uqconnect.edu.au/Deleted Items")
+                       (mu4e-retfile-folder . "/zhibin.huang@uqconnect.edu.au/Inbox")
+                       (user-mail-address . "zhibin.huang@uqconnect.edu.au")
+                       ;; (smtpmail-stream-type . 'starttls)
+                       (smtpmail-default-smtp-server . "smtp-mail.outlook.com")
+                       (smtpmail-smtp-server . "smtp-mail.outlook.com")
+                       (smtpmail-smtp-service . 587)
+                       (smtpmail-smtp-user . "zhibin.huang@uqconnect.edu.au")
+                       (smtpmail-debug-info . t)
+                       ))
+          ;;UQ
+           ))
+
+
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+
+  ;;mu4e
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
