@@ -153,7 +153,10 @@ This function should only modify configuration layer settings."
                 nginx
                 pdf
                 ;;chrome
-                ;; mu4e
+                (mu4e :variables mu4e-installation-path "/usr/local/share/emacs/site-lisp/mu/"
+                      mu4e-enable-notifications t
+                      mu4e-enable-async-operations t
+                      )
                 (geolocation :variables
                              geolocation-enable-location-service t
                              geolocation-enable-weather-forecast t)
@@ -615,6 +618,83 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
+  ;;mu4e
+  (require 'mu4e)
+  (setq mu4e-maildir "~/.mail"
+        mu4e-update-interval 600
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+  (setq mu4e-contexts
+        `(
+          ;; gmail
+          ,(make-mu4e-context
+             :name "Gmail"
+             :enter-func (lambda () (mu4e-message "Switch to the Gmail context"))
+             ;; leave-func not defined
+             :match-func (lambda (msg)
+                           (when msg
+                             (mu4e-message-contact-field-matches msg
+                                                                 :to "lesliebinbin19900129@gmail.com")))
+             :vars '(  ( user-mail-address      . "lesliebinbin19900129@gmail.com")
+                       ( user-full-name     . "Leslie Binbin" )
+                       ( mu4e-compose-signature .
+                                                (concat
+                                                 "Best regards,\n"
+                                                 "Leslie Binbin\n"))
+                       (mu4e-get-mail-command . "offlineimap -a Gmail")
+                       (mu4e-sent-messages-behavior . delete)
+                       (mu4e-sent-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Sent Mail")
+                       (mu4e-drafts-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Drafts")
+                       (mu4e-trash-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Trash")
+                       (mu4e-retfile-folder . "/lesliebinbin19900129@gmail.com/[Gmail].All Mail")
+                       (user-mail-address . "lesliebinbin19900129@gmail.com")
+                       ;; (smtpmail-stream-type . 'starttls)
+                       (smtpmail-default-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-service . 587)
+                       (smtpmail-smtp-user . "lesliebinbin19900129@gmail.com")
+                       (smtpmail-debug-verb . t)
+                       (smtpmail-stream-type . "ssl")
+                       ))
+          ;; gmail
+          ;;UQ
+          ,(make-mu4e-context
+             :name "UQ"
+             :enter-func (lambda () (mu4e-message "Switch to the UQ context"))
+             ;; leave-func not defined
+             :match-func (lambda (msg)
+                           (when msg
+                             (mu4e-message-contact-field-matches msg
+                                                                 :to "zhibin.huang@uqconnect.edu.au")))
+             :vars '(  ( user-mail-address      . "zhibin.huang@uqconnect.edu.au"  )
+                       ( user-full-name     . "Zhibin Huang" )
+                       ( mu4e-compose-signature .
+                                                (concat
+                                                 "Best regards,\n"
+                                                 "Zhibin Huang\n"))
+                       (mu4e-get-mail-command . "offlineimap -a UQ-Outlook")
+                       (mu4e-sent-messages-behavior . delete)
+                       (mu4e-sent-folder . "/zhibin.huang@uqconnect.edu.au/Sent Items")
+                       (mu4e-drafts-folder . "/zhibin.huang@uqconnect.edu.au/Drafts")
+                       (mu4e-trash-folder . "/zhibin.huang@uqconnect.edu.au/Deleted Items")
+                       (mu4e-retfile-folder . "/zhibin.huang@uqconnect.edu.au/Inbox")
+                       (user-mail-address . "zhibin.huang@uqconnect.edu.au")
+                       ;; (smtpmail-stream-type . 'starttls)
+                       (smtpmail-default-smtp-server . "smtp-mail.outlook.com")
+                       (smtpmail-smtp-server . "smtp-mail.outlook.com")
+                       (smtpmail-smtp-service . 587)
+                       (smtpmail-smtp-user . "zhibin.huang@uqconnect.edu.au")
+                       (smtpmail-debug-info . t)
+                       ))
+          ;;UQ
+           ))
+
+
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+
+  ;;mu4e
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -633,7 +713,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
    (quote
-    (easy-hugo nikola prodigy blog-admin org-page git mustache graphviz-dot-mode company-box sqlup-mode omnisharp csharp-mode yasnippet-snippets yapfify yaml-mode xterm-color x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill typit treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay sunshine sudoku string-inflection stickyfunc-enhance srefactor sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode reveal-in-osx-finder restclient-helm restart-emacs rbenv rase ranger rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode password-generator paradox pandoc-mode pacmacs ox-twbs ox-pandoc ox-gfm overseer osx-trash osx-location osx-dictionary osx-clipboard orgit org-trello org-ref org-re-reveal org-projectile org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain open-junk-file ob-restclient ob-ipython ob-hy ob-http noflet nodejs-repl nginx-mode nasm-mode nameless mwim mvn multi-term move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-ui lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode launchctl kotlin-mode json-navigator js2-refactor js-doc intero indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-package flycheck-kotlin flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help ensime engine-mode emmet-mode elm-test-runner elm-mode elisp-slime-nav ein editorconfig dumb-jump drupal-mode dracula-theme dotenv-mode doom-modeline dockerfile-mode docker disaster diminish diff-hl devdocs dap-mode dante cython-mode cquery cpp-auto-include company-web company-tern company-tabnine company-statistics company-rtags company-restclient company-reftex company-quickhelp company-php company-lsp company-go company-ghci company-ghc company-cabal company-c-headers company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider chruby centered-cursor-mode ccls cargo calfw-org calfw bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell 2048-game))))
+    (mu4e-maildirs-extension mu4e-alert helm-mu easy-hugo nikola prodigy blog-admin org-page git mustache graphviz-dot-mode company-box sqlup-mode omnisharp csharp-mode yasnippet-snippets yapfify yaml-mode xterm-color x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill typit treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay sunshine sudoku string-inflection stickyfunc-enhance srefactor sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode reveal-in-osx-finder restclient-helm restart-emacs rbenv rase ranger rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode password-generator paradox pandoc-mode pacmacs ox-twbs ox-pandoc ox-gfm overseer osx-trash osx-location osx-dictionary osx-clipboard orgit org-trello org-ref org-re-reveal org-projectile org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain open-junk-file ob-restclient ob-ipython ob-hy ob-http noflet nodejs-repl nginx-mode nasm-mode nameless mwim mvn multi-term move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-ui lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode launchctl kotlin-mode json-navigator js2-refactor js-doc intero indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-package flycheck-kotlin flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help ensime engine-mode emmet-mode elm-test-runner elm-mode elisp-slime-nav ein editorconfig dumb-jump drupal-mode dracula-theme dotenv-mode doom-modeline dockerfile-mode docker disaster diminish diff-hl devdocs dap-mode dante cython-mode cquery cpp-auto-include company-web company-tern company-tabnine company-statistics company-rtags company-restclient company-reftex company-quickhelp company-php company-lsp company-go company-ghci company-ghc company-cabal company-c-headers company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider chruby centered-cursor-mode ccls cargo calfw-org calfw bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell 2048-game))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
