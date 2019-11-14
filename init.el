@@ -155,7 +155,8 @@ This function should only modify configuration layer settings."
                 ;;chrome
                 (mu4e :variables mu4e-installation-path "/usr/local/share/emacs/site-lisp/mu/"
                       mu4e-enable-notifications t
-                      mu4e-enable-async-operations t
+                      mu4e-enable-mode-line t
+                      ;; mu4e-enable-async-operations t
                       )
                 (geolocation :variables
                              geolocation-enable-location-service t
@@ -621,9 +622,10 @@ before packages are loaded."
   ;;mu4e
   (require 'mu4e)
   (setq mu4e-maildir "~/.mail"
-        mu4e-update-interval 600
+        mu4e-update-interval 60
         mu4e-view-show-images t
-        mu4e-view-show-addresses t)
+        mu4e-view-show-addresses t
+        org-mu4e-convert-to-html t)
   (setq mu4e-contexts
         `(
           ;; gmail
@@ -654,7 +656,7 @@ before packages are loaded."
                        (smtpmail-smtp-service . 587)
                        (smtpmail-smtp-user . "lesliebinbin19900129@gmail.com")
                        (smtpmail-debug-verb . t)
-                       (smtpmail-stream-type . "ssl")
+                       (smtpmail-stream-type . starttls)
                        ))
           ;; gmail
           ;;UQ
@@ -684,7 +686,8 @@ before packages are loaded."
                        (smtpmail-smtp-server . "smtp-mail.outlook.com")
                        (smtpmail-smtp-service . 587)
                        (smtpmail-smtp-user . "zhibin.huang@uqconnect.edu.au")
-                       (smtpmail-debug-info . t)
+                       (smtpmail-debug-verb . t)
+                       (send-mail-function . smtpmail-send-it)
                        ))
           ;;UQ
            ))
@@ -713,7 +716,8 @@ This function is called at the very end of Spacemacs initialization."
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
    (quote
-    (mu4e-maildirs-extension mu4e-alert helm-mu easy-hugo nikola prodigy blog-admin org-page git mustache graphviz-dot-mode company-box sqlup-mode omnisharp csharp-mode yasnippet-snippets yapfify yaml-mode xterm-color x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill typit treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay sunshine sudoku string-inflection stickyfunc-enhance srefactor sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode reveal-in-osx-finder restclient-helm restart-emacs rbenv rase ranger rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode password-generator paradox pandoc-mode pacmacs ox-twbs ox-pandoc ox-gfm overseer osx-trash osx-location osx-dictionary osx-clipboard orgit org-trello org-ref org-re-reveal org-projectile org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain open-junk-file ob-restclient ob-ipython ob-hy ob-http noflet nodejs-repl nginx-mode nasm-mode nameless mwim mvn multi-term move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-ui lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode launchctl kotlin-mode json-navigator js2-refactor js-doc intero indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-package flycheck-kotlin flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help ensime engine-mode emmet-mode elm-test-runner elm-mode elisp-slime-nav ein editorconfig dumb-jump drupal-mode dracula-theme dotenv-mode doom-modeline dockerfile-mode docker disaster diminish diff-hl devdocs dap-mode dante cython-mode cquery cpp-auto-include company-web company-tern company-tabnine company-statistics company-rtags company-restclient company-reftex company-quickhelp company-php company-lsp company-go company-ghci company-ghc company-cabal company-c-headers company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider chruby centered-cursor-mode ccls cargo calfw-org calfw bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell 2048-game))))
+    (mu4e-maildirs-extension mu4e-alert helm-mu easy-hugo nikola prodigy blog-admin org-page git mustache graphviz-dot-mode company-box sqlup-mode omnisharp csharp-mode yasnippet-snippets yapfify yaml-mode xterm-color x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill typit treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay sunshine sudoku string-inflection stickyfunc-enhance srefactor sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode reveal-in-osx-finder restclient-helm restart-emacs rbenv rase ranger rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode password-generator paradox pandoc-mode pacmacs ox-twbs ox-pandoc ox-gfm overseer osx-trash osx-location osx-dictionary osx-clipboard orgit org-trello org-ref org-re-reveal org-projectile org-present org-pomodoro org-mime org-gcal org-download org-cliplink org-bullets org-brain open-junk-file ob-restclient ob-ipython ob-hy ob-http noflet nodejs-repl nginx-mode nasm-mode nameless mwim mvn multi-term move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-ui lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode launchctl kotlin-mode json-navigator js2-refactor js-doc intero indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flyspell-correct-helm flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-package flycheck-kotlin flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help ensime engine-mode emmet-mode elm-test-runner elm-mode elisp-slime-nav ein editorconfig dumb-jump drupal-mode dracula-theme dotenv-mode doom-modeline dockerfile-mode docker disaster diminish diff-hl devdocs dap-mode dante cython-mode cquery cpp-auto-include company-web company-tern company-tabnine company-statistics company-rtags company-restclient company-reftex company-quickhelp company-php company-lsp company-go company-ghci company-ghc company-cabal company-c-headers company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider chruby centered-cursor-mode ccls cargo calfw-org calfw bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell 2048-game)))
+ '(send-mail-function (quote mailclient-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
