@@ -170,5 +170,4 @@
       :token "token" (getenv "SLACK_TOKEN")
       :subscribed-channels '(general slackbot))
    #+end_src
-
-** Make it conflict
+** Dont make it conflict
