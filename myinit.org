@@ -170,9 +170,3 @@
       :token "token" (getenv "SLACK_TOKEN")
       :subscribed-channels '(general slackbot))
    #+end_src
-** Configure Mu4e
-   #+begin_src emacs-lisp :tangle yes
-     (require 'org-mu4e)
-
-
-   #+end_src
