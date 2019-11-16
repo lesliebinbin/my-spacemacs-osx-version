@@ -187,17 +187,7 @@ This function should only modify configuration layer settings."
                         ranger-show-literal nil
                         ranger-width-preview 0.5
                         ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
-                (osx :variables
-                     osx-command-as 'hyper
-                     osx-option-as 'meta
-                     osx-control-as 'control
-                     osx-function-as nil
-                     osx-right-command-as 'left
-                     osx-right-option-as 'left
-                     osx-right-control-as 'left
-                     osx-swap-option-and-command nil
-                     osx-dictionary-dictionary-choice "English")
-               google-calendar
+               ;;google-calendar
                search-engine
                slack
                tabnine
@@ -347,10 +337,11 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(afternoon
+   dotspacemacs-themes '(
+                         dracula
+                         afternoon
                          monochrome
                          material
-                         dracula
                          spacemacs-dark
                          spacemacs-light)
 
@@ -629,7 +620,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (add-to-list 'load-path "/usr/local/Cellar/mu/1.2.0_1/share/emacs/site-lisp/mu/mu4e/")
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/")
   (require 'mu4e)
   (setq mail-user-agent 'mu4e-user-agent)
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
