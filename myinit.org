@@ -198,10 +198,6 @@
                                                                    :to "lesliebinbin19900129@gmail.com")))
                :vars '(  ( user-mail-address      . "lesliebinbin19900129@gmail.com")
                          ( user-full-name     . "Leslie Binbin" )
-                         ( mu4e-compose-signature .
-                                                  (concat
-                                                   "Best regards,\n"
-                                                   "Leslie Binbin\n"))
                          (mu4e-get-mail-command . "offlineimap -a Gmail")
                          (mu4e-sent-messages-behavior . delete)
                          (mu4e-sent-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Sent Mail")
@@ -229,10 +225,6 @@
                                                                    :to "zhibin.huang@uqconnect.edu.au")))
                :vars '(  ( user-mail-address      . "zhibin.huang@uqconnect.edu.au"  )
                          ( user-full-name     . "Zhibin Huang" )
-                         ( mu4e-compose-signature .
-                                                  (concat
-                                                   "Best regards,\n"
-                                                   "Zhibin Huang\n"))
                          (mu4e-get-mail-command . "offlineimap -a UQ-Outlook")
                          (mu4e-sent-messages-behavior . delete)
                          (mu4e-sent-folder . "/zhibin.huang@uqconnect.edu.au/Sent Items")
@@ -259,4 +251,21 @@
        (mu4e-alert-set-default-style 'notifier))
      ;;mu4e
 
+   #+end_src
+** Configure The org-msg
+   #+begin_src emacs-lisp :tangle yes
+     (require 'org-msg)
+     (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil"
+           org-msg-startup "hidestars indent inlineimages"
+           org-msg-greeting-fmt "\nHi *%s*,\n\n"
+           org-msg-greeting-name-limit 3
+           org-msg-signature "
+
+     Best Regards,
+
+     ,#+begin_signature
+     -- *Leslie Binbin* \\\\
+     /One Emacs to rule them all/
+     ,#+end_signature")
+     (org-msg-mode)
    #+end_src
