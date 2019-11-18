@@ -74,7 +74,8 @@ This function should only modify configuration layer settings."
                 semantic
                 (ruby :variables
                       ruby-backend 'lsp
-                      ruby-version-manager 'rvm)
+                      ;; ruby-version-manager 'rvm
+                      )
                 ;; I think ruby lsp got some problem.
                 ;; ruby
                 kotlin
@@ -164,7 +165,7 @@ This function should only modify configuration layer settings."
                 (geolocation :variables
                              geolocation-enable-location-service t
                              geolocation-enable-weather-forecast t)
-                ;;exwm
+                exwm
                 spotify
                 ;; chinese
                 ;;multiple-cursors
@@ -638,7 +639,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

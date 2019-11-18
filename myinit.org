@@ -70,7 +70,7 @@
 
 ** Configure Easy-Hugo
    #+begin_src emacs-lisp :tangle yes
-     (setq easy-hugo-basedir "~/Desktop/myproject/")
+     (setq easy-hugo-basedir "~/Desktop/myblogs/")
    #+end_src
 
 ** Configure Gradle to use Gradlew
