@@ -163,11 +163,11 @@
 ** Configure The Slack
    #+begin_src emacs-lisp :tangle yes
      (slack-register-team
-      :name "UQIxDThesis"
+      :name "lesliebinbin"
       :default t
       :client-id (getenv "SLACK_CLIENT_ID")
       :client-secret (getenv "SLACK_SECRET")
-      :token "token" (getenv "SLACK_TOKEN")
+      :token (getenv "SLACK_TOKEN")
       :subscribed-channels '(general slackbot))
    #+end_src
 
@@ -180,8 +180,7 @@
 ** Configure The mu4e
    #+begin_src emacs-lisp :tangle yes
      ;;mu4e
-     (with-eval-after-load 'mu4e (require 'mu4e-conversation)
-                           (global-mu4e-conversation-mode))
+     (with-eval-after-load 'mu4e (require 'mu4e-conversation))
      (setq mu4e-maildir "~/.mail"
            mu4e-update-interval 240
            mu4e-view-show-images t
@@ -236,10 +235,10 @@
                          (user-mail-address . "zhibin.huang@uqconnect.edu.au")
                          (smtpmail-default-smtp-server . "smtp-mail.outlook.com")
                          (smtpmail-smtp-server . "smtp-mail.outlook.com")
+                         (smtpmail-stream-type . starttls)
                          (smtpmail-smtp-service . 587)
                          (smtpmail-smtp-user . "zhibin.huang@uqconnect.edu.au")
                          (smtpmail-debug-verb . t)
-                         (smtpmail-stream-type . ssl)
                          (send-mail-function . smtpmail-send-it)
                          ))
              ;;UQ
