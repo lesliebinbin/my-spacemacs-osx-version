@@ -180,8 +180,10 @@
 ** Configure The mu4e
    #+begin_src emacs-lisp :tangle yes
      ;;mu4e
+     (with-eval-after-load 'mu4e (require 'mu4e-conversation)
+                           (global-mu4e-conversation-mode))
      (setq mu4e-maildir "~/.mail"
-           mu4e-update-interval 60
+           mu4e-update-interval 240
            mu4e-view-show-images t
            mu4e-view-show-addresses t
            org-mu4e-convert-to-html t)
@@ -268,4 +270,14 @@
      /One Emacs to rule them all/
      ,#+end_signature")
      (org-msg-mode)
+   #+end_src
+** Configure The ERC
+   #+begin_src emacs-lisp :tangle yes
+     (require 'erc)
+     (erc-update-modules)
+     (setq erc-server-list '(("localhost.localdomain"
+                              :port  6667
+                              :nick "leslie"
+                              :ssl t
+                              )))
    #+end_src
