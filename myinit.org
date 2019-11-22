@@ -274,9 +274,4 @@
    #+begin_src emacs-lisp :tangle yes
      (require 'erc)
      (erc-update-modules)
-     (setq erc-server-list '(("localhost.localdomain"
-                              :port  6667
-                              :nick "leslie"
-                              :ssl t
-                              )))
    #+end_src
