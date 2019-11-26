@@ -160,16 +160,6 @@
      (setq spotify-transport 'connect)
    #+end_src
 
-** Configure The Slack
-   #+begin_src emacs-lisp :tangle yes
-     (slack-register-team
-      :name "lesliebinbin"
-      :default t
-      :client-id (getenv "SLACK_CLIENT_ID")
-      :client-secret (getenv "SLACK_SECRET")
-      :token (getenv "SLACK_TOKEN")
-      :subscribed-channels '(general slackbot))
-   #+end_src
 
 ** Configure The atomic chrome
    #+begin_src emacs-lisp :tangle yes
