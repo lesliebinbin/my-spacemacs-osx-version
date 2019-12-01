@@ -18,6 +18,7 @@
         (ruby . t)
         (lisp . t)
         (clojure . t)
+        (awk . t)
         ))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
@@ -232,6 +233,33 @@
                          (send-mail-function . smtpmail-send-it)
                          ))
              ;;UQ
+             ;;SpacePlatform
+             ,(make-mu4e-context
+               :name "SpacePlatform"
+               :enter-func (lambda () (mu4e-message "Switch to the SpacePlatform context"))
+               ;; leave-func not defined
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg
+                                                                   :to "zhibin@spaceplatform.co")))
+               :vars '(  ( user-mail-address      . "zhibin@spaceplatform.co"  )
+                         ( user-full-name     . "Zhibin Huang" )
+                         (mu4e-get-mail-command . "offlineimap -a SpacePlatform")
+                         (mu4e-sent-messages-behavior . delete)
+                         (mu4e-sent-folder . "/zhibin@spaceplatform.co/Sent Items")
+                         (mu4e-drafts-folder . "/zhibin@spaceplatform/Drafts")
+                         (mu4e-trash-folder . "/zhibin@spaceplatform/Trash")
+                         (mu4e-retfile-folder . "/zhibin@spaceplatform/Inbox")
+                         (user-mail-address . "zhibin@spaceplatform")
+                         (smtpmail-default-smtp-server . "mail.spaceplatform.co")
+                         (smtpmail-smtp-server . "mail.spaceplatform.co")
+                         (smtpmail-stream-type . starttls)
+                         (smtpmail-smtp-service . 587)
+                         (smtpmail-smtp-user . "zhibin@spaceplatform.co")
+                         (smtpmail-debug-verb . t)
+                         (send-mail-function . smtpmail-send-it)
+                         ))
+             ;;SpacePlatform
              ))
 
 
@@ -264,4 +292,22 @@
    #+begin_src emacs-lisp :tangle yes
      (require 'erc)
      (erc-update-modules)
+   #+end_src
+** Paradox Github
+   #+begin_src emacs-lisp :tangle yes
+   (setq paradox-github-token "2cddeb3cc00e4dffb2390106136650e8baf77765")
+   #+end_src
+** Config SpacemacsOs
+   #+begin_src emacs-lisp :tangle yes
+     (setq exwm-workspace-number 4)
+     (require 'exwm-randr)
+     (setq exwm-randr-workspace-output-plist '(0 "LVDS-1" 1 "HDMI-1"))
+     (add-hook 'exwm-randr-screen-change-hook
+               (lambda ()
+                 (start-process-shell-command
+                  "xrandr" nil "xrandr --output LVDS-1 --right-of HDMI-1 --auto --noprimary")
+                 (message "haha, my code works.")
+                 )
+               )
+     (exwm-randr-enable)
    #+end_src
