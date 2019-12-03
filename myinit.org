@@ -7,7 +7,7 @@
 
      (setq browse-url-browser-function 'browse-url-generic
            engine/browser-function 'browse-url-generic
-           browse-url-generic-program "/usr/bin/google-chrome")
+           browse-url-generic-program "/usr/bin/firefox")
    #+end_src
 
 ** Configure Org Mode
@@ -19,6 +19,7 @@
         (lisp . t)
         (clojure . t)
         (awk . t)
+        (restclient . t)
         ))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
