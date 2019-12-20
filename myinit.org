@@ -7,7 +7,7 @@
 
      (setq browse-url-browser-function 'browse-url-generic
            engine/browser-function 'browse-url-generic
-           browse-url-generic-program "/usr/bin/firefox")
+           browse-url-generic-program "/usr/bin/google-chrome")
    #+end_src
 
 ** Configure Org Mode
@@ -300,15 +300,15 @@
    #+end_src
 ** Config SpacemacsOs
    #+begin_src emacs-lisp :tangle yes
-     (setq exwm-workspace-number 4)
-     (require 'exwm-randr)
-     (setq exwm-randr-workspace-output-plist '(0 "LVDS-1" 1 "HDMI-1"))
-     (add-hook 'exwm-randr-screen-change-hook
-               (lambda ()
-                 (start-process-shell-command
-                  "xrandr" nil "xrandr --output LVDS-1 --right-of HDMI-1 --auto --noprimary")
-                 (message "haha, my code works.")
-                 )
-               )
-     (exwm-randr-enable)
+     ;; (setq exwm-workspace-number 4)
+     ;; (require 'exwm-randr)
+     ;; (setq exwm-randr-workspace-output-plist '(0 "LVDS-1" 1 "HDMI-1"))
+     ;; (add-hook 'exwm-randr-screen-change-hook
+     ;;           (lambda ()
+     ;;             (start-process-shell-command
+     ;;              "xrandr" nil "xrandr --output LVDS-1 --right-of HDMI-1 --auto --noprimary")
+     ;;             (message "haha, my code works.")
+     ;;             )
+     ;;           )
+     ;; (exwm-randr-enable)
    #+end_src

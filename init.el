@@ -170,7 +170,7 @@ This function should only modify configuration layer settings."
                 (geolocation :variables
                              geolocation-enable-location-service t
                              geolocation-enable-weather-forecast t)
-                exwm
+                ;;exwm
                 spotify
                 ;;multiple-cursors
                 multiple-cursors
@@ -192,7 +192,7 @@ This function should only modify configuration layer settings."
                         ranger-show-literal nil
                         ranger-width-preview 0.5
                         ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
-               google-calendar
+               ;;google-calendar
                search-engine
                tabnine
                csv
@@ -214,7 +214,11 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-     atomic-chrome dracula-theme calfw-org org-msg mu4e-conversation
+     atomic-chrome
+     dracula-theme
+     ;;calfw-org
+     org-msg
+     mu4e-conversation
    )
 
    ;; A list of packages that cannot be updated.
@@ -363,7 +367,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Lucida Console"
-                               :size 12.0
+                               :size 14.0
                                :weight normal
                                :width normal)
 
