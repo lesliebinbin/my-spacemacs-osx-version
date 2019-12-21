@@ -170,7 +170,7 @@ This function should only modify configuration layer settings."
                 (geolocation :variables
                              geolocation-enable-location-service t
                              geolocation-enable-weather-forecast t)
-                ;;exwm
+                exwm
                 spotify
                 ;;multiple-cursors
                 multiple-cursors
