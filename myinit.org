@@ -312,3 +312,9 @@
                )
      (exwm-randr-enable)
    #+end_src
+
+** Configure The Kotlin
+   #+begin_src emacs-lisp :tangle yes
+     (require 'lsp-kotlin)
+     (add-hook 'kotlin-mode-hook #'lsp)
+   #+end_src
