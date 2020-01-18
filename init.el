@@ -81,6 +81,7 @@ This function should only modify configuration layer settings."
                        c-c++-enable-auto-newline t)
                 common-lisp
                 semantic
+                (vue :variables vue-backend 'lsp)
                 (ruby :variables
                       ruby-backend 'lsp
                       ;; ruby-version-manager 'rvm
@@ -108,7 +109,8 @@ This function should only modify configuration layer settings."
                 haskell
                 elm
                 csharp
-                (dart :variables dart-server-sdk-path "/home/lesliebinbin/Downloads/flutter/bin/cache/dart-sdk"
+                (dart :variables
+                      dart-server-sdk-path "/home/lesliebinbin/Downloads/flutter/bin/cache/dart-sdk"
                       dart-server-format-on-save t)
                 nim
                 racket
