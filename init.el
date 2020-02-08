@@ -86,8 +86,7 @@ This function should only modify configuration layer settings."
                       ruby-backend 'lsp
                       ruby-version-manager 'rvm
                       )
-                ;; I think ruby lsp got some problem.
-                ;; ruby
+                ruby-on-rails
                 kotlin
                 (scala :variables
                        scala-backend 'scala-metals)
