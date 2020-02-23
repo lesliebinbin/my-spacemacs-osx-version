@@ -20,6 +20,7 @@
         (clojure . t)
         (awk . t)
         (restclient . t)
+        (shell . t)
         ))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
@@ -138,6 +139,7 @@
 ** Configure Remote Tramp
    #+begin_src emacs-lisp :tangle yes
      (setq-default enable-remote-dir-locals t)
+     (setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *")
    #+end_src
 
 ** Configure Java

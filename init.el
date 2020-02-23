@@ -50,7 +50,12 @@ This function should only modify configuration layer settings."
                             javascript-fmt-on-save t
                             node-add-modules-path t
                             js2-include-node-externs t)
-                html
+                (html :variables
+                      css-enable-lsp t
+                      less-enable-lsp t
+                      scss-enable-lsp t
+                      web-fmt-tool 'web-beautify)
+
                 (clojure :variables
                          clojure-enable-fancify-symbols t
                          clojure-enable-sayid t
