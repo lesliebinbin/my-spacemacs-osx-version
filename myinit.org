@@ -21,6 +21,7 @@
         (awk . t)
         (restclient . t)
         (shell . t)
+        (dot . t)
         ))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
@@ -236,6 +237,37 @@
                          (send-mail-function . smtpmail-send-it)
                          ))
              ;;UQ
+             ;;tutor-live-account
+
+
+             ,(make-mu4e-context
+               :name "Tutor-live"
+               :enter-func (lambda () (mu4e-message "Switch to the Tutor context"))
+               ;; leave-func not defined
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg
+                                                                   :to "huangzhibin11@live.com")))
+               :vars '(  ( user-mail-address      . "huangzhibin11@live.com"  )
+                         ( user-full-name     . "Zhibin Huang" )
+                         (mu4e-get-mail-command . "offlineimap -a TutorLiveAccount")
+                         (mu4e-sent-messages-behavior . delete)
+                         (mu4e-sent-folder . "/huangzhibin11@live.com/Sent")
+                         (mu4e-drafts-folder . "/huangzhibin11@live.com/Drafts")
+                         (mu4e-trash-folder . "/huangzhibin11@live.com/Junk")
+                         (mu4e-retfile-folder . "/huangzhibin11@live.com/Inbox")
+                         (user-mail-address . "huangzhibin11@live.com")
+                         (smtpmail-default-smtp-server . "smtp-mail.outlook.com")
+                         (smtpmail-smtp-server . "smtp-mail.outlook.com")
+                         (smtpmail-stream-type . starttls)
+                         (smtpmail-smtp-service . 587)
+                         (smtpmail-smtp-user . "huangzhibin11@live.com")
+                         (smtpmail-debug-verb . t)
+                         (send-mail-function . smtpmail-send-it)
+                         ))
+
+             ;;tutor-live-account
+
              ;;SpacePlatform
              ,(make-mu4e-context
                :name "SpacePlatform"
@@ -309,7 +341,7 @@
                (lambda ()
                  (start-process-shell-command
                   "xrandr" nil "xrandr --output LVDS-1 --right-of HDMI-1 --auto --noprimary")
-                 (message "haha, my code works.")
+                 (message "Come on, my codes must be f**king works.")
                  )
                )
      (exwm-randr-enable)
