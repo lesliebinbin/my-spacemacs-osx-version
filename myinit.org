@@ -28,6 +28,7 @@
            org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
            org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
      (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
+     (add-hook 'org-mode-hook 'turn-on-auto-fill)
    #+end_src
 
 ** Configure the LeetCode
@@ -237,12 +238,43 @@
                          (send-mail-function . smtpmail-send-it)
                          ))
              ;;UQ
+
+
+             ;;UQ-Tutor
+             ,(make-mu4e-context
+               :name "Tutor-UQ"
+               :enter-func (lambda () (mu4e-message "Switch to the UQ Tutor context"))
+               ;; leave-func not defined
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg
+                                                                   :to "zhibin.huang@uq.edu.au")))
+               :vars '(  ( user-mail-address      . "zhibin.huang@uq.edu.au"  )
+                         ( user-full-name     . "Tutor Zhibin" )
+                         (mu4e-get-mail-command . "offlineimap -a UqTutor")
+                         (mu4e-sent-messages-behavior . delete)
+                         (mu4e-sent-folder . "/zhibin.huang@uq.edu.au/Sent Items")
+                         (mu4e-drafts-folder . "/zhibin.huang@uq.edu.au/Drafts")
+                         (mu4e-trash-folder . "/zhibin.huang@uq.edu.au/Deleted Items")
+                         (mu4e-retfile-folder . "/zhibin.huang@uq.edu.au/Inbox")
+                         (user-mail-address . "zhibin.huang@uq.edu.au")
+                         (smtpmail-default-smtp-server . "smtp-mail.outlook.com")
+                         (smtpmail-smtp-server . "smtp-mail.outlook.com")
+                         (smtpmail-stream-type . starttls)
+                         (smtpmail-smtp-service . 587)
+                         (smtpmail-smtp-user . "zhibin.huang@uq.edu.au")
+                         (smtpmail-debug-verb . t)
+                         (send-mail-function . smtpmail-send-it)
+                         ))
+             ;;UQ-Tutor
+
+
              ;;tutor-live-account
 
 
              ,(make-mu4e-context
-               :name "Tutor-live"
-               :enter-func (lambda () (mu4e-message "Switch to the Tutor context"))
+               :name "Onedrive Tutor"
+               :enter-func (lambda () (mu4e-message "Switch to the Tutor One Drive context"))
                ;; leave-func not defined
                :match-func (lambda (msg)
                              (when msg
@@ -352,3 +384,5 @@
      (require 'lsp-kotlin)
      (add-hook 'kotlin-mode-hook #'lsp)
    #+end_src
+
+
