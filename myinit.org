@@ -22,6 +22,7 @@
         (restclient . t)
         (shell . t)
         (dot . t)
+        (python . t)
         ))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
@@ -385,4 +386,7 @@
      (add-hook 'kotlin-mode-hook #'lsp)
    #+end_src
 
-
+** Configure for the Asm
+  #+begin_src emacs-lisp :tangle yes
+    (setq x86-lookup-pdf "~/325462-sdm-vol-1-2abcd-3abcd.pdf")
+  #+end_src
