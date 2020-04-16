@@ -117,7 +117,10 @@ This function should only modify configuration layer settings."
                          haskell-completion-backend 'ghci
                          haskell-enable-hindent t
                          )
-                elm
+                (elm :variables
+                     elm-format-command "elm-format"
+		      elm-sort-imports-on-save t
+                     elm-format-on-save t)
                 csharp
                 (dart :variables
                       dart-server-sdk-path "/home/lesliebinbin/Downloads/flutter/bin/cache/dart-sdk"
@@ -125,6 +128,7 @@ This function should only modify configuration layer settings."
                 nim
                 racket
                 perl6
+                protobuf
                 ;; ----------------------------------------------------------------
                 ;; Example of useful layers you may want to use right away.
                 ;; Uncomment some layer names and press `SPC f e R' (Vim style) or

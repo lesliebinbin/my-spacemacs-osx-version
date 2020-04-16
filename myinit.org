@@ -390,3 +390,10 @@
   #+begin_src emacs-lisp :tangle yes
     (setq x86-lookup-pdf "~/325462-sdm-vol-1-2abcd-3abcd.pdf")
   #+end_src
+
+** Configure for Elm
+  #+begin_src emacs-lisp :tangle yes
+    (require 'lsp-mode)
+    (add-hook 'elm-mode-hook #'lsp)
+    (setq lsp-elm-server-install-dir "/home/lesliebinbin/.npm-packages/bin/elm-language-server")
+  #+end_src
