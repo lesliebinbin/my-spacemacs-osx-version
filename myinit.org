@@ -136,7 +136,7 @@
 
 ** Configure Tabnine for Intelligent Code Completion
    #+begin_src emacs-lisp :tangle yes
-     (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
+     ;;(add-to-list 'spacemacs-default-company-backends #'company-tabnine)
    #+end_src
 
 ** Configure Remote Tramp
@@ -397,3 +397,10 @@
     (add-hook 'elm-mode-hook #'lsp)
     (setq lsp-elm-server-install-dir "/home/lesliebinbin/.npm-packages/bin/elm-language-server")
   #+end_src
+
+** Configure for Nim
+   #+begin_src emacs-lisp :tangle yes
+    (require 'lsp-mode)
+    (add-hook 'nim-mode-hook #'lsp)
+    (setq lsp-nim-server-install-dir "/home/lesliebinbin/.nimble/bin/nimlsp")
+   #+end_src

@@ -114,12 +114,12 @@ This function should only modify configuration layer settings."
                       rust-format-on-save t)
                 ;; groovy
                 (haskell :variables
-                         haskell-completion-backend 'ghci
+                         haskell-completion-backend 'lsp
                          haskell-enable-hindent t
                          )
                 (elm :variables
                      elm-format-command "elm-format"
-		      elm-sort-imports-on-save t
+          elm-sort-imports-on-save t
                      elm-format-on-save t)
                 csharp
                 (dart :variables
