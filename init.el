@@ -91,6 +91,7 @@ This function should only modify configuration layer settings."
                       ruby-backend 'lsp
                       ruby-version-manager 'rvm
                       )
+                (lua :variables lua-backend 'lsp-emmy)
                 ruby-on-rails
                 kotlin
                 kubernetes
