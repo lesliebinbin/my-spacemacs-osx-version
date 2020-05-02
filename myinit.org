@@ -33,6 +33,7 @@
    #+end_src
 
 ** Configure the LeetCode
+   - remember to install the my_cookies via *pip3 install my_cookies*
    #+begin_src emacs-lisp :tangle yes
      (setq leetcode-prefer-language "c")
      (setq leetcode-prefer-sql "mysql")
