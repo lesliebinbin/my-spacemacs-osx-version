@@ -137,7 +137,7 @@
 
 ** Configure Tabnine for Intelligent Code Completion
    #+begin_src emacs-lisp :tangle yes
-     ;;(add-to-list 'spacemacs-default-company-backends #'company-tabnine)
+     (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
    #+end_src
 
 ** Configure Remote Tramp
