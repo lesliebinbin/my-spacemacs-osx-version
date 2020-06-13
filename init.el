@@ -96,10 +96,10 @@ This function should only modify configuration layer settings."
                 kotlin
                 fsharp
                 kubernetes
-                ;; (scala :variables
-                      ;;scala-backend 'scala-metals
-                      ;; scala-enable-eldoc t
-                      ;; scala-auto-start-backend t)
+                (scala :variables
+                      scala-backend 'scala-metals
+                      scala-enable-eldoc t
+                      scala-auto-start-backend t)
                 asm
                 (go :variables
                     go-backend 'lsp
