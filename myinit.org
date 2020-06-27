@@ -405,3 +405,9 @@
     (add-hook 'nim-mode-hook #'lsp)
     (setq lsp-nim-server-install-dir "/home/lesliebinbin/.nimble/bin/nimlsp")
    #+end_src
+
+** Custom Keybindings
+   #+begin_src emacs-lisp :tangle yes
+     (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
+     (spacemacs/set-leader-keys "oq" 'quickrun-shell)
+   #+end_src
