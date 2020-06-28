@@ -143,7 +143,7 @@ This function should only modify configuration layer settings."
                                  auto-completion-enable-help-tooltip nil
                                  auto-completion-enable-sort-by-usage t
                                  auto-completion-complete-with-key-sequence-delay 0.5
-                                 auto-completion-idle-delay 1
+                                 auto-completion-idle-delay 0.5
                                  auto-completion-use-company-box t
                                  auto-completion-minimum-prefix-length 3
                                  auto-completion-complete-with-key-sequence "jk"

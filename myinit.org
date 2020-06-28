@@ -408,6 +408,16 @@
 
 ** Custom Keybindings
    #+begin_src emacs-lisp :tangle yes
+     ;; config for quick code run
      (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
      (spacemacs/set-leader-keys "oq" 'quickrun-shell)
+     ;; config for display lsp ui document
+     (spacemacs/set-leader-keys "od" 'lsp-ui-doc-show)
+     ;; config for toggle company mode
+     (spacemacs/set-leader-keys "oc" 'company-mode)
    #+end_src
+
+** Configure Lsp Doc
+  #+begin_src emacs-lisp :tangle yes
+    (setq lsp-ui-doc-enable nil)
+  #+end_src
