@@ -186,10 +186,10 @@ This function should only modify configuration layer settings."
                 treemacs
                 version-control
                 docker
-                vagrant
+               ; vagrant
                 nginx
                 pdf
-                chrome
+                ;chrome
                 (mu4e :variables
                       ;;mu4e-installation-path "/usr/local/share/emacs/site-lisp/mu/"
                       mu4e-enable-notifications t
@@ -213,14 +213,14 @@ This function should only modify configuration layer settings."
                 games
                 ;;games
                 spacemacs-language
-                (ranger :variables
-                       ranger-show-preview t
-                       ranger-show-hidden t
-                       ranger-cleanup-eagerly t
-                       ranger-cleanup-on-disable t
-                       ranger-show-literal nil
-                       ranger-width-preview 0.5
-                       ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
+                ;(ranger :variables
+                ;       ranger-show-preview t
+                ;       ranger-show-hidden t
+                ;       ranger-cleanup-eagerly t
+                ;       ranger-cleanup-on-disable t
+                ;       ranger-show-literal nil
+                ;       ranger-width-preview 0.5
+                ;       ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
                elasticsearch
                google-calendar
                search-engine
