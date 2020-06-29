@@ -115,7 +115,7 @@ This function should only modify configuration layer settings."
                 (rust :variables
                       rust-backend 'lsp
                       rust-format-on-save t)
-                ;; groovy
+                 groovy
                 (haskell :variables
                          haskell-completion-backend 'lsp
                          haskell-enable-hindent t
@@ -186,10 +186,9 @@ This function should only modify configuration layer settings."
                 treemacs
                 version-control
                 docker
-               ; vagrant
+                ;;vagrant
                 nginx
                 pdf
-                ;chrome
                 (mu4e :variables
                       ;;mu4e-installation-path "/usr/local/share/emacs/site-lisp/mu/"
                       mu4e-enable-notifications t
@@ -229,6 +228,7 @@ This function should only modify configuration layer settings."
                emms-player
                prodigy
                easy-hugo
+               selectric
                (twitter :variables twittering-use-master-password t)
                (elfeed :variables
                        ;; elfeed-enable-web-interface t
@@ -250,10 +250,11 @@ This function should only modify configuration layer settings."
      org-msg
      mu4e-conversation
      jupyter
-     selectric-mode
+     ;; selectric-mode
      quickrun
      flutter
      latex-preview-pane
+
      ;; ivy-hydra
    )
 
@@ -669,7 +670,8 @@ before packages are loaded."
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/")
   (add-to-list 'load-path "/home/lesliebinbin/.spacemacs.d/custom-modes/")
   (require 'mu4e)
-  (add-to-list 'load-path "/root/Desktop/codes_from_github/groovy-emacs-modes")
+  ;; (add-to-list 'load-path "/mnt/another-disk/codes-from-github/lsp-groovy")
+  ;;(add-to-list 'load-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs")
   (setq mail-user-agent 'mu4e-user-agent)
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
   )
