@@ -1,0 +1,6 @@
+* Approaches to configure DOOM Emacs in org file
+
+** General Editor Configure
+   #+begin_src emacs-lisp :tangle yes
+     (setq treemacs-width 20)
+   #+end_src

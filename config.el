@@ -11,7 +11,7 @@
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
-(setq doom-font (font-spec :family "Lucida Console" :size 15))
+(setq doom-font (font-spec :family "Lucida Console" :size 18))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 
 ;;
@@ -55,3 +55,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;; using org-babel to config
+;;
+(org-babel-load-file (expand-file-name "myinit.org" "~/.doom.d"))
