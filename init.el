@@ -90,7 +90,7 @@ This function should only modify configuration layer settings."
                 (ruby :variables
                       ruby-enable-enh-ruby-mode t
                       ruby-backend 'lsp
-                      ruby-version-manager 'rvm
+                      ruby-version-manager 'rbenv
                       )
                 (lua :variables lua-backend 'lsp-emmy)
                 ruby-on-rails
@@ -143,7 +143,7 @@ This function should only modify configuration layer settings."
                                  auto-completion-enable-help-tooltip nil
                                  auto-completion-enable-sort-by-usage t
                                  auto-completion-complete-with-key-sequence-delay 0.5
-                                 auto-completion-idle-delay 0.5
+                                 auto-completion-idle-delay 1
                                  auto-completion-use-company-box t
                                  auto-completion-minimum-prefix-length 3
                                  auto-completion-complete-with-key-sequence "jk"
@@ -186,7 +186,7 @@ This function should only modify configuration layer settings."
                 treemacs
                 version-control
                 docker
-                ;;vagrant
+                vagrant
                 nginx
                 pdf
                 (mu4e :variables
@@ -212,14 +212,14 @@ This function should only modify configuration layer settings."
                 games
                 ;;games
                 spacemacs-language
-                ;(ranger :variables
-                ;       ranger-show-preview t
-                ;       ranger-show-hidden t
-                ;       ranger-cleanup-eagerly t
-                ;       ranger-cleanup-on-disable t
-                ;       ranger-show-literal nil
-                ;       ranger-width-preview 0.5
-                ;       ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
+                (ranger :variables
+                      ranger-show-preview t
+                      ranger-show-hidden t
+                      ranger-cleanup-eagerly t
+                      ranger-cleanup-on-disable t
+                      ranger-show-literal nil
+                      ranger-width-preview 0.5
+                      ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
                elasticsearch
                google-calendar
                search-engine
@@ -344,7 +344,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -352,7 +352,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 100
+   dotspacemacs-startup-banner 'official
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
