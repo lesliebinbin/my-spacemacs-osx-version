@@ -23,3 +23,12 @@
      (exwm-randr-enable)
 
    (setq fancy-splash-image "~/.doom.d/banners/space.png")
+
+   (require 'spotify)
+   (setq spotify-oauth2-client-secret "fe05aecbbe024f32b1016173196b1109")
+   (setq spotify-oauth2-client-id "7924517309e444cda268a2d146fe2bb1")
+
+   (define-key spotify-mode-map (kbd "C-c .") 'spotify-command-map)
+
+     (setq-default enable-remote-dir-locals t)
+     (setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *")
