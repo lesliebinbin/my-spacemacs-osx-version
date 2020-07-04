@@ -1,0 +1,43 @@
+* Approaches to configure DOOM Emacs in org file
+
+** General Editor Configure
+   #+begin_src emacs-lisp :tangle yes
+     (setq treemacs-width 20)
+   #+end_src
+** TabNine Company
+   #+begin_src emacs-lisp :tangle yes
+      (require 'company-tabnine)
+      (add-to-list 'company-backends #'company-tabnine)
+   #+end_src
+** Configure Gradle to use Gradlew
+   #+begin_src emacs-lisp :tangle yes
+     (defun config-the-gradlew ()
+       (setq gradle-use-gradlew t)
+       (setq gradle-gradlew-executable "./gradlew")
+       )
+
+     (config-the-gradlew)
+   #+end_src
+
+
+** Config Exwm
+   #+begin_src emacs-lisp :tangle yes
+     (setq exwm-workspace-number 6)
+     (require 'exwm-randr)
+     (setq exwm-randr-workspace-output-plist '(0 "eDP-1-1" 1 "HDMI-1-1" 2 "HDMI-1-1" 3 "HDMI-1-1"))
+     (add-hook 'exwm-randr-screen-change-hook
+               (lambda ()
+                 (start-process-shell-command
+                  "xrandr" nil "xrandr --output LVDS-1 --right-of HDMI-1 --auto --noprimary")
+                 (message "Come on, my codes must be f**king works.")
+                 )
+               )
+     (exwm-randr-enable)
+   #+end_src
+
+** Config Splash Image
+
+   #+begin_src emacs-lisp :tangle yes
+   (setq fancy-splash-image "~/.doom.d/banners/space.png")
+
+   #+end_src

@@ -57,4 +57,4 @@
 ;; they are implemented.
 ;; using org-babel to config
 ;;
-(org-babel-load-file (expand-file-name "myinit.org" "~/.doom.d"))
+(org-babel-load-file (expand-file-name "leslie-config.org" "~/.doom.d"))
