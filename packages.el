@@ -11,6 +11,7 @@
 (package! mu4e-conversation)
 (package! company-tabnine)
 (package! exwm)
+(package! org-msg)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
