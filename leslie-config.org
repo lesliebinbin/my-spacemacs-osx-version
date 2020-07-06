@@ -1,13 +1,18 @@
 * Approaches to configure DOOM Emacs in org file
-
+** Set Chrome As the default browser
+#+begin_src emacs-lisp :tangle yes
+(setq browse-url-browser-function 'browse-url-generic
+           engine/browser-function 'browse-url-generic
+           browse-url-generic-program "/usr/bin/google-chrome")
+#+end_src
 ** General Editor Configure
    #+begin_src emacs-lisp :tangle yes
      (setq treemacs-width 20)
    #+end_src
 ** TabNine Company
    #+begin_src emacs-lisp :tangle yes
-      (require 'company-tabnine)
-      (add-to-list 'company-backends #'company-tabnine)
+(require 'company-tabnine)
+(add-to-list 'company-backends #'company-tabnine)
    #+end_src
 ** Configure Gradle to use Gradlew
    #+begin_src emacs-lisp :tangle yes

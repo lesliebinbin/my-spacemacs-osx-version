@@ -59,3 +59,15 @@
 (add-load-path! "/usr/share/emacs/site-lisp/mu4e/")
 ;; using org-babel to config
 (org-babel-load-file (expand-file-name "leslie-config.org" "~/.doom.d"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(pyim-dicts nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

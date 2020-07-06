@@ -1,7 +1,11 @@
+(setq browse-url-browser-function 'browse-url-generic
+           engine/browser-function 'browse-url-generic
+           browse-url-generic-program "/usr/bin/google-chrome")
+
      (setq treemacs-width 20)
 
-      (require 'company-tabnine)
-      (add-to-list 'company-backends #'company-tabnine)
+(require 'company-tabnine)
+(add-to-list 'company-backends #'company-tabnine)
 
      (defun config-the-gradlew ()
        (setq gradle-use-gradlew t)
