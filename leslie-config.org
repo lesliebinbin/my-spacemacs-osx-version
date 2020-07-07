@@ -259,3 +259,9 @@
      ,#+end_signature")
      (org-msg-mode)
    #+end_src
+
+
+** Configure projectile search path
+#+begin_src emacs-lisp :tangle yes
+(setq projectile-project-search-path "/home/zhibin/Desktop/codes")
+#+end_src

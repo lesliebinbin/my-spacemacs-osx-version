@@ -221,3 +221,5 @@
      /One Emacs to rule them all/
      #+end_signature")
      (org-msg-mode)
+
+(setq projectile-project-search-path "/home/zhibin/Desktop/codes")
