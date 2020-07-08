@@ -39,36 +39,6 @@
      (setq leetcode-prefer-sql "mysql")
      (setq url-debug t)
    #+end_src
-** Configure Prodigy for personal blogging
-
-   #+begin_src emacs-lisp :tangle yes
-     (prodigy-define-service
-       :name "nikola-auto"
-       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-       :args '("auto")
-       :cwd "/Users/lesliebinbin/Desktop/myproject/"
-       :tags '(nikola auto blog)
-       :stop-signal 'sigint
-       )
-
-     (prodigy-define-service
-       :name "nikola-deploy"
-       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-       :args '("github_deploy")
-       :cwd "/Users/lesliebinbin/Desktop/myproject/"
-       :tags '(nikola deploy github)
-       :stop-signal 'sigint
-       )
-
-     (prodigy-define-service
-       :name "nikola-new-post"
-       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-       :args '("new_post -f orgmode")
-       :cwd "/Users/lesliebinbin/Desktop/myproject/"
-       :tags '(nikola new-post org-mode)
-       :stop-signal 'sigint
-       )
-   #+end_src
 
 ** Configure Nikola Blogging, even though currently I have no idea how it works
    #+begin_src emacs-lisp :tangle yes
@@ -93,7 +63,7 @@
 ** Configure Projectile
    #+begin_src emacs-lisp :tangle yes
      (defun config-projectile ()
-       (setq projectile-project-search-path '("~/Desktop/uq_courses/" "~/Desktop/cs_courses/"))
+       (setq projectile-project-search-path '("~/Desktop/codes"))
        )
      (config-projectile)
    #+end_src
@@ -150,7 +120,7 @@
    #+begin_src emacs-lisp :tangle yes
      (require 'lsp-java)
      ;;(require 'lsp-java-boot)
-     (add-to-list 'lsp-java-vmargs "-javaagent:/home/lesliebinbin/.spacemacs.d/.some-tools/lombok.jar")
+     ;; (add-to-list 'lsp-java-vmargs "-javaagent:/home/lesliebinbin/.spacemacs.d/.some-tools/lombok.jar")
      ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
      ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
    #+end_src
@@ -388,11 +358,6 @@
    #+end_src
 
 
-** Configure The Groovy
-   #+begin_src emacs-lisp :tangle yes
-     (setq lsp-groovy-server-file "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
-   #+end_src
-
 ** Configure for the Asm
   #+begin_src emacs-lisp :tangle yes
     (setq x86-lookup-pdf "~/325462-sdm-vol-1-2abcd-3abcd.pdf")
@@ -402,14 +367,14 @@
   #+begin_src emacs-lisp :tangle yes
     (require 'lsp-mode)
     (add-hook 'elm-mode-hook #'lsp)
-    (setq lsp-elm-server-install-dir "/home/lesliebinbin/.npm-packages/bin/elm-language-server")
+    (setq lsp-elm-server-install-dir "/home/zhibin/.nvm/versions/node/v14.5.0/bin/elm-language-server")
   #+end_src
 
 ** Configure for Nim
    #+begin_src emacs-lisp :tangle yes
     (require 'lsp-mode)
     (add-hook 'nim-mode-hook #'lsp)
-    (setq lsp-nim-server-install-dir "/home/lesliebinbin/.nimble/bin/nimlsp")
+    (setq lsp-nim-server-install-dir "/home/zhibin/.nimble/bin/nimlsp")
    #+end_src
 
 ** Custom Keybindings

@@ -115,7 +115,9 @@ This function should only modify configuration layer settings."
                 (rust :variables
                       rust-backend 'lsp
                       rust-format-on-save t)
-                 groovy
+		(groovy :variables
+        		groovy-backend 'lsp
+        		lsp-jar-path "/home/zhibin/Desktop/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
                 (haskell :variables
                          haskell-completion-backend 'lsp
                          haskell-enable-hindent t
@@ -125,12 +127,8 @@ This function should only modify configuration layer settings."
           elm-sort-imports-on-save t
                      elm-format-on-save t)
                 csharp
-                (dart :variables
-                      dart-server-sdk-path "/home/lesliebinbin/Downloads/flutter/bin/cache/dart-sdk"
-                      dart-server-format-on-save t)
                 nim
                 racket
-                perl6
                 prolog
                 protobuf
                 ;; ----------------------------------------------------------------
@@ -221,7 +219,7 @@ This function should only modify configuration layer settings."
                       ranger-width-preview 0.5
                       ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
                elasticsearch
-               google-calendar
+               ;;google-calendar
                search-engine
                tabnine
                csv
@@ -668,9 +666,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/")
-  (add-to-list 'load-path "/home/lesliebinbin/.spacemacs.d/custom-modes/")
+  (add-to-list 'load-path "/home/zhibin/.spacemacs.d/custom-modes/")
   (require 'mu4e)
-  ;; (add-to-list 'load-path "/mnt/another-disk/codes-from-github/lsp-groovy")
+  ;;(add-to-list 'load-path "/mnt/another-disk/codes-from-github/lsp-groovy")
   ;;(add-to-list 'load-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs")
   (setq mail-user-agent 'mu4e-user-agent)
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
