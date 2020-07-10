@@ -265,3 +265,10 @@
 #+begin_src emacs-lisp :tangle yes
 (setq projectile-project-search-path "/home/zhibin/Desktop/codes")
 #+end_src
+
+** SmartParens For Ruby
+#+begin_src emacs-lisp :tangle yes
+(require 'smartparens-ruby)
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
+#+end_src

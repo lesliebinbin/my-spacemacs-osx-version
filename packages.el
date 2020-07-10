@@ -14,6 +14,7 @@
 (package! org-msg)
 (package! vagrant)
 (package! vagrant-tramp)
+(package! evil-matchit)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

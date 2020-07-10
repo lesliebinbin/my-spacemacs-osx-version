@@ -223,3 +223,7 @@
      (org-msg-mode)
 
 (setq projectile-project-search-path "/home/zhibin/Desktop/codes")
+
+(require 'smartparens-ruby)
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
