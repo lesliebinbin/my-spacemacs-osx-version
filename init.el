@@ -94,7 +94,9 @@ This function should only modify configuration layer settings."
                       )
                 (lua :variables lua-backend 'lsp-emmy)
                 ruby-on-rails
-                kotlin
+                (kotlin :variables
+                        kotlin-backend 'lsp
+                        kotlin-lsp-jar-path "/mnt/another-disk/codes-from-github/kotlin-language-server/build/libs/kotlin-language-server.jar")
                 fsharp
                 kubernetes
                 (scala :variables
@@ -115,7 +117,9 @@ This function should only modify configuration layer settings."
                 (rust :variables
                       rust-backend 'lsp
                       rust-format-on-save t)
-                 groovy
+                (groovy :variables
+                        groovy-backend 'lsp
+                        lsp-jar-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
                 (haskell :variables
                          haskell-completion-backend 'lsp
                          haskell-enable-hindent t
@@ -344,7 +348,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'vim
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text

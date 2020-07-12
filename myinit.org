@@ -388,11 +388,6 @@
    #+end_src
 
 
-** Configure The Groovy
-   #+begin_src emacs-lisp :tangle yes
-     (setq lsp-groovy-server-file "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
-   #+end_src
-
 ** Configure for the Asm
   #+begin_src emacs-lisp :tangle yes
     (setq x86-lookup-pdf "~/325462-sdm-vol-1-2abcd-3abcd.pdf")
