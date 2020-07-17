@@ -84,6 +84,7 @@ This function should only modify configuration layer settings."
                        c-c++-enable-google-style t
                        c-c++-enable-google-newline t
                        c-c++-enable-auto-newline t)
+                erlang
                 common-lisp
                 semantic
                 (vue :variables vue-backend 'lsp)
@@ -94,7 +95,9 @@ This function should only modify configuration layer settings."
                       )
                 (lua :variables lua-backend 'lsp-emmy)
                 ruby-on-rails
-                kotlin
+    (kotlin :variables
+      kotlin-backend 'lsp
+      kotlin-lsp-jar-path "/home/zhibin/Desktop/codes-from-github/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
                 fsharp
                 kubernetes
                 (scala :variables
@@ -115,9 +118,9 @@ This function should only modify configuration layer settings."
                 (rust :variables
                       rust-backend 'lsp
                       rust-format-on-save t)
-		(groovy :variables
-        		groovy-backend 'lsp
-        		lsp-jar-path "/home/zhibin/Desktop/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
+                (groovy :variables
+                        groovy-backend 'lsp
+                        groovy-lsp-jar-path "/home/zhibin/Desktop/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
                 (haskell :variables
                          haskell-completion-backend 'lsp
                          haskell-enable-hindent t
@@ -126,6 +129,10 @@ This function should only modify configuration layer settings."
                      elm-format-command "elm-format"
           elm-sort-imports-on-save t
                      elm-format-on-save t)
+                (elixir :variables
+                        elixir-backend 'lsp
+      elixir-ls-path "/home/zhibin/Desktop/codes-from-github/elixir-ls/release"
+                        )
                 csharp
                 nim
                 racket
@@ -350,7 +357,8 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   ;; dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner "/home/zhibin/.spacemacs.d/banners/Pornhub-logo.png"
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -668,8 +676,6 @@ before packages are loaded."
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e/")
   (add-to-list 'load-path "/home/zhibin/.spacemacs.d/custom-modes/")
   (require 'mu4e)
-  ;;(add-to-list 'load-path "/mnt/another-disk/codes-from-github/lsp-groovy")
-  ;;(add-to-list 'load-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs")
   (setq mail-user-agent 'mu4e-user-agent)
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
   )
