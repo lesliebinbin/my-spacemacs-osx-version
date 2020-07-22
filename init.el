@@ -93,7 +93,9 @@ This function should only modify configuration layer settings."
                       ruby-backend 'lsp
                       ruby-version-manager 'rbenv
                       )
-                (lua :variables lua-backend 'lsp-emmy)
+                (lua :variables lua-backend 'lsp-emmy
+		     lua-lsp-emmy-jar-path "/home/zhibin/Desktop/codes-from-github/EmmyLua-LanguageServer/EmmyLua-LS/build/libs/EmmyLua-LS-all.jar"
+		     )
                 ruby-on-rails
     (kotlin :variables
       kotlin-backend 'lsp
@@ -147,10 +149,10 @@ This function should only modify configuration layer settings."
                                  auto-completion-enable-snippets-in-popup t
                                  auto-completion-enable-help-tooltip nil
                                  auto-completion-enable-sort-by-usage t
-                                 auto-completion-complete-with-key-sequence-delay 0.5
+                                 auto-completion-complete-with-key-sequence-delay 0.2
                                  auto-completion-idle-delay 1
                                  auto-completion-use-company-box t
-                                 auto-completion-minimum-prefix-length 3
+                                 ;; auto-completion-minimum-prefix-length 3
                                  auto-completion-complete-with-key-sequence "jk"
                                  :disabled-for org git
                                  )

@@ -380,7 +380,7 @@
      ;; config for display lsp ui document
      (spacemacs/set-leader-keys "od" 'lsp-ui-doc-show)
      ;; config for toggle company mode
-     (spacemacs/set-leader-keys "oc" 'company-mode)
+     (spacemacs/set-leader-keys "oc" 'company-complete)
    #+end_src
 
 ** Configure Lsp Doc
