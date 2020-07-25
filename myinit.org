@@ -374,13 +374,19 @@
 
 ** Custom Keybindings
    #+begin_src emacs-lisp :tangle yes
-     ;; config for quick code run
+     (defun reset-the-cmake-flag ()
+       "reset the cmake ide flag"
+       (interactive)
+       (setq cmake-sentinel-flag nil))
+
      (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
+     ;; config for quick code run
      (spacemacs/set-leader-keys "oq" 'quickrun-shell)
      ;; config for display lsp ui document
      (spacemacs/set-leader-keys "od" 'lsp-ui-doc-show)
      ;; config for toggle company mode
      (spacemacs/set-leader-keys "oc" 'company-complete)
+     (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
    #+end_src
 
 ** Configure Lsp Doc
