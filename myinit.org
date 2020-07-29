@@ -389,7 +389,19 @@
      (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
    #+end_src
 
+
 ** Configure Lsp Doc
   #+begin_src emacs-lisp :tangle yes
     (setq lsp-ui-doc-enable nil)
+  #+end_src
+
+
+** Configure for QuickRun
+  #+begin_src emacs-lisp :tangle yes
+(quickrun-add-command "c++/c1z"
+  '((:command . "clang++")
+    (:exec    . ("%c -std=c++17 %o -o %e %s"
+     "%e %a"))
+    (:remove  . ("%e")))
+  :default "c++")
   #+end_src
