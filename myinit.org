@@ -107,7 +107,7 @@
 
 ** Configure Tabnine for Intelligent Code Completion
    #+begin_src emacs-lisp :tangle yes
-     ;; (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
+     (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
    #+end_src
 
 ** Configure Remote Tramp
@@ -398,10 +398,12 @@
 
 ** Configure for QuickRun
   #+begin_src emacs-lisp :tangle yes
-(quickrun-add-command "c++/c1z"
-  '((:command . "clang++")
-    (:exec    . ("%c -std=c++17 %o -o %e %s"
-     "%e %a"))
-    (:remove  . ("%e")))
-  :default "c++")
+    (quickrun-add-command "c++/c1z"
+      '((:command . "clang++")
+        (:exec    . ("%c -std=c++17 %o -o %e %s"
+         "%e %a"))
+        (:remove  . ("%e")))
+      :default "c++")
+    (setq  cmake-ide-rdm-executable "/usr/local/bin/rdm")
+    (setq  cmake-ide-rc-executable "/usr/local/bin/rc")
   #+end_src

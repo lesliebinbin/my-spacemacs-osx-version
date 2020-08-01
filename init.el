@@ -39,6 +39,8 @@ This function should only modify configuration layer settings."
                 bm
                 erc
                 epub
+                evil-commentary
+                vim-empty-lines
                 (sql :variables sql-capitalize-keywords t)
                 lsp
                 dap
@@ -75,7 +77,8 @@ This function should only modify configuration layer settings."
                 (c-c++ :variables
                        c-c++-default-mode-headers 'c++-mode
                        ;; c-c++-backend 'lsp-clangd
-                       c-c++-backend 'lsp-ccls
+                       ;; c-c++-backend 'lsp-ccls
+                       c-c++-backend 'rtags
                        c-c++-adopt-subprojects t
                        c-c++-lsp-enable-semantic-highlight 'rainbow
                        c-c++-enable-clang-support t
