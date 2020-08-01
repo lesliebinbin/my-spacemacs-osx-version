@@ -381,12 +381,6 @@
      (exwm-randr-enable)
    #+end_src
 
-** Configure The Kotlin
-   #+begin_src emacs-lisp :tangle yes
-     (require 'lsp-kotlin)
-     (add-hook 'kotlin-mode-hook #'lsp)
-   #+end_src
-
 
 ** Configure for the Asm
   #+begin_src emacs-lisp :tangle yes
@@ -410,15 +404,35 @@
 ** Custom Keybindings
    #+begin_src emacs-lisp :tangle yes
      ;; config for quick code run
+     (defun reset-the-cmake-flag ()
+       "reset the cmake ide flag"
+       (interactive)
+       (setq cmake-sentinel-flag nil))
+
      (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
+     ;; config for quick code run
      (spacemacs/set-leader-keys "oq" 'quickrun-shell)
      ;; config for display lsp ui document
      (spacemacs/set-leader-keys "od" 'lsp-ui-doc-show)
      ;; config for toggle company mode
-     (spacemacs/set-leader-keys "oc" 'company-mode)
+     (spacemacs/set-leader-keys "oc" 'company-complete)
+     (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
+
    #+end_src
 
 ** Configure Lsp Doc
   #+begin_src emacs-lisp :tangle yes
     (setq lsp-ui-doc-enable nil)
+  #+end_src
+
+** Configure for QuickRun
+  #+begin_src emacs-lisp :tangle yes
+(quickrun-add-command "c++/c1z"
+  '((:command . "clang++")
+    (:exec    . ("%c -std=c++17 %o -o %e %s"
+     "%e %a"))
+    (:remove  . ("%e")))
+  :default "c++")
+  (setq  cmake-ide-rdm-executable "/usr/local/bin/rdm")
+    (setq  cmake-ide-rc-executable "/usr/local/bin/rc")
   #+end_src

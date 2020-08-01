@@ -74,7 +74,7 @@ This function should only modify configuration layer settings."
                       )
                 (c-c++ :variables
                        c-c++-default-mode-headers 'c++-mode
-                       c-c++-backend 'lsp-clangd
+                       c-c++-backend 'rtags
                        c-c++-adopt-subprojects t
                        c-c++-lsp-enable-semantic-highlight 'rainbow
                        c-c++-enable-clang-support t
@@ -96,7 +96,7 @@ This function should only modify configuration layer settings."
                 ruby-on-rails
                 (kotlin :variables
                         kotlin-backend 'lsp
-                        kotlin-lsp-jar-path "/mnt/another-disk/codes-from-github/kotlin-language-server/build/libs/kotlin-language-server.jar")
+                        kotlin-lsp-jar-path "/mnt/another-disk/codes-from-github/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
                 fsharp
                 kubernetes
                 (scala :variables
@@ -119,7 +119,7 @@ This function should only modify configuration layer settings."
                       rust-format-on-save t)
                 (groovy :variables
                         groovy-backend 'lsp
-                        lsp-jar-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
+                        groovy-lsp-jar-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
                 (haskell :variables
                          haskell-completion-backend 'lsp
                          haskell-enable-hindent t
@@ -227,7 +227,7 @@ This function should only modify configuration layer settings."
                elasticsearch
                google-calendar
                search-engine
-               tabnine
+               ;; tabnine
                csv
                emms-player
                prodigy
