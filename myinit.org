@@ -378,6 +378,11 @@
        "reset the cmake ide flag"
        (interactive)
        (setq cmake-sentinel-flag nil))
+     (defun pretty-the-nim ()
+       "format nim file"
+       (interactive)
+       (shell-command (format "nimpretty %s" (buffer-file-name)))
+       )
 
      (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
      ;; config for quick code run
@@ -387,6 +392,8 @@
      ;; config for toggle company mode
      (spacemacs/set-leader-keys "oc" 'company-complete)
      (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
+     (spacemacs/set-leader-keys "on" 'pretty-the-nim)
+     ;; config for nimpretty command
    #+end_src
 
 
@@ -404,6 +411,12 @@
          "%e %a"))
         (:remove  . ("%e")))
       :default "c++")
-    (setq  cmake-ide-rdm-executable "/usr/local/bin/rdm")
-    (setq  cmake-ide-rc-executable "/usr/local/bin/rc")
+    ;; (setq  cmake-ide-rdm-executable "/usr/local/bin/rdm")
+    ;; (setq  cmake-ide-rc-executable "/usr/local/bin/rc")
   #+end_src
+
+** Configure For Pretty Code
+#+begin_src emacs-lisp :tangle yes
+  (require 'pretty-mode)
+  (global-pretty-mode t)
+#+end_src
