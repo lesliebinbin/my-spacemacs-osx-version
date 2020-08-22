@@ -12,24 +12,34 @@
 
 ** Configure Org Mode
    #+begin_src emacs-lisp :tangle yes
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((gnuplot . t)
-        (ruby . t)
-        (lisp . t)
-        (clojure . t)
-        (awk . t)
-        (restclient . t)
-        (shell . t)
-        (dot . t)
-        (python . t)
-        ))
+     (org-babel-do-load-languages 'org-babel-load-languages
+                                  '((gnuplot . t)
+                                    (ruby . t)
+                                    (lisp . t)
+                                    (clojure . t)
+                                    (awk . t)
+                                    (restclient . t)
+                                    (shell . t)
+                                    (dot . t)
+                                    (python . t)))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
-           org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
-           org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
+           org-gcal-client-secret
+           (getenv "GCAL_CLIENT_SECRET")
+           org-gcal-file-alist
+           '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
      (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
      (add-hook 'org-mode-hook 'turn-on-auto-fill)
+     ;; Make org mode to latex auto break line
+     (setq org-latex-listings 'minted
+           org-latex-packages-alist
+           '(("" "minted"))
+           org-latex-pdf-process
+           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+     (setq org-latex-minted-options '(("breaklines" "true")
+                                      ("breakanywhere" "true")))
    #+end_src
 
 ** Configure the LeetCode
@@ -81,10 +91,50 @@
 ** Configure PDF Tools
    #+begin_src emacs-lisp :tangle yes
      (defun config-my-pdf-tools ()
-       (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-       )
+       (add-hook 'TeX-after-compilation-finished-functions
+                 #'TeX-revert-document-buffer))
      (config-my-pdf-tools)
+
+     (defun my-pdf-view-double-scroll-up-or-next-page (&optional arg)
+       "Scroll page up ARG lines if possible, else go to the next page.
+
+     When `pdf-view-continuous' is non-nil, scrolling upward at the
+     bottom edge of the page moves to the next page.  Otherwise, go to
+     next page only on typing SPC (ARG is nil)."
+       (interactive "P")
+       (if (or pdf-view-continuous
+               (null arg))
+           (let ((hscroll (window-hscroll))
+                 (cur-page (pdf-view-current-page)))
+             (when (or (= (window-vscroll) (image-scroll-up arg))
+                       ;; Workaround rounding/off-by-one issues.
+                       (memq pdf-view-display-size
+                             '(fit-height fit-page)))
+               (pdf-view-next-page 2)
+               (when (/= cur-page (pdf-view-current-page))
+                 (image-bob)
+                 (image-bol 1))
+               (set-window-hscroll (selected-window)
+                                   hscroll)))
+         (image-scroll-up arg)))
+
+     (defun my-pdf-view-double-scroll-horizontal-view ()
+       (interactive)
+       (my-pdf-view-double-scroll-up-or-next-page)
+       (other-window 1)
+       (my-pdf-view-double-scroll-up-or-next-page)
+       (other-window 1))
+
+     (defun my-pdf-view-double-scroll-vertical-view ()
+       (interactive)
+       (my-pdf-view-double-scroll-up-or-next-page)
+       (shrink-window 1)
+       (other-window 1)
+       (my-pdf-view-double-scroll-up-or-next-page)
+       (enlarge-window 1)
+       (other-window 1))
    #+end_src
+
 
 ** Configure Emmet
    #+begin_src emacs-lisp :tangle yes
