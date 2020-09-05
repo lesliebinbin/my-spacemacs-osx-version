@@ -12,24 +12,49 @@
 
 ** Configure Org Mode
    #+begin_src emacs-lisp :tangle yes
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((gnuplot . t)
-        (ruby . t)
-        (lisp . t)
-        (clojure . t)
-        (awk . t)
-        (restclient . t)
-        (shell . t)
-        (dot . t)
-        (python . t)
-        ))
-     ;; Google Calendar Related
-     (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
-           org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
-           org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
-     (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
-     (add-hook 'org-mode-hook 'turn-on-auto-fill)
+           (org-babel-do-load-languages
+            'org-babel-load-languages
+            '((gnuplot . t)
+              (ruby . t)
+              (lisp . t)
+              (clojure . t)
+              (awk . t)
+              (restclient . t)
+              (shell . t)
+              (dot . t)
+              (python . t)
+              ))
+           ;; Google Calendar Related
+           (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
+                 org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
+                 org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
+           (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
+           (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+
+
+      ;; Make org mode to latex auto break line
+           (setq org-latex-listings 'minted
+                 org-latex-packages-alist
+                 '(("" "minted"))
+                 org-latex-pdf-process
+                 '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+           (setq org-latex-minted-options '(("breaklines" "true")
+                                            ("breakanywhere" "true")))
+
+     ;; modify org-files-app
+     (setq org-file-apps
+           '(
+             (auto-mode . emacs)
+             ("\\.x?html?\\'" . system)
+             ("\\.pdf\\'" . emacs)
+             )
+           )
+
+     (setq pdf-view-use-imagemagick t)
+
    #+end_src
 
 ** Configure the LeetCode
@@ -39,46 +64,7 @@
      (setq leetcode-prefer-sql "mysql")
      (setq url-debug t)
    #+end_src
-** Configure Prodigy for personal blogging
 
-   #+begin_src emacs-lisp :tangle yes
-     (prodigy-define-service
-       :name "nikola-auto"
-       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-       :args '("auto")
-       :cwd "/Users/lesliebinbin/Desktop/myproject/"
-       :tags '(nikola auto blog)
-       :stop-signal 'sigint
-       )
-
-     (prodigy-define-service
-       :name "nikola-deploy"
-       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-       :args '("github_deploy")
-       :cwd "/Users/lesliebinbin/Desktop/myproject/"
-       :tags '(nikola deploy github)
-       :stop-signal 'sigint
-       )
-
-     (prodigy-define-service
-       :name "nikola-new-post"
-       :command "/Users/lesliebinbin/Desktop/myproject/.venv/bin/nikola"
-       :args '("new_post -f orgmode")
-       :cwd "/Users/lesliebinbin/Desktop/myproject/"
-       :tags '(nikola new-post org-mode)
-       :stop-signal 'sigint
-       )
-   #+end_src
-
-** Configure Nikola Blogging, even though currently I have no idea how it works
-   #+begin_src emacs-lisp :tangle yes
-     (setq nikola-new-post-extension "org")
-   #+end_src
-
-** Configure Easy-Hugo
-   #+begin_src emacs-lisp :tangle yes
-     (setq easy-hugo-basedir "~/Desktop/myblogs/")
-   #+end_src
 
 ** Configure Gradle to use Gradlew
    #+begin_src emacs-lisp :tangle yes
@@ -90,13 +76,6 @@
      (config-the-gradlew)
    #+end_src
 
-** Configure Projectile
-   #+begin_src emacs-lisp :tangle yes
-     (defun config-projectile ()
-       (setq projectile-project-search-path '("~/Desktop/uq_courses/" "~/Desktop/cs_courses/"))
-       )
-     (config-projectile)
-   #+end_src
 
 ** Configure Latex
    #+begin_src emacs-lisp :tangle yes
@@ -169,11 +148,6 @@
    #+end_src
 
 
-** Configure The atomic chrome
-   #+begin_src emacs-lisp :tangle yes
-     (require 'atomic-chrome)
-     (atomic-chrome-start-server)
-   #+end_src
 
 ** Configure The mu4e
    #+begin_src emacs-lisp :tangle yes
@@ -336,7 +310,7 @@
        (imagemagick-register-types))
 
      (with-eval-after-load 'mu4e-alert
-       (mu4e-alert-set-default-style 'libnotify))
+       (mu4e-alert-set-default-style 'notifications))
      ;;mu4e
 
    #+end_src
@@ -382,10 +356,6 @@
    #+end_src
 
 
-** Configure for the Asm
-  #+begin_src emacs-lisp :tangle yes
-    (setq x86-lookup-pdf "~/325462-sdm-vol-1-2abcd-3abcd.pdf")
-  #+end_src
 
 ** Configure for Elm
   #+begin_src emacs-lisp :tangle yes
@@ -409,6 +379,13 @@
        (interactive)
        (setq cmake-sentinel-flag nil))
 
+     (defun pretty-the-nim ()
+       "format nim file"
+       (interactive)
+       (shell-command (format "nimpretty %s" (buffer-file-name)))
+       )
+
+
      (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
      ;; config for quick code run
      (spacemacs/set-leader-keys "oq" 'quickrun-shell)
@@ -417,7 +394,8 @@
      ;; config for toggle company mode
      (spacemacs/set-leader-keys "oc" 'company-complete)
      (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
-
+     (spacemacs/set-leader-keys "on" 'pretty-the-nim)
+     ;; config for nimpretty command
    #+end_src
 
 ** Configure Lsp Doc
@@ -433,6 +411,9 @@
      "%e %a"))
     (:remove  . ("%e")))
   :default "c++")
-  (setq  cmake-ide-rdm-executable "/usr/local/bin/rdm")
-    (setq  cmake-ide-rc-executable "/usr/local/bin/rc")
   #+end_src
+
+** Configure The Default Shell
+#+begin_src emacs-lisp :tangle yes
+  (setq shell-default-shell 'vterm)
+#+end_src

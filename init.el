@@ -35,8 +35,6 @@ This function should only modify configuration layer settings."
    '(graphviz
                 restclient
                 (php :variables php-backend 'lsp)
-                xkcd
-                bm
                 erc
                 epub
                 (sql :variables sql-capitalize-keywords t)
@@ -74,12 +72,13 @@ This function should only modify configuration layer settings."
                       )
                 (c-c++ :variables
                        c-c++-default-mode-headers 'c++-mode
-                       c-c++-backend 'rtags
+                       ;;c-c++-backend 'rtags
+                       c-c++-backend 'lsp-ccls
                        c-c++-adopt-subprojects t
                        c-c++-lsp-enable-semantic-highlight 'rainbow
                        c-c++-enable-clang-support t
                        ;; the configuration of clangd perhaps
-                       c++-enable-organize-includes-on-save t
+                       ;;c++-enable-organize-includes-on-save t
                        c-c++-enable-clang-format-on-save t
                        c-c++-enable-google-style t
                        c-c++-enable-google-newline t
@@ -97,8 +96,6 @@ This function should only modify configuration layer settings."
                 (kotlin :variables
                         kotlin-backend 'lsp
                         kotlin-lsp-jar-path "/mnt/another-disk/codes-from-github/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
-                fsharp
-                kubernetes
                 (scala :variables
                       scala-backend 'scala-metals
                       scala-enable-eldoc t
@@ -108,6 +105,7 @@ This function should only modify configuration layer settings."
                     go-backend 'lsp
                     go-tab-width 4
                     go-use-gometalinter t
+                    ;; godoc-at-point-function 'godoc-gogetdoc
                     gofmt-command "goimports")
                 hy
                 (typescript :variables
@@ -129,20 +127,15 @@ This function should only modify configuration layer settings."
           elm-sort-imports-on-save t
                      elm-format-on-save t)
                 csharp
-                (dart :variables
-                      dart-server-sdk-path "/home/lesliebinbin/Downloads/flutter/bin/cache/dart-sdk"
-                      dart-server-format-on-save t)
                 nim
                 racket
-                perl6
-                prolog
-                protobuf
                 ;; ----------------------------------------------------------------
                 ;; Example of useful layers you may want to use right away.
                 ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
                 ;; `M-m f e R' (Emacs style) to install them.
                 ;; ----------------------------------------------------------------
-                (auto-completion :variables
+                (auto-completion
+                 :variables
                                  auto-completion-enable-snippets-in-popup t
                                  auto-completion-enable-help-tooltip nil
                                  auto-completion-enable-sort-by-usage t
@@ -163,7 +156,7 @@ This function should only modify configuration layer settings."
                 github
                 myleetcode
                 (helm :variables helm-enable-auto-resize t)
-                ;;(ivy :variables
+                ;; (ivy :variables
                 ;;     ivy-enable-advanced-buffer-information t)
                 (markdown :variables
                           markdown-live-preview-engine 'vmd
@@ -206,14 +199,9 @@ This function should only modify configuration layer settings."
 
 
                 spotify
-                ;;multiple-cursors
                 multiple-cursors
-                ;;multiple-cursors
                 ;;pandoc
                 pandoc
-                ;;pandoc
-                ;;games
-                games
                 ;;games
                 spacemacs-language
                 (ranger :variables
@@ -225,14 +213,11 @@ This function should only modify configuration layer settings."
                       ranger-width-preview 0.5
                       ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
                elasticsearch
-               google-calendar
+              ;; google-calendar
                search-engine
                ;; tabnine
                csv
                emms-player
-               prodigy
-               easy-hugo
-               selectric
                (twitter :variables twittering-use-master-password t)
                (elfeed :variables
                        ;; elfeed-enable-web-interface t
@@ -348,7 +333,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -356,7 +341,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 100
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -679,27 +664,3 @@ before packages are loaded."
   (setq mail-user-agent 'mu4e-user-agent)
   (org-babel-load-file (expand-file-name "myinit.org" "~/.spacemacs.d/"))
   )
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
- '(package-selected-packages
-   (quote
-    (unicode-escape names latex-preview-pane fsharp-mode eglot flymake jsonrpc systemd twilight-theme ivy-hydra kubernetes-tramp kubernetes-evil kubernetes es-mode spark flutter dart-mode ansi package-build shut-up epl git commander f dash s selectric-mode jupyter zmq polymode nov esxml bm rcirc-styles erc-tweet pyim pyim-basedict xr pangu-spacing find-by-pinyin-dired fcitx chinese-conv ace-pinyin pinyinlib erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks jabber srv fsm yasnippet-snippets yapfify yaml-mode xterm-color xkcd x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill typit twittering-mode treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay sunshine sudoku string-inflection stickyfunc-enhance srefactor sqlup-mode sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode slack shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode restclient-helm restart-emacs rbenv ranger rake rainbow-delimiters racket-mode racer pytest pyenv-mode py-isort pug-mode prodigy prettier-js pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode perl6-mode password-generator paradox pandoc-mode pacmacs ox-twbs ox-pandoc ox-hugo ox-gfm overseer orgit org-trello org-ref org-re-reveal org-projectile org-present org-pomodoro org-msg org-mime org-gcal org-download org-cliplink org-bullets org-brain open-junk-file omnisharp ob-restclient ob-ipython ob-hy ob-http nodejs-repl nim-mode nginx-mode nasm-mode nameless mwim mvn multi-term mu4e-maildirs-extension mu4e-conversation mu4e-alert move-text monochrome-theme mmm-mode minitest meghanada maven-test-mode material-theme markdown-toc magit-svn magit-gitflow lsp-ui lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode kotlin-mode json-navigator js2-refactor js-doc intero indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mu helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports graphviz-dot-mode gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gmail-message-mode gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy forge font-lock+ flyspell-correct-helm flymd flycheck-ycmd flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-perl6 flycheck-package flycheck-nim flycheck-kotlin flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery eyebrowse exwm expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help ensime engine-mode emoji-cheat-sheet-plus emms emmet-mode elm-test-runner elm-mode elisp-slime-nav elfeed-org elfeed-goodies ein editorconfig edit-server easy-hugo dumb-jump drupal-mode dracula-theme dotenv-mode doom-modeline dockerfile-mode docker disaster diminish diff-hl devdocs define-word dap-mode dante cython-mode csv-mode cquery cpp-auto-include company-ycmd company-web company-tern company-tabnine company-statistics company-rtags company-restclient company-reftex company-quickhelp company-php company-lsp company-go company-ghci company-ghc company-emoji company-cabal company-c-headers company-box company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clean-aindent-mode clang-format cider-eval-sexp-fu cider chruby centered-cursor-mode ccls cargo calfw-org calfw bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent afternoon-theme add-node-modules-path ace-link ace-jump-helm-line ac-ispell 2048-game))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
