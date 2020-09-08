@@ -417,3 +417,8 @@
 #+begin_src emacs-lisp :tangle yes
   (setq shell-default-shell 'vterm)
 #+end_src
+
+** Important Notes For Spacemacs Env File
+   #+begin_example
+     DISPLAY=1.0
+   #+end_example
