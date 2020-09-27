@@ -21,6 +21,7 @@
                                     (restclient . t)
                                     (shell . t)
                                     (dot . t)
+                                    (cypher . t)
                                     (python . t)))
      ;; Google Calendar Related
      (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
