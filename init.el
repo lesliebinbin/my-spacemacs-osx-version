@@ -82,8 +82,8 @@ This function should only modify configuration layer settings."
                        c-c++-default-mode-headers 'c++-mode
                        ;; c-c++-backend 'lsp-clangd
                        c-c++-backend 'lsp-ccls
-                       ;;c-c++-backend 'rtags
-                       c-c++-enable-rtags-completion nil
+                       ;; c-c++-backend 'rtags
+                       ;; c-c++-enable-rtags-completion nil
                        c-c++-adopt-subprojects t
                        c-c++-lsp-enable-semantic-highlight 'rainbow
                        c-c++-enable-clang-support t
@@ -92,7 +92,8 @@ This function should only modify configuration layer settings."
                        c-c++-enable-clang-format-on-save t
                        c-c++-enable-google-style t
                        c-c++-enable-google-newline t
-                       c-c++-enable-auto-newline t)
+                       ;; c-c++-enable-auto-newline t
+                       )
                 erlang
                 common-lisp
                 semantic
