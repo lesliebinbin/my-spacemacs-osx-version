@@ -2,7 +2,7 @@
 
 ** General Editor Configure
    #+begin_src emacs-lisp :tangle yes
-     (require 'cl-lib)
+     ;; (require 'cl-lib)
      (setq treemacs-width 20)
 
      (setq browse-url-browser-function 'browse-url-generic
@@ -23,6 +23,7 @@
               (shell . t)
               (dot . t)
               (python . t)
+              (cypher . t)
               ))
            ;; Google Calendar Related
            (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
@@ -80,6 +81,8 @@
 ** Configure Latex
    #+begin_src emacs-lisp :tangle yes
      (defun my-config-latex ()
+       ;; use lua latex
+       (setq TeX-engine 'luatex)
        (add-hook 'doc-view-mode-hook 'auto-revert-mode)
        (setq LaTeX-item-indent 0)
        (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
@@ -395,6 +398,7 @@
      (spacemacs/set-leader-keys "oc" 'company-complete)
      (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
      (spacemacs/set-leader-keys "on" 'pretty-the-nim)
+     (spacemacs/set-leader-keys "ob" 'bazel-mode-buildifier)
      ;; config for nimpretty command
    #+end_src
 
@@ -406,8 +410,8 @@
 ** Configure for QuickRun
   #+begin_src emacs-lisp :tangle yes
 (quickrun-add-command "c++/c1z"
-  '((:command . "clang++")
-    (:exec    . ("%c -std=c++17 %o -o %e %s"
+  '((:command . "g++")
+    (:exec    . ("%c -std=c++2a %o -o %e %s"
      "%e %a"))
     (:remove  . ("%e")))
   :default "c++")
