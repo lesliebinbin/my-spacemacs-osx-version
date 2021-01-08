@@ -426,3 +426,8 @@
    #+begin_example
      DISPLAY=1.0
    #+end_example
+
+** Set the Transparency
+  #+begin_src emacs-lisp :tangle yes
+    (spacemacs/enable-transparency)
+  #+end_src
