@@ -431,3 +431,9 @@
   #+begin_src emacs-lisp :tangle yes
     (spacemacs/enable-transparency)
   #+end_src
+
+
+** Setting Things For Debug
+   #+begin_src emacs-lisp :tangle yes
+     (require 'dap-ruby)
+   #+end_src

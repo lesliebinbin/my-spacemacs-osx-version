@@ -41,7 +41,10 @@ This function should only modify configuration layer settings."
                 ;;         elixir-backend 'lsp
                 ;;         elixir-ls-path "/home/lesliebinbin/elixir-ls-1.10.4")
                 (elixir :variables
-                        elixir-backend 'alchemist)
+                        ;; elixir-backend 'alchemist
+                        elixir-backend 'lsp
+                        elixir-ls-path "/home/lesliebinbin/elixir-ls-1.10.4/"
+                        )
                 (sql :variables sql-capitalize-keywords t)
                 lsp
                 dap
@@ -241,6 +244,8 @@ This function should only modify configuration layer settings."
                        ;; elfeed-enable-web-interface t
                        rmh-elfeed-org-files (list "~/.spacemacs.d/.feeds/feed.org")
                        )
+               kubernetes
+               elasticsearch
      )
 
    ;; List of additional packages that will be installed without being
@@ -354,7 +359,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'vim
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
