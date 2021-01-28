@@ -56,6 +56,25 @@
 
      (setq pdf-view-use-imagemagick t)
 
+     (setq  org-tree-slide-slide-in-effect t
+            org-tree-slide-activate-message "Presentation Start"
+            org-tree-slide-deactivate-message "Thank You"
+            org-tree-slide-header t
+            org-tree-slide-breadcrumbs " // "
+            org-image-actual-width nil)
+
+     (defun efs/presentation-end ()
+       (text-scale-mode 0))
+
+
+     (defun efs/presentation-setup ()
+       (setq text-scale-mode-amount 3)
+       (org-display-inline-images)
+       (text-scale-mode 1)
+       )
+
+     (add-hook 'org-tree-slide-play 'efs/presentation-setup)
+     (add-hook 'org-tree-slide-stop 'efs/presentation-end)
    #+end_src
 
 ** Configure the LeetCode
@@ -96,6 +115,7 @@
        (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
        )
      (config-my-pdf-tools)
+     (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
    #+end_src
 
 ** Configure Emmet
@@ -103,7 +123,7 @@
      (defun config-my-emmet ()
        (add-hook 'sgml-mode-hook 'emmet-mode)
        (add-hook 'css-mode-hook 'emmet-mode)
-       (setq emmet-expand-jsx-className? t)
+       ;; (setq emmet-expand-jsx-className? t)
        )
      (config-my-emmet)
    #+end_src
@@ -436,4 +456,10 @@
 ** Setting Things For Debug
    #+begin_src emacs-lisp :tangle yes
      (require 'dap-ruby)
+   #+end_src
+
+** Optimise The Local Variable Evaluate And Babel
+   #+begin_src emacs-lisp :tangle yes
+     (setq enable-local-variables :all)
+     ;; (setq org-confirm-babel-evaluate nil)
    #+end_src
