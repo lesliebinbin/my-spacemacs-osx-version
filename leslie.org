@@ -1,4 +1,0 @@
-* Active
-** TODO Finish Documentation
-** TODO Merge the PR
-* Backlog
