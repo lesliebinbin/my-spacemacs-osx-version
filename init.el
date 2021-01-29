@@ -273,6 +273,7 @@ This function should only modify configuration layer settings."
      format-all
      clomacs
      org-tree-slide
+     ob-ipython
 
      (pdf-continuous-scroll-mode :location (recipe
                                             :fetcher github

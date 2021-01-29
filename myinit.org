@@ -22,6 +22,7 @@
               (restclient . t)
               (shell . t)
               (dot . t)
+	      (ipython . t)
               (python . t)
               (cypher . t)
               ))
