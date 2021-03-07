@@ -32,7 +32,9 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(graphviz
+   '(ansible
+     graphviz
+     alda
                 restclient
                 (php :variables php-backend 'lsp)
                 erc
@@ -67,6 +69,7 @@ This function should only modify configuration layer settings."
                       web-fmt-tool 'web-beautify)
 
                 (clojure :variables
+                         clojure-backend 'cider
                          clojure-enable-fancify-symbols t
                          clojure-enable-sayid t
                          clojure-enable-clj-refactor t
@@ -141,6 +144,7 @@ This function should only modify configuration layer settings."
                         groovy-lsp-jar-path "/mnt/another-disk/codes-from-github/groovy-language-server/build/libs/groovy-language-server-all.jar")
                 (haskell :variables
                          haskell-completion-backend 'lsp
+                          ;; haskell-completion-backend 'dante
                          haskell-enable-hindent t
                          )
                 (elm :variables
@@ -195,7 +199,11 @@ This function should only modify configuration layer settings."
                      org-enable-reveal-js-support t
                      org-enable-trello-support t
                      org-enable-hugo-support t
-                     org-enable-bootstrap-support t)
+                     org-enable-bootstrap-support t
+                     org-agenda-start-with-log-mode t
+                     org-log-done 'timer
+                     org-log-into-drawer t
+                     )
                 (shell :variables
                        shell-default-height 30
                        shell-default-position 'bottom)
@@ -278,6 +286,7 @@ This function should only modify configuration layer settings."
      (pdf-continuous-scroll-mode :location (recipe
                                             :fetcher github
                                             :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+     helm-org-ql
 
      ;; ivy-hydra
    )
@@ -330,7 +339,7 @@ It should only modify the values of Spacemacs settings."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -714,7 +723,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
-   '(format-all language-id raku-mode flycheck-perl6 command-log-mode zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill twittering-mode twilight-theme treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay sunshine string-inflection stickyfunc-enhance srefactor sqlup-mode sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode shell-pop seeing-is-believing scss-mode scala-mode sbt-mode sayid sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode ron-mode robe rjsx-mode restclient-helm restart-emacs rbenv ranger rainbow-delimiters racket-mode racer quickrun pytest pyenv-mode py-isort pug-mode projectile-rails prettier-js pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets password-generator paradox pandoc-mode ox-twbs ox-pandoc ox-hugo ox-gfm overseer orgit org-trello org-superstar org-ref org-re-reveal org-projectile org-present org-pomodoro org-msg org-mime org-download org-cliplink org-brain open-junk-file omnisharp ob-restclient ob-hy ob-http nov nodejs-repl nim-mode nginx-mode nasm-mode nameless mwim mvn multi-term mu4e-maildirs-extension mu4e-conversation mu4e-alert move-text monochrome-theme mmm-mode minitest meghanada maven-test-mode material-theme markdown-toc magit-svn magit-section magit-gitflow lsp-ui lsp-python-ms lsp-pyright lsp-metals lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode latex-preview-pane kotlin-mode jupyter json-navigator js2-refactor js-doc indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mu helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports graphviz-dot-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy framemove forge font-lock+ flyspell-correct-helm flycheck-ycmd flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-package flycheck-nim flycheck-kotlin flycheck-haskell flycheck-elsa flycheck-elm flycheck-clj-kondo flx-ido flutter feature-mode fancy-battery eyebrowse exwm expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help es-mode erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks enh-ruby-mode engine-mode emr emms emmet-mode elm-test-runner elm-mode elisp-slime-nav elfeed-org elfeed-goodies ein editorconfig dumb-jump drupal-mode dracula-theme dotenv-mode dockerfile-mode docker disaster diminish devdocs desktop-environment define-word dante cython-mode csv-mode cpp-auto-include company-ycmd company-web company-statistics company-rtags company-restclient company-reftex company-lua company-go company-cabal company-c-headers company-box company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode ccls cargo calfw-org bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent afternoon-theme add-node-modules-path ace-link ace-jump-helm-line ac-ispell))
+   '(jinja2-mode company-ansible ansible-doc ansible format-all language-id raku-mode flycheck-perl6 command-log-mode zen-and-art-theme yasnippet-snippets yapfify yaml-mode xterm-color x86-lookup ws-butler writeroom-mode winum which-key web-mode web-beautify vterm volatile-highlights vmd-mode vi-tilde-fringe vagrant-tramp vagrant uuidgen use-package unfill twittering-mode twilight-theme treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here tagedit symon symbol-overlay sunshine string-inflection stickyfunc-enhance srefactor sqlup-mode sql-indent spotify spaceline-all-the-icons smeargle slime-company slim-mode shell-pop seeing-is-believing scss-mode scala-mode sbt-mode sayid sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode ron-mode robe rjsx-mode restclient-helm restart-emacs rbenv ranger rainbow-delimiters racket-mode racer quickrun pytest pyenv-mode py-isort pug-mode projectile-rails prettier-js pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets password-generator paradox pandoc-mode ox-twbs ox-pandoc ox-hugo ox-gfm overseer orgit org-trello org-superstar org-ref org-re-reveal org-projectile org-present org-pomodoro org-msg org-mime org-download org-cliplink org-brain open-junk-file omnisharp ob-restclient ob-hy ob-http nov nodejs-repl nim-mode nginx-mode nasm-mode nameless mwim mvn multi-term mu4e-maildirs-extension mu4e-conversation mu4e-alert move-text monochrome-theme mmm-mode minitest meghanada maven-test-mode material-theme markdown-toc magit-svn magit-section magit-gitflow lsp-ui lsp-python-ms lsp-pyright lsp-metals lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint leetcode latex-preview-pane kotlin-mode jupyter json-navigator js2-refactor js-doc indent-guide importmagic impatient-mode hybrid-mode hy-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-spotify-plus helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mu helm-mode-manager helm-make helm-lsp helm-ls-git helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-ctest helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports graphviz-dot-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy framemove forge font-lock+ flyspell-correct-helm flycheck-ycmd flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-package flycheck-nim flycheck-kotlin flycheck-haskell flycheck-elsa flycheck-elm flycheck-clj-kondo flx-ido flutter feature-mode fancy-battery eyebrowse exwm expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu ess-R-data-view eshell-z eshell-prompt-extras esh-help es-mode erc-yt erc-view-log erc-social-graph erc-image erc-hl-nicks enh-ruby-mode engine-mode emr emms emmet-mode elm-test-runner elm-mode elisp-slime-nav elfeed-org elfeed-goodies ein editorconfig dumb-jump drupal-mode dracula-theme dotenv-mode dockerfile-mode docker disaster diminish devdocs desktop-environment define-word dante cython-mode csv-mode cpp-auto-include company-ycmd company-web company-statistics company-rtags company-restclient company-reftex company-lua company-go company-cabal company-c-headers company-box company-auctex company-anaconda common-lisp-snippets column-enforce-mode cmm-mode cmake-mode cmake-ide clojure-snippets clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby centered-cursor-mode ccls cargo calfw-org bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk attrap atomic-chrome aggressive-indent afternoon-theme add-node-modules-path ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
    '((eval setq-local cmake-ide-project-dir my-project-dir)
      (eval setq-local cmake-ide-build-dir

@@ -65,12 +65,14 @@ Each entry is either:
       :config
       (progn
         (require 'emms-setup)
-        (require 'emms-player-simple)
-        (require 'emms-source-file)
-        (require 'emms-source-playlist)
+        (require 'emms-player-mplayer)
         (emms-all)
-        (define-emms-simple-player play '(file) "\\.mkv" "/usr/local/bin/vlc")
-        (setq emms-player-list '(emms-player-play))
-        (setq emms-source-file-default-directory "~/Documents/Videos")
+        (emms-default-players)
+        (define-emms-simple-player mplayer '(file url)
+          (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+                        ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "mms://"
+                        ".rm" ".rmvb" ".mp4" ".flac" ".vob" ".m4a" ".flv" ".ogv" ".pls"))
+          "mplayer")
+        (setq emms-source-file-default-directory "~/Videos")
         )))
 ;;; packages.el ends here

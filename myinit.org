@@ -22,15 +22,15 @@
               (restclient . t)
               (shell . t)
               (dot . t)
-	      (ipython . t)
+        (ipython . t)
               (python . t)
               (cypher . t)
               ))
            ;; Google Calendar Related
-           (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
-                 org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
-                 org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
-           (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org"))
+           ;; (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
+           ;;       org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
+           ;;       org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
+           (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
            (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 
@@ -62,7 +62,12 @@
             org-tree-slide-deactivate-message "Thank You"
             org-tree-slide-header t
             org-tree-slide-breadcrumbs " // "
-            org-image-actual-width nil)
+            org-image-actual-width nil
+            org-todo-keywords '(
+                                (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+                                (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(r)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")
+                                )
+            )
 
      (defun efs/presentation-end ()
        (text-scale-mode 0))
@@ -463,4 +468,9 @@
    #+begin_src emacs-lisp :tangle yes
      (setq enable-local-variables :all)
      ;; (setq org-confirm-babel-evaluate nil)
+   #+end_src
+
+** Aliases
+   #+begin_src emacs-lisp :tangle yes
+     (defalias 'epa--decode-coding-string 'decode-coding-string)
    #+end_src
