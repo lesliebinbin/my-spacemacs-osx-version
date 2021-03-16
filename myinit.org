@@ -94,12 +94,12 @@
 
 ** Configure Gradle to use Gradlew
    #+begin_src emacs-lisp :tangle yes
-     (defun config-the-gradlew ()
-       (setq gradle-use-gradlew t)
-       (setq gradle-gradlew-executable "./gradlew")
-       )
+     ;; (defun config-the-gradlew ()
+     ;;   (setq gradle-use-gradlew t)
+     ;;   (setq gradle-gradlew-executable "./gradlew")
+     ;;   )
 
-     (config-the-gradlew)
+     ;; (config-the-gradlew)
    #+end_src
 
 
@@ -156,11 +156,11 @@
 
 ** Configure Java
    #+begin_src emacs-lisp :tangle yes
-     (require 'lsp-java)
-     ;;(require 'lsp-java-boot)
-     (add-to-list 'lsp-java-vmargs "-javaagent:/home/lesliebinbin/.spacemacs.d/.some-tools/lombok.jar")
-     ;; (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-     ;; (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
+     ;; (require 'lsp-java)
+     (require 'lsp-java-boot)
+     ;; (add-to-list 'lsp-java-vmargs "-javaagent:/home/lesliebinbin/.spacemacs.d/.some-tools/lombok.jar")
+     (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+     (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
    #+end_src
 
 ** Let Gnuplot Mode be recognised
