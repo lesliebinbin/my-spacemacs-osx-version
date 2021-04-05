@@ -36,7 +36,7 @@ This function should only modify configuration layer settings."
      graphviz
      alda
                 restclient
-                (php :variables php-backend 'lsp)
+                ;;(php :variables php-backend 'lsp)
                 erc
                 dotnet
                 phoenix
@@ -49,7 +49,12 @@ This function should only modify configuration layer settings."
                         elixir-backend 'lsp
                         elixir-ls-path "/home/lesliebinbin/elixir-ls-1.11/"
                         )
-                (sql :variables sql-capitalize-keywords t)
+                (sql :variables
+                     sql-backend 'company-sql
+                     sql-lsp-sqls-workspace-config-path 'workspace
+                     sql-capitalize-keywords t
+                     sql-capitalize-keywords-blacklist '("name" "varchar")
+                     )
                 lsp
                 dap
                 yaml
@@ -103,7 +108,7 @@ This function should only modify configuration layer settings."
                 common-lisp
                 command-log
                 semantic
-                perl6
+                ;;perl6
                 (vue :variables vue-backend 'lsp)
                 (ruby :variables
                       ruby-enable-enh-ruby-mode t
@@ -246,7 +251,7 @@ This function should only modify configuration layer settings."
                elasticsearch
               ;; google-calendar
                search-engine
-               ;; tabnine
+               tabnine
                csv
                emms-player
                (twitter :variables twittering-use-master-password t)
@@ -287,6 +292,8 @@ This function should only modify configuration layer settings."
                                             :fetcher github
                                             :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
      helm-org-ql
+     inf-mongo
+     graphql-mode
 
      ;; ivy-hydra
    )

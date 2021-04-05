@@ -158,7 +158,7 @@
    #+begin_src emacs-lisp :tangle yes
      ;; (require 'lsp-java)
      (require 'lsp-java-boot)
-     ;; (add-to-list 'lsp-java-vmargs "-javaagent:/home/lesliebinbin/.spacemacs.d/.some-tools/lombok.jar")
+     (add-to-list 'lsp-java-vmargs "-javaagent:/home/lesliebinbin/.spacemacs.d/.some-tools/lombok.jar")
      (add-hook 'lsp-mode-hook #'lsp-lens-mode)
      (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
    #+end_src
