@@ -36,7 +36,7 @@ This function should only modify configuration layer settings."
      csv
      restclient
      docker
-     exwm
+     ;; exwm
      yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -58,14 +58,15 @@ This function should only modify configuration layer settings."
                  javascript-import-tool 'import-js
                  javascript-backend 'lsp
                  javascript-fmt-tool 'prettier
-                 javascript-fmt-on-save t
+                 ;; javascript-fmt-on-save t
                  node-add-modules-path t
                  js2-include-node-externs t)
 
      git
      semantic
      github
-     helm
+     (helm :variables
+           helm-enable-auto-resize t)
      (vue :variables vue-backend 'lsp)
      lsp
      markdown
