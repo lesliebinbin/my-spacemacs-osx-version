@@ -145,7 +145,7 @@ This function should only modify configuration layer settings."
      version-control
      elasticsearch
      search-engine
-     (osx :variables osx-command-as       'hyper
+     (osx :variables osx-command-as       'super
           osx-option-as        'meta
           osx-control-as       'control
           osx-function-as      nil
@@ -177,20 +177,19 @@ This function should only modify configuration layer settings."
                                       quickrun
                                       flutter
                                       latex-preview-pane
-
+                                      (pdf-continuous-scroll-mode :location (recipe
+                                                                             :fetcher github
+                                                                             :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
                                       ob-cypher
                                       format-all
                                       clomacs
                                       org-tree-slide
                                       ob-ipython
-
-                                      (pdf-continuous-scroll-mode :location (recipe
-                                                                             :fetcher github
-                                                                             :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
                                       helm-org-ql
                                       inf-mongo
                                       graphql-mode
                                       company-tabnine
+                                      pdf-tools
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -466,7 +465,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
@@ -717,6 +716,10 @@ before packages are loaded."
   ;; tabnine configuration
   (require 'company-tabnine)
   (add-to-list 'company-backends #'company-tabnine)
+  ;; pdf configuration
+  (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
+  (require 'pdf-tools)
+  (pdf-tools-install)
   )
 
 
@@ -732,7 +735,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(doc-view-continuous t)
  '(evil-want-Y-yank-to-eol nil)
+ '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
    '(typescript-mode csv-mode restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well yaml-mode yasnippet-snippets ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit spaceline-all-the-icons smeargle slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quickrun pug-mode projectile-rails prettier-js popwin password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file npm-mode nodejs-repl nameless multi-line mmm-mode minitest markdown-toc magit-section macrostep lsp-ui lsp-origami lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag grip-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flx-ido feature-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu es-mode enh-ruby-mode emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish devdocs define-word dap-mode company-web column-enforce-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell)))
 (custom-set-faces
