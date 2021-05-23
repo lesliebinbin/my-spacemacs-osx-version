@@ -36,6 +36,26 @@ This function should only modify configuration layer settings."
      csv
      restclient
      docker
+     pandoc
+     (python :variables
+             python-fill-column 79
+             python-backend 'lsp
+             python-formatter 'yapf
+             python-format-on-save t
+             python-sort-imports-on-save t
+             python-pipenv-activate nil)
+     ipython-notebook
+     (ranger :variables
+             ranger-show-preview t
+             ranger-show-hidden t
+             ranger-cleanup-eagerly t
+             ranger-cleanup-on-disable t
+             ranger-show-literal nil
+             ranger-width-preview 0.5
+             ranger-ignored-extensions '("mkv" "flv" "iso" "mp4"))
+     spacemacs-language
+     kubernetes
+     vagrant
      ;; exwm
      yaml
      ;; ----------------------------------------------------------------
@@ -44,7 +64,19 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; auto-completion
-     ;; better-defaults
+     (auto-completion
+      :variables
+      auto-completion-enable-snippets-in-popup t
+      auto-completion-enable-help-tooltip nil
+      auto-completion-enable-sort-by-usage t
+      auto-completion-complete-with-key-sequence-delay 0.5
+      auto-completion-idle-delay 1
+      auto-completion-use-company-box t
+      auto-completion-minimum-prefix-length 3
+      auto-completion-complete-with-key-sequence "jk"
+      :disabled-for org git
+      )
+     better-defaults
      emacs-lisp
      (mu4e :variables
            mu4e-enable-notifications t
@@ -104,6 +136,7 @@ This function should only modify configuration layer settings."
      syntax-checking
      version-control
      elasticsearch
+     search-engine
      (osx :variables osx-command-as       'hyper
           osx-option-as        'meta
           osx-control-as       'control
@@ -112,7 +145,9 @@ This function should only modify configuration layer settings."
           osx-right-option-as  'left
           osx-right-control-as 'left
           osx-swap-option-and-command nil)
-     treemacs)
+     treemacs
+     slack
+     )
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -135,6 +170,18 @@ This function should only modify configuration layer settings."
                                       flutter
                                       latex-preview-pane
 
+                                      ob-cypher
+                                      format-all
+                                      clomacs
+                                      org-tree-slide
+                                      ob-ipython
+
+                                      (pdf-continuous-scroll-mode :location (recipe
+                                                                             :fetcher github
+                                                                             :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+                                      helm-org-ql
+                                      inf-mongo
+                                      graphql-mode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -623,10 +670,46 @@ before packages are loaded."
         projectile-rails-spring-command "bin/spring"
         projectile-rails-zeus-command "bin/zeus"
         terminal-here-mac-terminal-command 'iterm2
+        pdf-view-use-imagemagick t
+
         )
+  (setq-default enable-remote-dir-locals t)
   ;; custom shortcut
   (spacemacs/declare-prefix "o" "custom" "Custom Shortcuts")
   (spacemacs/set-leader-keys "of" 'rubocopfmt)
+  ;; slack configuration
+  (slack-register-team
+   :name (getenv "SLACK_NAME")
+   :default t
+   :client-id (getenv "SLACK_CLIENT_ID")
+   :client-secret (getenv "SLACK_CLIENT_SECRET")
+   :token (getenv "SLACK_TOKEN")
+   :subscribed-channels (->> "SLACK_CHANNELS"
+                            (getenv)
+                            (s-split ",")
+                            )
+  )
+  ;; org-mode
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gnuplot . t)
+     (ruby . t)
+     (lisp . t)
+     (clojure . t)
+     (awk . t)
+     (restclient . t)
+     (shell . t)
+     (dot . t)
+     (ipython . t)
+     (python . t)
+     (cypher . t)
+     ))
+  ;; Google Calendar Related
+  ;; (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
+  ;;       org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
+  ;;       org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
+  (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
   )
 
 
