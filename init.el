@@ -96,7 +96,7 @@ This function should only modify configuration layer settings."
      github
      (helm :variables
            helm-enable-auto-resize t)
-     (vue :variables vue-backend 'lsp)
+     (vue :variables vue-backend 'dumb)
      lsp
      markdown
      multiple-cursors
@@ -179,6 +179,7 @@ This function should only modify configuration layer settings."
                                       helm-org-ql
                                       inf-mongo
                                       graphql-mode
+                                      company-tabnine
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -701,12 +702,11 @@ before packages are loaded."
      (python . t)
      (cypher . t)
      ))
-  ;; Google Calendar Related
-  ;; (setq org-gcal-client-id (getenv "GCAL_CLIENT_ID")
-  ;;       org-gcal-client-secret (getenv "GCAL_CLIENT_SECRET")
-  ;;       org-gcal-file-alist '(("lesliebinbin19900129@gmail.com" . "~/.spacemacs.d/calendars/leslie.org")))
   (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  ;; tabnine configuration
+  (require 'company-tabnine)
+  (add-to-list 'company-backends #'company-tabnine)
   )
 
 
