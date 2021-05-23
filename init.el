@@ -34,6 +34,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(typescript
      csv
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
      restclient
      docker
      pandoc
@@ -94,10 +95,20 @@ This function should only modify configuration layer settings."
      git
      semantic
      github
+     (geolocation :variables
+                  geolocation-enable-automatic-theme-changer t
+                  geolocation-enable-location-service t
+                  )
      (helm :variables
            helm-enable-auto-resize t)
      (vue :variables vue-backend 'dumb)
-     lsp
+     (lsp :variables
+          lsp-lens-enable t
+          lsp-headerline-breadcrumb-segments '(project file symbols)
+          lsp-use-lsp-ui t
+          lsp-modeline-code-actions-enable nil
+          lsp-ui-doc-include-signature t
+          )
      markdown
      multiple-cursors
      (org :variables
@@ -669,7 +680,6 @@ before packages are loaded."
         projectile-rails-zeus-command "bin/zeus"
         terminal-here-mac-terminal-command 'iterm2
         pdf-view-use-imagemagick t
-
         )
   (setq-default enable-remote-dir-locals t)
   ;; custom shortcut
