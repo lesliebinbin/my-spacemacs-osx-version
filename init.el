@@ -37,6 +37,7 @@ This function should only modify configuration layer settings."
      restclient
      docker
      pandoc
+     spotify
      (python :variables
              python-fill-column 79
              python-backend 'lsp
@@ -78,10 +79,6 @@ This function should only modify configuration layer settings."
       )
      better-defaults
      emacs-lisp
-     (mu4e :variables
-           mu4e-enable-notifications t
-           mu4e-enable-mode-line t
-           )
      (rust :variables
            rust-backend 'lsp
            rust-format-on-save t)
@@ -525,7 +522,7 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
