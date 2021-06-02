@@ -38,6 +38,12 @@ This function should only modify configuration layer settings."
      restclient
      docker
      pandoc
+     cmake
+     chrome
+     (erc :variables
+          erc-enable-sasl-auth t)
+     prettier
+     web-beautify
      spotify
      (python :variables
              python-fill-column 79
@@ -58,8 +64,11 @@ This function should only modify configuration layer settings."
      spacemacs-language
      kubernetes
      vagrant
-     ;; exwm
+     exwm
      yaml
+     html
+     tmux
+     json
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -95,10 +104,10 @@ This function should only modify configuration layer settings."
      git
      semantic
      github
-     (geolocation :variables
-                  geolocation-enable-automatic-theme-changer t
-                  geolocation-enable-location-service t
-                  )
+     ;; (geolocation :variables
+     ;;              geolocation-enable-automatic-theme-changer t
+     ;;              geolocation-enable-location-service t
+     ;;              )
      (helm :variables
            helm-enable-auto-resize t)
      (vue :variables vue-backend 'dumb)
@@ -720,6 +729,9 @@ before packages are loaded."
   (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
   (pdf-tools-install)
+  ;; configure alert notification for slack
+  (require 'alert)
+  (setq alert-default-style 'osx-notifier)
   )
 
 
