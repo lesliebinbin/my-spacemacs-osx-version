@@ -36,6 +36,7 @@ This function should only modify configuration layer settings."
      csv
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      restclient
+     command-log
      docker
      pandoc
      cmake
@@ -110,7 +111,7 @@ This function should only modify configuration layer settings."
      ;;              )
      (helm :variables
            helm-enable-auto-resize t)
-     (vue :variables vue-backend 'dumb)
+     (vue :variables vue-backend 'lsp)
      (lsp :variables
           lsp-lens-enable t
           lsp-headerline-breadcrumb-segments '(project file symbols)
@@ -118,7 +119,10 @@ This function should only modify configuration layer settings."
           lsp-modeline-code-actions-enable nil
           lsp-ui-doc-include-signature t
           )
-     markdown
+     (markdown :variables
+               markdown-live-preview-engine 'vmd
+               markdown-open-command "/usr/local/bin/markdown"
+               )
      multiple-cursors
      (org :variables
           org-enable-github-support t
@@ -164,6 +168,12 @@ This function should only modify configuration layer settings."
           osx-swap-option-and-command nil)
      treemacs
      slack
+     (mu4e :variables
+           mu4e-enable-notifications t
+           mu4e-enable-mode-line t
+           mu4e-mu-binary "/usr/local/bin/mu"
+           ;; mu4e-enable-async-operations t
+           )
      )
 
 
@@ -180,7 +190,7 @@ This function should only modify configuration layer settings."
                                       dracula-theme
                                       calfw-org
                                       org-msg
-                                      ;; mu4e-conversation
+                                      mu4e-conversation
                                       jupyter
                                       selectric-mode
                                       quickrun
@@ -189,6 +199,10 @@ This function should only modify configuration layer settings."
                                       (pdf-continuous-scroll-mode :location (recipe
                                                                              :fetcher github
                                                                              :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+                                      (slack :location (recipe
+                                                        :fetcher github
+                                                        :repo "lesliebinbin/emacs-slack"
+                                                        ))
                                       ob-cypher
                                       format-all
                                       clomacs
@@ -502,7 +516,7 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 90
+   dotspacemacs-inactive-transparency 50
 
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
@@ -722,6 +736,52 @@ before packages are loaded."
      ))
   (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
+;; Make org mode to latex auto break line
+      (setq org-latex-listings 'minted
+            org-latex-packages-alist
+            '(("" "minted"))
+            org-latex-pdf-process
+            '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+      (setq org-latex-minted-options '(("breaklines" "true")
+                                       ("breakanywhere" "true")))
+
+;; modify org-files-app
+(setq org-file-apps
+      '(
+        (auto-mode . emacs)
+        ("\\.x?html?\\'" . system)
+        ("\\.pdf\\'" . emacs)
+        )
+      )
+
+(setq pdf-view-use-imagemagick t)
+
+(setq  org-tree-slide-slide-in-effect t
+       org-tree-slide-activate-message "Presentation Start"
+       org-tree-slide-deactivate-message "Thank You"
+       org-tree-slide-header t
+       org-tree-slide-breadcrumbs " // "
+       org-image-actual-width nil
+       org-todo-keywords '(
+                           (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+                           (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(r)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")
+                           )
+       )
+
+(defun efs/presentation-end ()
+  (text-scale-mode 0))
+
+
+(defun efs/presentation-setup ()
+  (setq text-scale-mode-amount 3)
+  (org-display-inline-images)
+  (text-scale-mode 1)
+  )
+
+(add-hook 'org-tree-slide-play 'efs/presentation-setup)
+(add-hook 'org-tree-slide-stop 'efs/presentation-end)
   ;; tabnine configuration
   (require 'company-tabnine)
   (add-to-list 'company-backends #'company-tabnine)
@@ -731,7 +791,116 @@ before packages are loaded."
   (pdf-tools-install)
   ;; configure alert notification for slack
   (require 'alert)
-  (setq alert-default-style 'osx-notifier)
+  (setq alert-default-style 'notifier)
+;;mu4e
+(require 'mu4e)
+(with-eval-after-load 'mu4e (require 'mu4e-conversation))
+(setq
+      mail-user-agent 'mu4e-user-agent
+      mu4e-maildir "~/.mail"
+      mu4e-update-interval 240
+      mu4e-view-show-images t
+      mu4e-view-show-addresses t
+      org-mu4e-convert-to-html t)
+(setq mu4e-contexts
+      `(
+        ;; WORK EMAIL
+        ,(make-mu4e-context
+          :name "Gmail"
+          :enter-func (lambda () (mu4e-message "Switch to the Work Email Context"))
+          ;; leave-func not defined
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches msg
+                                                              :to (getenv "WORK_EMAIL"))))
+          :vars '(  ( user-mail-address      . (getenv "WORK_EMAIL"))
+                    ( user-full-name     . "Leslie Wong" )
+                    (mu4e-get-mail-command . "offlineimap -a WORK_EMAIL")
+                    (mu4e-sent-messages-behavior . delete)
+                    ;; (mu4e-sent-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Sent Mail")
+                    (mu4e-sent-folder . (format "/%s/[Work].Sent Mail" (getenv "WORK_EMAIL")))
+                    ;; (mu4e-drafts-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Drafts")
+                    (mu4e-sent-folder . (format "/%s/[Work].Drafts" (getenv "WORK_EMAIL")))
+                    ;; (mu4e-trash-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Trash")
+                    (mu4e-sent-folder . (format "/%s/[Work].Trash" (getenv "WORK_EMAIL")))
+                    ;; (mu4e-retfile-folder . "/lesliebinbin19900129@gmail.com/[Gmail].All Mail")
+                    (mu4e-sent-folder . (format "/%s/[Work].All Mail" (getenv "WORK_EMAIL")))
+                    ;; (user-mail-address . "lesliebinbin19900129@gmail.com")
+                    (user-mail-address . (getenv "WORK_EMAIL"))
+                    (smtpmail-stream-type . ssl)
+                    (smtpmail-default-smtp-server . (getenv "WORK_SMTP"))
+                    (smtpmail-smtp-server . (getenv "WORK_SMTP"))
+                    (smtpmail-smtp-service . 465)
+                    ;; (smtpmail-smtp-user . "lesliebinbin19900129@gmail.com")
+                    (smtpmail-smtp-user . (getenv "WORK_EMAIL"))
+                    (smtpmail-debug-verb . t)
+                    (send-mail-function . smtpmail-send-it)
+                    ))
+        ;; WORK EMAIL
+        ;; UNI EMAIL
+        ,(make-mu4e-context
+          :name "UQ"
+          :enter-func (lambda () (mu4e-message "Switch to the Uni Email context"))
+          ;; leave-func not defined
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches msg
+                                                              :to (getenv "UNI_EMAIL"))))
+          :vars '(  ( user-mail-address      . (getenv "UNI_EMAIL"))
+                    ( user-full-name     . "Zhibin Huang" )
+                    (mu4e-get-mail-command . "offlineimap -a UNI_EMAIL")
+                    (mu4e-sent-messages-behavior . delete)
+                    (mu4e-sent-folder . (format "/%s/[Uni].Sent Mail" (getenv "UNI_EMAIL")))
+                    (mu4e-sent-folder . (format "/%s/[Uni].Drafts" (getenv "UNI_EMAIL")))
+                    (mu4e-sent-folder . (format "/%s/[Uni].Trash" (getenv "UNI_EMAIL")))
+                    (mu4e-sent-folder . (format "/%s/[Uni].All Mail" (getenv "UNI_EMAIL")))
+                    (user-mail-address . (getenv "UNI_EMAIL"))
+                    (smtpmail-default-smtp-server . (getenv "UNI_SMTP"))
+                    (smtpmail-smtp-server . (getenv "UNI_SMTP"))
+                    (smtpmail-stream-type . starttls)
+                    (smtpmail-smtp-service . 587)
+                    (smtpmail-smtp-user . (getenv "UNI_EMAIL"))
+                    (smtpmail-debug-verb . t)
+                    (send-mail-function . smtpmail-send-it)
+                    ))
+        ;; UNI EMAIL
+
+        ))
+
+
+(when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
+(with-eval-after-load 'mu4e-alert
+  (mu4e-alert-set-default-style 'notifications))
+;;mu4e
+;; configure emmet
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
+;; configure remote tramp
+(setq-default enable-remote-dir-locals t)
+(setq shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *")
+;; configure org-msg
+(require 'org-msg)
+(setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil"
+      org-msg-startup "hidestars indent inlineimages"
+      org-msg-greeting-fmt "\nHi *%s*,\n\n"
+      org-msg-greeting-name-limit 3
+      org-msg-signature "
+
+Best Regards,
+
+#+begin_signature
+-- *Leslie Wong* \\\\
+/One Emacs to rule them all/
+#+end_signature")
+(org-msg-mode)
+;; configure Dap
+(require 'dap-ruby)
+;; enable local variable evaluate
+(setq enable-local-variables :all)
+;; enable transparency
+(spacemacs/enable-transparency)
   )
 
 
