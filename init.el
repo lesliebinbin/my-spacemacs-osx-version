@@ -40,7 +40,6 @@ This function should only modify configuration layer settings."
      docker
      pandoc
      cmake
-     chrome
      (erc :variables
           erc-enable-sasl-auth t)
      prettier
