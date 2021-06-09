@@ -35,6 +35,8 @@ This function should only modify configuration layer settings."
    '(typescript
      csv
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     (xclipboard :variables xclipboard-enable-cliphist t)
+     imenu-list
      restclient
      command-log
      docker
@@ -103,6 +105,7 @@ This function should only modify configuration layer settings."
 
      git
      semantic
+     selectric
      github
      ;; (geolocation :variables
      ;;              geolocation-enable-automatic-theme-changer t
@@ -123,6 +126,7 @@ This function should only modify configuration layer settings."
                markdown-open-command "/usr/local/bin/markdown"
                )
      multiple-cursors
+     outshine
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t
