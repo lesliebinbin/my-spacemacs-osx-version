@@ -36,11 +36,20 @@ This function should only modify configuration layer settings."
      graphviz
      alda
                 restclient
+                (eaf :variables
+                     eaf--webengine-include-private-codec "True"
+                     )
                 ;;(php :variables php-backend 'lsp)
                 erc
                 dotnet
+                quickurl
                 phoenix
                 epub
+                ansible
+                chrome
+                terraform
+                (xclipboard :variables xclipboard-enable-cliphist t)
+                (ibuffer :variables ibuffer-group-buffers-by 'projects)
                 ;; (elixir :variables
                 ;;         elixir-backend 'lsp
                 ;;         elixir-ls-path "/home/lesliebinbin/elixir-ls-1.10.4")
@@ -114,12 +123,18 @@ This function should only modify configuration layer settings."
                       ruby-enable-enh-ruby-mode t
                       ruby-backend 'lsp
                       ruby-version-manager 'rbenv
+                      ruby-test-runner 'rspec
+                      ruby-prettier-on-save t
                       )
                 (lua :variables
                      lua-backend 'lsp-emmy
                      lua-lsp-emmy-enable-file-watchers t
                      lua-lsp-emmy-jar-path "/mnt/another-disk/whole_project/spaceplatform-config-server/EmmyLua-LanguageServer/EmmyLua-LS/build/libs/EmmyLua-LS-all.jar"
                      lua-indent-level 1
+                     )
+                (ess :variables
+                     ess-r-backend 'lsp
+                     ess-assign-key "\M--"
                      )
                 ruby-on-rails
                 (kotlin :variables
@@ -132,9 +147,9 @@ This function should only modify configuration layer settings."
                 asm
                 (go :variables
                     go-backend 'lsp
-                    go-tab-width 4
+                    go-tab-width 2
                     go-use-gometalinter t
-                    ;; godoc-at-point-function 'godoc-gogetdoc
+                    godoc-at-point-function 'godoc-gogetdoc
                     gofmt-command "goimports")
                 hy
                 (typescript :variables
@@ -214,7 +229,7 @@ This function should only modify configuration layer settings."
                        shell-default-position 'bottom)
                 spell-checking
                 syntax-checking
-                ipython-notebook
+                (ipython-notebook :variables ein-backend 'jupyter)
                 treemacs
                 version-control
                 docker
@@ -276,9 +291,12 @@ This function should only modify configuration layer settings."
      calfw-org
      org-msg
      mu4e-conversation
+     ox-gemini
+     elpher
      jupyter
      ;; selectric-mode
      quickrun
+     inf-clojure
      flutter
      latex-preview-pane
      ob-cypher
@@ -288,9 +306,9 @@ This function should only modify configuration layer settings."
      org-tree-slide
      ob-ipython
 
-     (pdf-continuous-scroll-mode :location (recipe
-                                            :fetcher github
-                                            :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+     ;; (pdf-continuous-scroll-mode :location (recipe
+     ;;                                        :fetcher github
+     ;;                                        :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
      helm-org-ql
      inf-mongo
      graphql-mode

@@ -121,7 +121,7 @@
        (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
        )
      (config-my-pdf-tools)
-     (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
+     ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
    #+end_src
 
 ** Configure Emmet
@@ -473,4 +473,5 @@
 ** Aliases
    #+begin_src emacs-lisp :tangle yes
      (defalias 'epa--decode-coding-string 'decode-coding-string)
+     (require 'elpher)
    #+end_src
