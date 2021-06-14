@@ -38,6 +38,7 @@ This function should only modify configuration layer settings."
      (xclipboard :variables xclipboard-enable-cliphist t)
      imenu-list
      restclient
+     xkcd
      command-log
      docker
      pandoc
@@ -46,6 +47,7 @@ This function should only modify configuration layer settings."
           erc-enable-sasl-auth t)
      prettier
      web-beautify
+     eaf
      spotify
      (python :variables
              python-fill-column 79
@@ -66,7 +68,7 @@ This function should only modify configuration layer settings."
      spacemacs-language
      kubernetes
      vagrant
-     exwm
+     ;; exwm
      yaml
      html
      tmux
@@ -103,7 +105,11 @@ This function should only modify configuration layer settings."
                  node-add-modules-path t
                  js2-include-node-externs t)
 
-     git
+     (git :variables
+          git-enable-magit-gitflow-plugin t
+          git-enable-magit-todos-plugin t
+          )
+     (node :variables node-add-modules-path t)
      semantic
      selectric
      github
@@ -113,7 +119,10 @@ This function should only modify configuration layer settings."
      ;;              )
      (helm :variables
            helm-enable-auto-resize t)
-     (vue :variables vue-backend 'lsp)
+     (vue :variables
+          vue-backend 'lsp
+          lsp-vetur-format-default-formatter-js "none"
+          )
      (lsp :variables
           lsp-lens-enable t
           lsp-headerline-breadcrumb-segments '(project file symbols)
@@ -199,9 +208,9 @@ This function should only modify configuration layer settings."
                                       quickrun
                                       flutter
                                       latex-preview-pane
-                                      (pdf-continuous-scroll-mode :location (recipe
-                                                                             :fetcher github
-                                                                             :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+                                      ;; (pdf-continuous-scroll-mode :location (recipe
+                                      ;;                                        :fetcher github
+                                      ;;                                        :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
                                       (slack :location (recipe
                                                         :fetcher github
                                                         :repo "lesliebinbin/emacs-slack"
@@ -514,12 +523,12 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   ;; dotspacemacs-active-transparency 90
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 50
+   ;; dotspacemacs-inactive-transparency 50
 
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
@@ -699,7 +708,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (setq treemacs-width 35
+  (setq treemacs-width 30
         projectile-rails-vanilla-command "bin/rails"
         projectile-rails-spring-command "bin/spring"
         projectile-rails-zeus-command "bin/zeus"
@@ -789,7 +798,7 @@ before packages are loaded."
   (require 'company-tabnine)
   (add-to-list 'company-backends #'company-tabnine)
   ;; pdf configuration
-  (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
+  ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
   (pdf-tools-install)
   ;; configure alert notification for slack
@@ -923,7 +932,8 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
-   '(typescript-mode csv-mode restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well yaml-mode yasnippet-snippets ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit spaceline-all-the-icons smeargle slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quickrun pug-mode projectile-rails prettier-js popwin password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file npm-mode nodejs-repl nameless multi-line mmm-mode minitest markdown-toc magit-section macrostep lsp-ui lsp-origami lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag grip-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flx-ido feature-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu es-mode enh-ruby-mode emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish devdocs define-word dap-mode company-web column-enforce-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell)))
+   '(typescript-mode csv-mode restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well yaml-mode yasnippet-snippets ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit spaceline-all-the-icons smeargle slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quickrun pug-mode projectile-rails prettier-js popwin password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file npm-mode nodejs-repl nameless multi-line mmm-mode minitest markdown-toc magit-section macrostep lsp-ui lsp-origami lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag grip-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flx-ido feature-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu es-mode enh-ruby-mode emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish devdocs define-word dap-mode company-web column-enforce-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell))
+ '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
