@@ -39,10 +39,12 @@ This function should only modify configuration layer settings."
      imenu-list
      restclient
      xkcd
+     outshine
      command-log
      docker
      pandoc
      cmake
+     epub
      (erc :variables
           erc-enable-sasl-auth t)
      prettier
@@ -135,7 +137,6 @@ This function should only modify configuration layer settings."
                markdown-open-command "/usr/local/bin/markdown"
                )
      multiple-cursors
-     outshine
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t
@@ -380,13 +381,13 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         material
                          dracula
+                         material
                          twilight
-                         wheatgrass
-                         zen-and-art
                          monochrome
                          afternoon
+                         zen-and-art
+                         wheatgrass
                          spacemacs-dark
                          spacemacs-light
                          )
@@ -398,7 +399,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator curve :separator-scale 1)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -444,7 +445,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -523,7 +524,7 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   ;; dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 90
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
@@ -803,7 +804,7 @@ before packages are loaded."
   (pdf-tools-install)
   ;; configure alert notification for slack
   (require 'alert)
-  (setq alert-default-style 'notifier)
+  (setq alert-default-style 'osx-notifier)
 ;;mu4e
 (require 'mu4e)
 (with-eval-after-load 'mu4e (require 'mu4e-conversation))
@@ -913,7 +914,20 @@ Best Regards,
 (setq enable-local-variables :all)
 ;; enable transparency
 (spacemacs/enable-transparency)
-  )
+(add-hook 'rust-mode-hook (lambda ()
+                            (require 'dap-lldb)
+                            (require 'dap-gdb-lldb)
+                            (dap-gdb-lldb-setup)
+                            (dap-register-debug-template
+                             "Rust::LLDB Run Configuration"
+                             (list :type "lldb"
+                                   :request "launch"
+                                   :name "LLDB::Run"
+	                                 :gdbpath "rust-lldb"
+                                   :target nil
+                                   :cwd nil))
+                            ))
+)
 
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -932,7 +946,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
-   '(typescript-mode csv-mode restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well yaml-mode yasnippet-snippets ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit spaceline-all-the-icons smeargle slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quickrun pug-mode projectile-rails prettier-js popwin password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file npm-mode nodejs-repl nameless multi-line mmm-mode minitest markdown-toc magit-section macrostep lsp-ui lsp-origami lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag grip-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flx-ido feature-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu es-mode enh-ruby-mode emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish devdocs define-word dap-mode company-web column-enforce-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell))
+   '(doom-modeline shrink-path typescript-mode csv-mode restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well yaml-mode yasnippet-snippets ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit spaceline-all-the-icons smeargle slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe restart-emacs rbenv rainbow-delimiters quickrun pug-mode projectile-rails prettier-js popwin password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-brain open-junk-file npm-mode nodejs-repl nameless multi-line mmm-mode minitest markdown-toc magit-section macrostep lsp-ui lsp-origami lorem-ipsum livid-mode link-hint json-navigator js2-refactor js-doc indent-guide impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-lsp helm-ls-git helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag grip-mode google-translate golden-ratio gnuplot gitignore-templates github-search github-clone gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ gist gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flycheck-package flycheck-elsa flx-ido feature-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu es-mode enh-ruby-mode emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish devdocs define-word dap-mode company-web column-enforce-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent add-node-modules-path ace-link ace-jump-helm-line ac-ispell))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
