@@ -36,9 +36,7 @@ This function should only modify configuration layer settings."
      graphviz
      alda
                 restclient
-                (eaf :variables
-                     eaf--webengine-include-private-codec "True"
-                     )
+                eaf
                 ;;(php :variables php-backend 'lsp)
                 erc
                 dotnet
@@ -266,7 +264,7 @@ This function should only modify configuration layer settings."
                elasticsearch
               ;; google-calendar
                search-engine
-               tabnine
+               ;; tabnine
                csv
                emms-player
                (twitter :variables twittering-use-master-password t)
