@@ -34,6 +34,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(typescript
      csv
+     debug
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (xclipboard :variables xclipboard-enable-cliphist t)
      imenu-list
@@ -58,7 +59,6 @@ This function should only modify configuration layer settings."
              python-format-on-save t
              python-sort-imports-on-save t
              python-pipenv-activate nil)
-     ipython-notebook
      (ranger :variables
              ranger-show-preview t
              ranger-show-hidden t
@@ -84,15 +84,13 @@ This function should only modify configuration layer settings."
      (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t
-      auto-completion-enable-help-tooltip nil
       auto-completion-enable-sort-by-usage t
-      auto-completion-complete-with-key-sequence-delay 0.5
-      auto-completion-idle-delay 1
+      auto-completion-idle-delay 1.2
       auto-completion-use-company-box t
-      auto-completion-minimum-prefix-length 3
       auto-completion-complete-with-key-sequence "jk"
       :disabled-for org git
       )
+     java
      better-defaults
      emacs-lisp
      (rust :variables
@@ -204,7 +202,6 @@ This function should only modify configuration layer settings."
                                       calfw-org
                                       org-msg
                                       mu4e-conversation
-                                      jupyter
                                       selectric-mode
                                       quickrun
                                       flutter
@@ -381,8 +378,8 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         dracula
                          material
+                         dracula
                          twilight
                          monochrome
                          afternoon
@@ -501,7 +498,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar nil
+   dotspacemacs-loading-progress-bar t
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
@@ -796,8 +793,8 @@ before packages are loaded."
 (add-hook 'org-tree-slide-play 'efs/presentation-setup)
 (add-hook 'org-tree-slide-stop 'efs/presentation-end)
   ;; tabnine configuration
-  (require 'company-tabnine)
-  (add-to-list 'company-backends #'company-tabnine)
+  ;; (require 'company-tabnine)
+  ;; (add-to-list 'company-backends #'company-tabnine)
   ;; pdf configuration
   ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
