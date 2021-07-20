@@ -85,9 +85,7 @@ This function should only modify configuration layer settings."
       :variables
       auto-completion-enable-snippets-in-popup t
       auto-completion-enable-sort-by-usage t
-      auto-completion-idle-delay 1.2
       auto-completion-use-company-box t
-      auto-completion-complete-with-key-sequence "jk"
       :disabled-for org git
       )
      java
@@ -121,7 +119,6 @@ This function should only modify configuration layer settings."
            helm-enable-auto-resize t)
      (vue :variables
           vue-backend 'lsp
-          lsp-vetur-format-default-formatter-js "none"
           )
      (lsp :variables
           lsp-lens-enable t
