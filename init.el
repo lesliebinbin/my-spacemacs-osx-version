@@ -206,10 +206,10 @@ This function should only modify configuration layer settings."
                                       ;; (pdf-continuous-scroll-mode :location (recipe
                                       ;;                                        :fetcher github
                                       ;;                                        :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
-                                      (slack :location (recipe
-                                                        :fetcher github
-                                                        :repo "lesliebinbin/emacs-slack"
-                                                        ))
+                                      ;; (slack :location (recipe
+                                      ;;                   :fetcher github
+                                      ;;                   :repo "lesliebinbin/emacs-slack"
+                                      ;;                   ))
                                       ob-cypher
                                       format-all
                                       clomacs
