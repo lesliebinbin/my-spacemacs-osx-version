@@ -86,6 +86,9 @@ This function should only modify configuration layer settings."
       auto-completion-enable-snippets-in-popup t
       auto-completion-enable-sort-by-usage t
       auto-completion-use-company-box t
+      auto-completion-complete-with-key-sequence-delay 0.5
+      auto-completion-minimum-prefix-length 3
+      auto-completion-idle-delay 1
       :disabled-for org git
       )
      java
@@ -144,7 +147,6 @@ This function should only modify configuration layer settings."
           )
      ruby-on-rails
      (ruby :variables
-           ruby-enable-enh-ruby-mode t
            ruby-backend 'lsp
            ruby-version-manager 'rbenv
            )
