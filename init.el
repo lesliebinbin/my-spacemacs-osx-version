@@ -144,6 +144,9 @@ This function should only modify configuration layer settings."
           org-agenda-start-with-log-mode t
           org-log-done 'timer
           org-log-into-drawer t
+          org-enable-roam-support t
+          org-enable-roam-server t
+          org-enable-roam-protocol t
           )
      ruby-on-rails
      (ruby :variables
@@ -689,7 +692,9 @@ See the header of this file for more information."
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
-If you are unsure, try setting them in `dotspacemacs/user-config' first.")
+If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq org-roam-v2-ack t)
+  )
 
 
 (defun dotspacemacs/user-load ()
