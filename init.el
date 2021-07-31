@@ -118,7 +118,6 @@ This function should only modify configuration layer settings."
                 ;;perl6
                 (vue :variables vue-backend 'lsp)
                 (ruby :variables
-                      ruby-enable-enh-ruby-mode t
                       ruby-backend 'lsp
                       ruby-version-manager 'rbenv
                       ruby-test-runner 'rspec
