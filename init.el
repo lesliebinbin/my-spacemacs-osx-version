@@ -35,6 +35,7 @@ This function should only modify configuration layer settings."
    '(typescript
      csv
      debug
+     quickurl
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (xclipboard :variables xclipboard-enable-cliphist t)
      imenu-list
@@ -215,6 +216,10 @@ This function should only modify configuration layer settings."
                                       ;;                   :fetcher github
                                       ;;                   :repo "lesliebinbin/emacs-slack"
                                       ;;                   ))
+                                      (wat-mode :location (recipe
+                                                           :fetcher github
+                                                           :repo "devonsparks/wat-mode"
+                                                           ))
                                       ob-cypher
                                       format-all
                                       clomacs
@@ -380,14 +385,15 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         monokai
+                         spacemacs-dark
+                         monochrome
                          material
                          dracula
                          twilight
-                         monochrome
                          afternoon
                          zen-and-art
                          wheatgrass
-                         spacemacs-dark
                          spacemacs-light
                          )
 
@@ -928,6 +934,8 @@ Best Regards,
                                    :target nil
                                    :cwd nil))
                             ))
+;; webassembly
+(require 'wat-mode)
 )
 
 
