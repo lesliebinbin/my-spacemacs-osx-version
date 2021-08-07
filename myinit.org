@@ -475,3 +475,7 @@
      (defalias 'epa--decode-coding-string 'decode-coding-string)
      (require 'elpher)
    #+end_src
+** Emacs Framework Application
+   #+begin_src emacs-lisp :tangle yes
+     (require 'eaf)
+   #+end_src
