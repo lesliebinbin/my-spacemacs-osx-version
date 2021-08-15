@@ -371,9 +371,7 @@
    #+end_src
 ** Config SpacemacsOs
    #+begin_src emacs-lisp :tangle yes
-     (setq exwm-workspace-number 6)
      (require 'exwm-randr)
-     (setq exwm-randr-workspace-output-plist '(0 "eDP-1-1" 1 "HDMI-1-1" 2 "HDMI-1-1" 3 "HDMI-1-1"))
      (add-hook 'exwm-randr-screen-change-hook
                (lambda ()
                  (start-process-shell-command
@@ -381,7 +379,6 @@
                  (message "Come on, my codes must be f**king works.")
                  )
                )
-     (exwm-randr-enable)
    #+end_src
 
 
@@ -478,4 +475,5 @@
 ** Emacs Framework Application
    #+begin_src emacs-lisp :tangle yes
      (require 'eaf)
+     (require 'eaf-jupyter)
    #+end_src

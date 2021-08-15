@@ -226,7 +226,7 @@ This function should only modify configuration layer settings."
                        shell-default-position 'bottom)
                 spell-checking
                 syntax-checking
-                (ipython-notebook :variables ein-backend 'jupyter)
+                ipython-notebook
                 treemacs
                 version-control
                 docker
@@ -243,8 +243,11 @@ This function should only modify configuration layer settings."
                 (geolocation :variables
                              geolocation-enable-location-service t
                              geolocation-enable-weather-forecast t)
-                exwm
-
+                (exwm :variables
+                      exwm-workspace-number 6
+                      exwm-randr-workspace-monitor-plist '(0 "eDP-1-1" 1 "HDMI-1-1" 2 "HDMI-1-1" 3 "HDMI-1-1")
+                      exwm-replace nil
+                      )
 
                 spotify
                 multiple-cursors
@@ -707,6 +710,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
   )
 
 (defun dotspacemacs/user-load ()
