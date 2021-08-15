@@ -33,9 +33,11 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(typescript
+     (nim :variables nim-backend 'lsp)
      csv
      debug
      quickurl
+     ipython-notebook
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      (xclipboard :variables xclipboard-enable-cliphist t)
      imenu-list
@@ -44,9 +46,28 @@ This function should only modify configuration layer settings."
      outshine
      command-log
      docker
+     common-lisp
      pandoc
      cmake
      epub
+     (c-c++ :variables
+            c-c++-default-mode-headers 'c++-mode
+            ;;c-c++-backend 'rtags
+            ;; c-c++-backend 'lsp-clangd
+            c-c++-backend 'lsp-ccls
+            c-c++-adopt-subprojects t
+            c-c++-lsp-enable-semantic-highlight 'rainbow
+            c-c++-enable-clang-support t
+            ;; the configuration of clangd perhaps
+            ;;c++-enable-organize-includes-on-save t
+            c-c++-enable-clang-format-on-save t
+            c-c++-enable-google-style t
+            c-c++-enable-google-newline t
+            ;; c-c++-enable-auto-newline t
+            )
+     (cmake :variables
+            cmake-enable-cmake-ide-support t
+            cmake-backend 'lsp)
      (erc :variables
           erc-enable-sasl-auth t)
      prettier
@@ -699,7 +720,16 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq org-roam-v2-ack t)
+  ;; enable remote tramp
+  (setq-default enable-remote-dir-locals t)
+  (setq org-roam-v2-ack t
+        ;; optimise local variable evaluate and babel
+        enable-local-variables :all
+        ;; remote zsh related
+        shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *"
+        )
+  ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
+  (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
   )
 
 
@@ -751,6 +781,7 @@ before packages are loaded."
      (shell . t)
      (dot . t)
      (ipython . t)
+     (ein . t)
      (python . t)
      (cypher . t)
      ))
@@ -803,8 +834,8 @@ before packages are loaded."
 (add-hook 'org-tree-slide-play 'efs/presentation-setup)
 (add-hook 'org-tree-slide-stop 'efs/presentation-end)
   ;; tabnine configuration
-  ;; (require 'company-tabnine)
-  ;; (add-to-list 'company-backends #'company-tabnine)
+  (require 'company-tabnine)
+  (add-to-list 'company-backends #'company-tabnine)
   ;; pdf configuration
   ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
