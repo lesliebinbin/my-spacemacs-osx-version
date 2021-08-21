@@ -300,7 +300,6 @@ This function should only modify configuration layer settings."
      flutter
      latex-preview-pane
      ob-cypher
-     bazel-mode
      format-all
      clomacs
      org-tree-slide

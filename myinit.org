@@ -421,7 +421,6 @@
      (spacemacs/set-leader-keys "oc" 'company-complete)
      (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
      (spacemacs/set-leader-keys "on" 'pretty-the-nim)
-     (spacemacs/set-leader-keys "ob" 'bazel-mode-buildifier)
      ;; config for nimpretty command
    #+end_src
 
