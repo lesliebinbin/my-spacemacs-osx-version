@@ -28,7 +28,7 @@ This function should only modify configuration layer settings."
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/custom-layers/")
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
@@ -730,6 +730,32 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         )
   ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
   (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
+  ;;eaf application
+  (with-eval-after-load 'eaf
+                (let ((eaf-apps (list 'eaf-jupyter
+                                      'eaf-browser
+                                      'eaf-airshare
+                                      'eaf-file-browser
+                                      'eaf-file-manager
+                                      'eaf-file-sender
+                                      'eaf-music-player
+                                      'eaf-system-monitor
+                                      'eaf-mindmap
+                                      'eaf-org-previewer
+                                      'eaf-terminal
+                                      'eaf-netease-cloud-music
+                                      'eaf-video-player
+                                      'eaf-js-video-player
+                                      'eaf-image-viewer
+                                      'eaf-demo
+                                      'eaf-vue-demo
+                                      'eaf-pdf-viewer
+                                      'eaf-markdown-previewer
+                                      'eaf-camera
+                                      )))
+                  (dolist (app eaf-apps)
+                    (require app nil 'noerror))))
+  ;;eaf application
   )
 
 
