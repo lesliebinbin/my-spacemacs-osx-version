@@ -77,6 +77,7 @@ This function should only modify configuration layer settings."
      (python :variables
              python-fill-column 79
              python-backend 'lsp
+             python-language-server 'mspyls
              python-formatter 'yapf
              python-format-on-save t
              python-sort-imports-on-save t
@@ -110,7 +111,7 @@ This function should only modify configuration layer settings."
       auto-completion-use-company-box t
       auto-completion-complete-with-key-sequence-delay 0.5
       auto-completion-minimum-prefix-length 3
-      auto-completion-idle-delay 1
+      auto-completion-idle-delay 0.0
       :disabled-for org git
       )
      java
@@ -729,7 +730,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *"
         )
   ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
-  (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
+  ;; (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
   )
 
 
@@ -834,8 +835,8 @@ before packages are loaded."
 (add-hook 'org-tree-slide-play 'efs/presentation-setup)
 (add-hook 'org-tree-slide-stop 'efs/presentation-end)
   ;; tabnine configuration
-  (require 'company-tabnine)
-  (add-to-list 'company-backends #'company-tabnine)
+  ;; (require 'company-tabnine)
+  ;; (add-to-list 'company-backends #'company-tabnine)
   ;; pdf configuration
   ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
