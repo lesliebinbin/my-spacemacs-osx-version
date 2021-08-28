@@ -1,0 +1,3 @@
+[submodule "custom-layers/eaf"]
+	path = custom-layers/eaf
+	url = git@github.com:lesliebinbin/eaf.git
