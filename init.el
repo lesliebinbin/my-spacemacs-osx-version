@@ -77,7 +77,7 @@ This function should only modify configuration layer settings."
      (python :variables
              python-fill-column 79
              python-backend 'lsp
-             python-language-server 'mspyls
+             ;; python-language-server 'mspyls
              python-formatter 'yapf
              python-format-on-save t
              python-sort-imports-on-save t
