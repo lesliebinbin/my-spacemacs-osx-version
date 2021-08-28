@@ -81,6 +81,7 @@ This function should only modify configuration layer settings."
              python-formatter 'yapf
              python-format-on-save t
              python-sort-imports-on-save t
+             python-tab-width 4
              python-pipenv-activate nil)
      (ranger :variables
              ranger-show-preview t
@@ -103,17 +104,16 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; auto-completion
      (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t
       auto-completion-enable-sort-by-usage t
       auto-completion-use-company-box t
       auto-completion-complete-with-key-sequence-delay 0.5
-      auto-completion-minimum-prefix-length 3
       auto-completion-idle-delay 0.0
       :disabled-for org git
       )
+     compleseus
      java
      better-defaults
      emacs-lisp
@@ -835,8 +835,8 @@ before packages are loaded."
 (add-hook 'org-tree-slide-play 'efs/presentation-setup)
 (add-hook 'org-tree-slide-stop 'efs/presentation-end)
   ;; tabnine configuration
-  ;; (require 'company-tabnine)
-  ;; (add-to-list 'company-backends #'company-tabnine)
+  (require 'company-tabnine)
+  (add-to-list 'company-backends #'company-tabnine)
   ;; pdf configuration
   ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
