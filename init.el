@@ -252,6 +252,7 @@ This function should only modify configuration layer settings."
                                       graphql-mode
                                       company-tabnine
                                       pdf-tools
+                                      vscode-dark-plus-theme
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -374,8 +375,8 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((recents . 6)
+                                (projects . 12))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -407,6 +408,7 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         vscode-dark-plus
                          monokai
                          spacemacs-dark
                          monochrome
