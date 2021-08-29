@@ -19,4 +19,8 @@
                                 (> ARG 0)))
   (if dotcrafter-basic-mode
       (message "dotcrafter-basic-mode activated!")
-    (message "dotcrafter-basic-mode deactivated!")))
+    (message "dotcrafter-basic-mode deactivated!"))
+  (run-hooks 'dotcrafter-basic-mode-hook))
+
+(defvar dotcrafter-basic-mode-hook nil "The hook for dotcrafter-basic-mode")
+
