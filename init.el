@@ -733,6 +733,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         )
   ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
   ;; (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
+  ;; add path to custom-modes
+  (add-to-list 'load-path (substitute-in-file-name "$HOME/.spacemacs.d/custom-modes") t)
   )
 
 
@@ -838,7 +840,8 @@ before packages are loaded."
 (add-hook 'org-tree-slide-stop 'efs/presentation-end)
   ;; tabnine configuration
   (require 'company-tabnine)
-  (add-to-list 'company-backends #'company-tabnine)
+  ;; append to the end of this list
+  (add-to-list 'company-backends #'company-tabnine t)
   ;; pdf configuration
   ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
