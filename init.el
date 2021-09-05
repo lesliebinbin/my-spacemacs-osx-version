@@ -159,6 +159,9 @@ This function should only modify configuration layer settings."
                )
      multiple-cursors
      (org :variables
+          org-ellipsis " ▼"
+          org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")
+          org-hide-emphasis-markers t
           org-enable-github-support t
           org-enable-reveal-js-support t
           org-enable-trello-support t
@@ -253,6 +256,7 @@ This function should only modify configuration layer settings."
                                       company-tabnine
                                       pdf-tools
                                       vscode-dark-plus-theme
+                                      org-bullets
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -791,12 +795,15 @@ before packages are loaded."
      (cypher . t)
      ))
   (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
+  (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda ()
                              (org-indent-mode)
                              (variable-pitch-mode 1)
-                             (auto-fill-mode 0)
                              (visual-line-mode 1)
-                             (setq evil-auto-indent nil)))
+                             (org-bullets-mode 1)
+                             (setq visual-fill-column-width 100
+                                   visual-fill-column-center-text t)
+                             (visual-fill-column-mode 1)))
 ;; Make org mode to latex auto break line
       (setq org-latex-listings 'minted
             org-latex-packages-alist
