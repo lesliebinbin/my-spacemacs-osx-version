@@ -730,6 +730,31 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; enable remote tramp
   (setq-default enable-remote-dir-locals t)
   (setq org-roam-v2-ack t
+        org-roam-completion-everywhere t
+        org-roam-capture-templates '(
+                                     (
+                                      "d" "default" plain
+                                      "%?"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U\n")
+                                      :unnarrowed t
+                                      )
+                                     (
+                                      "l" "programming language" plain
+                                      "* Characteristics:\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                      :unnarrowed t
+                                      )
+                                     ("b" "book notes" plain
+                                      "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                      :unnarrowed t
+                                      )
+                                     ("p" "project" plain
+                                      "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n*Dates\n\n"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags:Project")
+                                      :unnarrowed t
+                                      )
+                                     )
         ;; optimise local variable evaluate and babel
         enable-local-variables :all
         ;; remote zsh related
@@ -766,6 +791,8 @@ before packages are loaded."
   ;; custom shortcut
   (spacemacs/declare-prefix "o" "custom" "Custom Shortcuts")
   (spacemacs/set-leader-keys "of" 'rubocopfmt)
+  (spacemacs/set-leader-keys "oc" 'completion-at-point)
+  (spacemacs/set-leader-keys "oi" 'org-id-get-create)
   ;; slack configuration
   (slack-register-team
    :name (getenv "SLACK_NAME")
