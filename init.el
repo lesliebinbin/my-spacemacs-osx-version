@@ -1027,6 +1027,8 @@ Best Regards,
                             ))
 ;; webassembly
 (require 'wat-mode)
+;; org-roam-node
+(require 'org-roam-node)
 )
 
 
