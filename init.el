@@ -791,7 +791,12 @@ before packages are loaded."
      (cypher . t)
      ))
   (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
-  (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  (add-hook 'org-mode-hook (lambda ()
+                             (org-indent-mode)
+                             (variable-pitch-mode 1)
+                             (auto-fill-mode 0)
+                             (visual-line-mode 1)
+                             (setq evil-auto-indent nil)))
 ;; Make org mode to latex auto break line
       (setq org-latex-listings 'minted
             org-latex-packages-alist
@@ -841,7 +846,7 @@ before packages are loaded."
   ;; tabnine configuration
   (require 'company-tabnine)
   ;; append to the end of this list
-  (add-to-list 'company-backends #'company-tabnine t)
+  (add-to-list 'company-backends #'company-tabnine)
   ;; pdf configuration
   ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
   (require 'pdf-tools)
