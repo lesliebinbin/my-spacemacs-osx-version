@@ -755,6 +755,13 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
                                       :unnarrowed t
                                       )
                                      )
+        org-roam-dailies-capture-templates '(
+                                             (
+                                              "d" "default" entry
+                                              "* %<%I:%M %p>: %?"
+                                              :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+                                              )
+                                             )
         ;; optimise local variable evaluate and babel
         enable-local-variables :all
         ;; remote zsh related
@@ -792,7 +799,15 @@ before packages are loaded."
   (spacemacs/declare-prefix "o" "custom" "Custom Shortcuts")
   (spacemacs/set-leader-keys "of" 'rubocopfmt)
   (spacemacs/set-leader-keys "oc" 'completion-at-point)
-  (spacemacs/set-leader-keys "oi" 'org-id-get-create)
+  (spacemacs/declare-prefix "or" "roam" "Org Roam")
+  (spacemacs/set-leader-keys "ori" 'org-id-get-create)
+  (spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
+  (spacemacs/set-leader-keys "ordt" 'org-roam-dailies-capture-today)
+  (spacemacs/set-leader-keys "ordy" 'org-roam-dailies-capture-yesterday)
+  (spacemacs/set-leader-keys "ordT" 'org-roam-dailies-capture-tomorrow)
+  (spacemacs/set-leader-keys "ordd" 'org-roam-dailies-capture-date)
+  (spacemacs/set-leader-keys "ordn" 'org-roam-dailies-goto-next-note)
+  (spacemacs/set-leader-keys "ordp" 'org-roam-dailies-goto-previous-note)
   ;; slack configuration
   (slack-register-team
    :name (getenv "SLACK_NAME")
