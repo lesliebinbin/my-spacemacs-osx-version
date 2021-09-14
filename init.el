@@ -119,7 +119,8 @@ This function should only modify configuration layer settings."
      emacs-lisp
      (rust :variables
            rust-backend 'lsp
-           rust-format-on-save t)
+           rust-format-on-save t
+           cargo-process-reload-on-modify t)
      import-js
      (javascript :variables
                  javascript-import-tool 'import-js
@@ -250,6 +251,7 @@ This function should only modify configuration layer settings."
                                       clomacs
                                       org-tree-slide
                                       ob-ipython
+                                      ob-nim
                                       helm-org-ql
                                       inf-mongo
                                       graphql-mode
@@ -835,6 +837,7 @@ before packages are loaded."
      (ein . t)
      (python . t)
      (cypher . t)
+     (nim . t)
      ))
   (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
   (require 'org-bullets)
