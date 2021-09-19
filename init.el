@@ -111,7 +111,6 @@ This function should only modify configuration layer settings."
       auto-completion-use-company-box t
       auto-completion-complete-with-key-sequence-delay 0.5
       auto-completion-idle-delay 0.0
-      :disabled-for org git
       )
      compleseus
      java
@@ -770,7 +769,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *"
         )
   ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
-  ;; (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
   ;; add path to custom-modes
   (add-to-list 'load-path (substitute-in-file-name "$HOME/.spacemacs.d/custom-modes") t)
   )
@@ -800,7 +798,9 @@ before packages are loaded."
   ;; custom shortcut
   (spacemacs/declare-prefix "o" "custom" "Custom Shortcuts")
   (spacemacs/set-leader-keys "of" 'rubocopfmt)
-  (spacemacs/set-leader-keys "oc" 'completion-at-point)
+  (spacemacs/declare-prefix "oc" "completion" "Completions")
+  (spacemacs/set-leader-keys "occ" 'completion-at-point)
+  (spacemacs/set-leader-keys "oct" 'company-tabnine)
   (spacemacs/declare-prefix "or" "roam" "Org Roam")
   (spacemacs/set-leader-keys "ori" 'org-id-get-create)
   (spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
@@ -895,17 +895,13 @@ before packages are loaded."
 
 (add-hook 'org-tree-slide-play 'efs/presentation-setup)
 (add-hook 'org-tree-slide-stop 'efs/presentation-end)
-  ;; tabnine configuration
-  (require 'company-tabnine)
-  ;; append to the end of this list
-  (add-to-list 'company-backends #'company-tabnine)
-  ;; pdf configuration
-  ;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
-  (require 'pdf-tools)
-  (pdf-tools-install)
+;; pdf configuration
+;; (add-hook 'pdf-view-mode-hook 'pdf-continuous-scroll-mode)
+(require 'pdf-tools)
+(pdf-tools-install)
   ;; configure alert notification for slack
-  (require 'alert)
-  (setq alert-default-style 'osx-notifier)
+(require 'alert)
+(setq alert-default-style 'osx-notifier)
 ;;mu4e
 (require 'mu4e)
 (with-eval-after-load 'mu4e (require 'mu4e-conversation))
