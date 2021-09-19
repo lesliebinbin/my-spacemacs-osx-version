@@ -35,6 +35,12 @@ This function should only modify configuration layer settings."
    '(ansible
      graphviz
      alda
+     reddit
+     (solidity :variables
+               solidity-flycheck-solc-checker-active t)
+     (terraform :variables
+                terraform-auto-format-on-save t
+                terraform-backend 'lsp)
                 restclient
                 eaf
                 ;;(php :variables php-backend 'lsp)
@@ -45,7 +51,6 @@ This function should only modify configuration layer settings."
                 epub
                 ansible
                 chrome
-                terraform
                 (xclipboard :variables xclipboard-enable-cliphist t)
                 (ibuffer :variables ibuffer-group-buffers-by 'projects)
                 ;; (elixir :variables
@@ -182,9 +187,8 @@ This function should only modify configuration layer settings."
                                  auto-completion-enable-help-tooltip nil
                                  auto-completion-enable-sort-by-usage t
                                  auto-completion-complete-with-key-sequence-delay 0.5
-                                 auto-completion-idle-delay 1
+                                 auto-completion-idle-delay 0.0
                                  auto-completion-use-company-box t
-                                 auto-completion-minimum-prefix-length 3
                                  auto-completion-complete-with-key-sequence "jk"
                                  :disabled-for org git
                                  )
@@ -220,6 +224,9 @@ This function should only modify configuration layer settings."
                      org-agenda-start-with-log-mode t
                      org-log-done 'timer
                      org-log-into-drawer t
+                     org-enable-roam-support t
+                     org-enable-roam-server t
+                     org-enable-roam-protocol t
                      )
                 (shell :variables
                        shell-default-height 30
@@ -311,6 +318,7 @@ This function should only modify configuration layer settings."
      helm-org-ql
      inf-mongo
      graphql-mode
+     company-tabnine
 
      ;; ivy-hydra
    )
@@ -709,7 +717,41 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (add-hook 'ein:ipynb-mode-hook 'global-company-mode)
+(setq org-roam-v2-ack t
+        org-roam-completion-everywhere t
+        org-roam-capture-templates '(
+                                     (
+                                      "d" "default" plain
+                                      "%?"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+date: %U\n")
+                                      :unnarrowed t
+                                      )
+                                     (
+                                      "l" "programming language" plain
+                                      "* Characteristics:\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                      :unnarrowed t
+                                      )
+                                     ("b" "book notes" plain
+                                      "\n* Source\n\nAuthor: %^{Author}\nTitle: ${title}\nYear: %^{Year}\n\n* Summary\n\n%?"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                      :unnarrowed t
+                                      )
+                                     ("p" "project" plain
+                                      "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n*Dates\n\n"
+                                      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags:Project")
+                                      :unnarrowed t
+                                      )
+                                     )
+        org-roam-dailies-capture-templates '(
+                                             (
+                                              "d" "default" entry
+                                              "* %<%I:%M %p>: %?"
+                                              :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+                                              )
+                                             )
+        )
+
   )
 
 (defun dotspacemacs/user-load ()

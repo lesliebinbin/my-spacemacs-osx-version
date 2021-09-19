@@ -145,7 +145,7 @@
 
 ** Configure Tabnine for Intelligent Code Completion
    #+begin_src emacs-lisp :tangle yes
-     ;; (add-to-list 'spacemacs-default-company-backends #'company-tabnine)
+     (require 'company-tabnine)
    #+end_src
 
 ** Configure Remote Tramp
@@ -399,29 +399,39 @@
 
 ** Custom Keybindings
    #+begin_src emacs-lisp :tangle yes
-     ;; config for quick code run
-     (defun reset-the-cmake-flag ()
-       "reset the cmake ide flag"
-       (interactive)
-       (setq cmake-sentinel-flag nil))
+        ;; config for quick code run
+        (defun reset-the-cmake-flag ()
+          "reset the cmake ide flag"
+          (interactive)
+          (setq cmake-sentinel-flag nil))
 
-     (defun pretty-the-nim ()
-       "format nim file"
-       (interactive)
-       (shell-command (format "nimpretty %s" (buffer-file-name)))
-       )
+        (defun pretty-the-nim ()
+          "format nim file"
+          (interactive)
+          (shell-command (format "nimpretty %s" (buffer-file-name)))
+          )
 
 
-     (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
-     ;; config for quick code run
-     (spacemacs/set-leader-keys "oq" 'quickrun-shell)
-     ;; config for display lsp ui document
-     (spacemacs/set-leader-keys "od" 'lsp-ui-doc-show)
-     ;; config for toggle company mode
-     (spacemacs/set-leader-keys "oc" 'company-complete)
-     (spacemacs/set-leader-keys "or" 'reset-the-cmake-flag)
-     (spacemacs/set-leader-keys "on" 'pretty-the-nim)
-     ;; config for nimpretty command
+        (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
+        ;; config for toggle company mode
+        (spacemacs/declare-prefix "oR" "reset" "Reset")
+        (spacemacs/set-leader-keys "oRc" 'reset-the-cmake-flag)
+        (spacemacs/declare-prefix "of" "format" "Format")
+        (spacemacs/set-leader-keys "ofr" 'rubocopfmt)
+        (spacemacs/set-leader-keys "ofn" 'pretty-the-nim)
+        (spacemacs/declare-prefix "oc" "completion" "Completions")
+        (spacemacs/set-leader-keys "occ" 'completion-at-point)
+        (spacemacs/set-leader-keys "oct" 'company-tabnine)
+        (spacemacs/declare-prefix "or" "roam" "Org Roam")
+        (spacemacs/set-leader-keys "ori" 'org-id-get-create)
+        (spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
+        (spacemacs/set-leader-keys "ordt" 'org-roam-dailies-capture-today)
+        (spacemacs/set-leader-keys "ordy" 'org-roam-dailies-capture-yesterday)
+        (spacemacs/set-leader-keys "ordT" 'org-roam-dailies-capture-tomorrow)
+        (spacemacs/set-leader-keys "ordd" 'org-roam-dailies-capture-date)
+        (spacemacs/set-leader-keys "ordn" 'org-roam-dailies-goto-next-note)
+        (spacemacs/set-leader-keys "ordp" 'org-roam-dailies-goto-previous-note)
+        ;; config for nimpretty command
    #+end_src
 
 ** Configure Lsp Doc
