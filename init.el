@@ -36,10 +36,18 @@ This function should only modify configuration layer settings."
      (nim :variables nim-backend 'lsp)
      csv
      debug
+     racket
      quickurl
      ipython-notebook
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     (solidity :variables
+               solidity-flycheck-solc-checker-active t)
      (xclipboard :variables xclipboard-enable-cliphist t)
+     reddit
+     (groovy :variables
+             groovy-backend 'lsp
+             groovy-lsp-jar-path "/Users/zhibinhuang/.emacs.d/.cache/lsp/groovy-language-server-all.jar"
+             )
      imenu-list
      restclient
      xkcd
@@ -77,10 +85,10 @@ This function should only modify configuration layer settings."
      (python :variables
              python-fill-column 79
              python-backend 'lsp
-             ;; python-language-server 'mspyls
+             python-lsp-server 'pyright
              python-formatter 'yapf
-             python-format-on-save t
-             python-sort-imports-on-save t
+             ;; python-format-on-save t
+             ;; python-sort-imports-on-save t
              python-tab-width 4
              python-pipenv-activate nil)
      (ranger :variables
@@ -111,6 +119,9 @@ This function should only modify configuration layer settings."
       auto-completion-use-company-box t
       auto-completion-complete-with-key-sequence-delay 0.5
       auto-completion-idle-delay 0.0
+      :disabled-for
+      org
+      git
       )
      compleseus
      java
@@ -234,13 +245,6 @@ This function should only modify configuration layer settings."
                                       quickrun
                                       flutter
                                       latex-preview-pane
-                                      ;; (pdf-continuous-scroll-mode :location (recipe
-                                      ;;                                        :fetcher github
-                                      ;;                                        :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
-                                      ;; (slack :location (recipe
-                                      ;;                   :fetcher github
-                                      ;;                   :repo "lesliebinbin/emacs-slack"
-                                      ;;                   ))
                                       (wat-mode :location (recipe
                                                            :fetcher github
                                                            :repo "devonsparks/wat-mode"
@@ -258,6 +262,27 @@ This function should only modify configuration layer settings."
                                       pdf-tools
                                       vscode-dark-plus-theme
                                       org-bullets
+                                      ;; (gitattributes-mode :location
+                                      ;;                     (recipe
+                                      ;;                      :fetcher github
+                                      ;;                      :repo "magit/git-modes"))
+
+                                      ;; (gitconfig-mode :location (recipe
+                                      ;;                                :fetcher github
+                                      ;;                                :repo "magit/git-modes"
+                                      ;;                                ))
+                                      ;; (gitignore-mode :location (recipe
+                                      ;;                            :fetcher github
+                                      ;;                            :repo "magit/git-modes"
+                                      ;;                            ))
+                                      (evil-iedit-state :location (recipe
+                                                                   :fetcher github
+                                                                   :repo "lesliebinbin/evil-iedit-state"
+                                                                   ))
+                                      (evil-org-mode :location (recipe
+                                                                :fetcher github
+                                                                :repo "lesliebinbin/evil-org-mode"
+                                                                ))
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -414,8 +439,8 @@ It should only modify the values of Spacemacs settings."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
                          vscode-dark-plus
-                         monokai
                          spacemacs-dark
+                         monokai
                          monochrome
                          material
                          dracula
@@ -770,7 +795,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         )
   ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
   ;; add path to custom-modes
-  (add-to-list 'load-path (substitute-in-file-name "$HOME/.spacemacs.d/custom-modes") t)
+  (add-to-list 'load-path (substitute-in-file-name "$HOME/.spacemacs.d/custom-modes")  t)
+
   )
 
 
@@ -796,20 +822,37 @@ before packages are loaded."
         )
   (setq-default enable-remote-dir-locals t)
   ;; custom shortcut
-  (spacemacs/declare-prefix "o" "custom" "Custom Shortcuts")
-  (spacemacs/set-leader-keys "of" 'rubocopfmt)
-  (spacemacs/declare-prefix "oc" "completion" "Completions")
-  (spacemacs/set-leader-keys "occ" 'completion-at-point)
-  (spacemacs/set-leader-keys "oct" 'company-tabnine)
-  (spacemacs/declare-prefix "or" "roam" "Org Roam")
-  (spacemacs/set-leader-keys "ori" 'org-id-get-create)
-  (spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
-  (spacemacs/set-leader-keys "ordt" 'org-roam-dailies-capture-today)
-  (spacemacs/set-leader-keys "ordy" 'org-roam-dailies-capture-yesterday)
-  (spacemacs/set-leader-keys "ordT" 'org-roam-dailies-capture-tomorrow)
-  (spacemacs/set-leader-keys "ordd" 'org-roam-dailies-capture-date)
-  (spacemacs/set-leader-keys "ordn" 'org-roam-dailies-goto-next-note)
-  (spacemacs/set-leader-keys "ordp" 'org-roam-dailies-goto-previous-note)
+(defun reset-the-cmake-flag ()
+  "reset the cmake ide flag"
+  (interactive)
+  (setq cmake-sentinel-flag nil))
+
+(defun pretty-the-nim ()
+  "format nim file"
+  (interactive)
+  (shell-command (format "nimpretty %s" (buffer-file-name)))
+  )
+
+
+(spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
+;; config for toggle company mode
+(spacemacs/declare-prefix "oR" "reset" "Reset")
+(spacemacs/set-leader-keys "oRc" 'reset-the-cmake-flag)
+(spacemacs/declare-prefix "of" "format" "Format")
+(spacemacs/set-leader-keys "ofr" 'rubocopfmt)
+(spacemacs/set-leader-keys "ofn" 'pretty-the-nim)
+(spacemacs/declare-prefix "oc" "completion" "Completions")
+(spacemacs/set-leader-keys "occ" 'completion-at-point)
+(spacemacs/set-leader-keys "oct" 'company-tabnine)
+(spacemacs/declare-prefix "or" "roam" "Org Roam")
+(spacemacs/set-leader-keys "ori" 'org-id-get-create)
+(spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
+(spacemacs/set-leader-keys "ordt" 'org-roam-dailies-capture-today)
+(spacemacs/set-leader-keys "ordy" 'org-roam-dailies-capture-yesterday)
+(spacemacs/set-leader-keys "ordT" 'org-roam-dailies-capture-tomorrow)
+(spacemacs/set-leader-keys "ordd" 'org-roam-dailies-capture-date)
+(spacemacs/set-leader-keys "ordn" 'org-roam-dailies-goto-next-note)
+(spacemacs/set-leader-keys "ordp" 'org-roam-dailies-goto-previous-note)
   ;; slack configuration
   (slack-register-team
    :name (getenv "SLACK_NAME")
@@ -838,6 +881,7 @@ before packages are loaded."
      (python . t)
      (cypher . t)
      (nim . t)
+     (js . t)
      ))
   (setq org-agenda-files '("~/.spacemacs.d/calendars/leslie.org" "~/.spacemacs.d/calendars/Birthdays.org"))
   (require 'org-bullets)
