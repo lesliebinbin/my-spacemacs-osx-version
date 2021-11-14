@@ -283,6 +283,7 @@ This function should only modify configuration layer settings."
                                                                 :fetcher github
                                                                 :repo "lesliebinbin/evil-org-mode"
                                                                 ))
+                                      platformio-mode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -1072,6 +1073,14 @@ Best Regards,
 (require 'wat-mode)
 ;; org-roam-node
 (require 'org-roam-node)
+;;platformio
+(require 'platformio-mode)
+
+;; Enable ccls for all c++ files, and platformio-mode only
+;; when needed (platformio.ini present in project root).
+(add-hook 'c++-mode-hook (lambda ()
+                           (lsp-deferred)
+                           (platformio-conditionally-enable)))
 )
 
 
