@@ -35,6 +35,7 @@ This function should only modify configuration layer settings."
    '(typescript
      (nim :variables nim-backend 'lsp)
      csv
+     asm
      debug
      racket
      quickurl
@@ -249,11 +250,11 @@ This function should only modify configuration layer settings."
                                                            :fetcher github
                                                            :repo "devonsparks/wat-mode"
                                                            ))
-                                      ob-cypher
                                       format-all
                                       clomacs
                                       org-tree-slide
                                       ob-ipython
+                                      ob-cypher
                                       ob-nim
                                       helm-org-ql
                                       inf-mongo
@@ -275,14 +276,14 @@ This function should only modify configuration layer settings."
                                       ;;                            :fetcher github
                                       ;;                            :repo "magit/git-modes"
                                       ;;                            ))
-                                      (evil-iedit-state :location (recipe
-                                                                   :fetcher github
-                                                                   :repo "lesliebinbin/evil-iedit-state"
-                                                                   ))
-                                      (evil-org-mode :location (recipe
-                                                                :fetcher github
-                                                                :repo "lesliebinbin/evil-org-mode"
-                                                                ))
+                                      ;; (evil-iedit-state :location (recipe
+                                      ;;                              :fetcher github
+                                      ;;                              :repo "lesliebinbin/evil-iedit-state"
+                                      ;;                              ))
+                                      ;; (evil-org :location (recipe
+                                      ;;                           :fetcher github
+                                      ;;                           :repo "lesliebinbin/evil-org-mode"
+                                      ;;                           ))
                                       platformio-mode
                                       )
 
@@ -878,9 +879,9 @@ before packages are loaded."
      (shell . t)
      (dot . t)
      (ipython . t)
+     (cypher . t)
      (ein . t)
      (python . t)
-     (cypher . t)
      (nim . t)
      (js . t)
      ))
