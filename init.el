@@ -32,12 +32,16 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(typescript
+   '((typescript :variables typescript-backend 'tide)
      (nim :variables nim-backend 'lsp)
      csv
+     swift
+     tide
+     (tree-sitter :variables tree-sitter-syntax-highlight-enable t)
      asm
      debug
      racket
+     emoji
      quickurl
      ipython-notebook
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
@@ -120,6 +124,8 @@ This function should only modify configuration layer settings."
       auto-completion-use-company-box t
       auto-completion-complete-with-key-sequence-delay 0.5
       auto-completion-idle-delay 0.0
+      company-emoji-insert-unicode nil
+      auto-completion-complete-with-key-sequence "jk"
       :disabled-for
       org
       git
@@ -135,11 +141,11 @@ This function should only modify configuration layer settings."
      import-js
      (javascript :variables
                  javascript-import-tool 'import-js
-                 javascript-backend 'lsp
+                 javascript-backend 'tide
                  javascript-fmt-tool 'prettier
-                 ;; javascript-fmt-on-save t
                  node-add-modules-path t
-                 js2-include-node-externs t)
+                 js2-include-node-externs t
+                 )
 
      (git :variables
           git-enable-magit-gitflow-plugin t
@@ -218,7 +224,9 @@ This function should only modify configuration layer settings."
           osx-right-control-as 'left
           osx-swap-option-and-command nil)
      treemacs
-     slack
+     (slack :variables
+            slack-prefer-current-team "Streem"
+            )
      (mu4e :variables
            mu4e-enable-notifications t
            mu4e-enable-mode-line t
@@ -237,27 +245,23 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      atomic-chrome
                                       dracula-theme
-                                      calfw-org
+                                      jupyter
                                       org-msg
-                                      mu4e-conversation
+                                      ;; mu4e-conversation
                                       selectric-mode
                                       quickrun
                                       flutter
-                                      latex-preview-pane
                                       (wat-mode :location (recipe
                                                            :fetcher github
                                                            :repo "devonsparks/wat-mode"
                                                            ))
                                       format-all
-                                      clomacs
                                       org-tree-slide
                                       ob-ipython
                                       ob-cypher
                                       ob-nim
                                       helm-org-ql
-                                      inf-mongo
                                       graphql-mode
                                       company-tabnine
                                       pdf-tools
@@ -285,6 +289,8 @@ This function should only modify configuration layer settings."
                                       ;;                           :repo "lesliebinbin/evil-org-mode"
                                       ;;                           ))
                                       platformio-mode
+                                      flycheck-swift
+                                      company-sourcekit
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -795,11 +801,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         ;; remote zsh related
         shell-prompt-pattern '"^[^#$%>\n]*~?[#$%>] *"
         )
-  ;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
   ;; add path to custom-modes
-  (add-to-list 'load-path (substitute-in-file-name "$HOME/.spacemacs.d/custom-modes")  t)
-
-  )
+  (add-to-list 'load-path (substitute-in-file-name "$HOME/.spacemacs.d/custom-modes")  t))
 
 
 (defun dotspacemacs/user-load ()
@@ -859,6 +862,11 @@ before packages are loaded."
   (slack-register-team
    :name (getenv "SLACK_NAME")
    :default t
+   :full-and-display-names t
+   :modeline-enabled t
+   :visible-threads t
+   :websocket-event-log-enabled t
+   :animate-image t
    :client-id (getenv "SLACK_CLIENT_ID")
    :client-secret (getenv "SLACK_CLIENT_SECRET")
    :token (getenv "SLACK_TOKEN")
@@ -878,7 +886,7 @@ before packages are loaded."
      (restclient . t)
      (shell . t)
      (dot . t)
-     (ipython . t)
+     (jupyter . t)
      (cypher . t)
      (ein . t)
      (python . t)
@@ -949,86 +957,86 @@ before packages are loaded."
 (require 'alert)
 (setq alert-default-style 'osx-notifier)
 ;;mu4e
-(require 'mu4e)
-(with-eval-after-load 'mu4e (require 'mu4e-conversation))
-(setq
-      mail-user-agent 'mu4e-user-agent
-      mu4e-maildir "~/.mail"
-      mu4e-update-interval 240
-      mu4e-view-show-images t
-      mu4e-view-show-addresses t
-      org-mu4e-convert-to-html t)
-(setq mu4e-contexts
-      `(
-        ;; WORK EMAIL
-        ,(make-mu4e-context
-          :name "Gmail"
-          :enter-func (lambda () (mu4e-message "Switch to the Work Email Context"))
-          ;; leave-func not defined
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches msg
-                                                              :to (getenv "WORK_EMAIL"))))
-          :vars '(  ( user-mail-address      . (getenv "WORK_EMAIL"))
-                    ( user-full-name     . "Leslie Wong" )
-                    (mu4e-get-mail-command . "offlineimap -a WORK_EMAIL")
-                    (mu4e-sent-messages-behavior . delete)
-                    ;; (mu4e-sent-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Sent Mail")
-                    (mu4e-sent-folder . (format "/%s/[Work].Sent Mail" (getenv "WORK_EMAIL")))
-                    ;; (mu4e-drafts-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Drafts")
-                    (mu4e-sent-folder . (format "/%s/[Work].Drafts" (getenv "WORK_EMAIL")))
-                    ;; (mu4e-trash-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Trash")
-                    (mu4e-sent-folder . (format "/%s/[Work].Trash" (getenv "WORK_EMAIL")))
-                    ;; (mu4e-retfile-folder . "/lesliebinbin19900129@gmail.com/[Gmail].All Mail")
-                    (mu4e-sent-folder . (format "/%s/[Work].All Mail" (getenv "WORK_EMAIL")))
-                    ;; (user-mail-address . "lesliebinbin19900129@gmail.com")
-                    (user-mail-address . (getenv "WORK_EMAIL"))
-                    (smtpmail-stream-type . ssl)
-                    (smtpmail-default-smtp-server . (getenv "WORK_SMTP"))
-                    (smtpmail-smtp-server . (getenv "WORK_SMTP"))
-                    (smtpmail-smtp-service . 465)
-                    ;; (smtpmail-smtp-user . "lesliebinbin19900129@gmail.com")
-                    (smtpmail-smtp-user . (getenv "WORK_EMAIL"))
-                    (smtpmail-debug-verb . t)
-                    (send-mail-function . smtpmail-send-it)
-                    ))
-        ;; WORK EMAIL
-        ;; UNI EMAIL
-        ,(make-mu4e-context
-          :name "UQ"
-          :enter-func (lambda () (mu4e-message "Switch to the Uni Email context"))
-          ;; leave-func not defined
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches msg
-                                                              :to (getenv "UNI_EMAIL"))))
-          :vars '(  ( user-mail-address      . (getenv "UNI_EMAIL"))
-                    ( user-full-name     . "Zhibin Huang" )
-                    (mu4e-get-mail-command . "offlineimap -a UNI_EMAIL")
-                    (mu4e-sent-messages-behavior . delete)
-                    (mu4e-sent-folder . (format "/%s/[Uni].Sent Mail" (getenv "UNI_EMAIL")))
-                    (mu4e-sent-folder . (format "/%s/[Uni].Drafts" (getenv "UNI_EMAIL")))
-                    (mu4e-sent-folder . (format "/%s/[Uni].Trash" (getenv "UNI_EMAIL")))
-                    (mu4e-sent-folder . (format "/%s/[Uni].All Mail" (getenv "UNI_EMAIL")))
-                    (user-mail-address . (getenv "UNI_EMAIL"))
-                    (smtpmail-default-smtp-server . (getenv "UNI_SMTP"))
-                    (smtpmail-smtp-server . (getenv "UNI_SMTP"))
-                    (smtpmail-stream-type . starttls)
-                    (smtpmail-smtp-service . 587)
-                    (smtpmail-smtp-user . (getenv "UNI_EMAIL"))
-                    (smtpmail-debug-verb . t)
-                    (send-mail-function . smtpmail-send-it)
-                    ))
-        ;; UNI EMAIL
+;; (require 'mu4e)
+;; (with-eval-after-load 'mu4e (require 'mu4e-conversation))
+;; (setq
+;;       mail-user-agent 'mu4e-user-agent
+;;       mu4e-maildir "~/.mail"
+;;       mu4e-update-interval 240
+;;       mu4e-view-show-images t
+;;       mu4e-view-show-addresses t
+;;       org-mu4e-convert-to-html t)
+;; (setq mu4e-contexts
+;;       `(
+;;         ;; WORK EMAIL
+;;         ,(make-mu4e-context
+;;           :name "Gmail"
+;;           :enter-func (lambda () (mu4e-message "Switch to the Work Email Context"))
+;;           ;; leave-func not defined
+;;           :match-func (lambda (msg)
+;;                         (when msg
+;;                           (mu4e-message-contact-field-matches msg
+;;                                                               :to (getenv "WORK_EMAIL"))))
+;;           :vars '(  ( user-mail-address      . (getenv "WORK_EMAIL"))
+;;                     ( user-full-name     . "Leslie Wong" )
+;;                     (mu4e-get-mail-command . "offlineimap -a WORK_EMAIL")
+;;                     (mu4e-sent-messages-behavior . delete)
+;;                     ;; (mu4e-sent-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Sent Mail")
+;;                     (mu4e-sent-folder . (format "/%s/[Work].Sent Mail" (getenv "WORK_EMAIL")))
+;;                     ;; (mu4e-drafts-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Drafts")
+;;                     (mu4e-sent-folder . (format "/%s/[Work].Drafts" (getenv "WORK_EMAIL")))
+;;                     ;; (mu4e-trash-folder . "/lesliebinbin19900129@gmail.com/[Gmail].Trash")
+;;                     (mu4e-sent-folder . (format "/%s/[Work].Trash" (getenv "WORK_EMAIL")))
+;;                     ;; (mu4e-retfile-folder . "/lesliebinbin19900129@gmail.com/[Gmail].All Mail")
+;;                     (mu4e-sent-folder . (format "/%s/[Work].All Mail" (getenv "WORK_EMAIL")))
+;;                     ;; (user-mail-address . "lesliebinbin19900129@gmail.com")
+;;                     (user-mail-address . (getenv "WORK_EMAIL"))
+;;                     (smtpmail-stream-type . ssl)
+;;                     (smtpmail-default-smtp-server . (getenv "WORK_SMTP"))
+;;                     (smtpmail-smtp-server . (getenv "WORK_SMTP"))
+;;                     (smtpmail-smtp-service . 465)
+;;                     ;; (smtpmail-smtp-user . "lesliebinbin19900129@gmail.com")
+;;                     (smtpmail-smtp-user . (getenv "WORK_EMAIL"))
+;;                     (smtpmail-debug-verb . t)
+;;                     (send-mail-function . smtpmail-send-it)
+;;                     ))
+;;         ;; WORK EMAIL
+;;         ;; UNI EMAIL
+;;         ,(make-mu4e-context
+;;           :name "UQ"
+;;           :enter-func (lambda () (mu4e-message "Switch to the Uni Email context"))
+;;           ;; leave-func not defined
+;;           :match-func (lambda (msg)
+;;                         (when msg
+;;                           (mu4e-message-contact-field-matches msg
+;;                                                               :to (getenv "UNI_EMAIL"))))
+;;           :vars '(  ( user-mail-address      . (getenv "UNI_EMAIL"))
+;;                     ( user-full-name     . "Zhibin Huang" )
+;;                     (mu4e-get-mail-command . "offlineimap -a UNI_EMAIL")
+;;                     (mu4e-sent-messages-behavior . delete)
+;;                     (mu4e-sent-folder . (format "/%s/[Uni].Sent Mail" (getenv "UNI_EMAIL")))
+;;                     (mu4e-sent-folder . (format "/%s/[Uni].Drafts" (getenv "UNI_EMAIL")))
+;;                     (mu4e-sent-folder . (format "/%s/[Uni].Trash" (getenv "UNI_EMAIL")))
+;;                     (mu4e-sent-folder . (format "/%s/[Uni].All Mail" (getenv "UNI_EMAIL")))
+;;                     (user-mail-address . (getenv "UNI_EMAIL"))
+;;                     (smtpmail-default-smtp-server . (getenv "UNI_SMTP"))
+;;                     (smtpmail-smtp-server . (getenv "UNI_SMTP"))
+;;                     (smtpmail-stream-type . starttls)
+;;                     (smtpmail-smtp-service . 587)
+;;                     (smtpmail-smtp-user . (getenv "UNI_EMAIL"))
+;;                     (smtpmail-debug-verb . t)
+;;                     (send-mail-function . smtpmail-send-it)
+;;                     ))
+;;         ;; UNI EMAIL
 
-        ))
+;;         ))
 
 
 (when (fboundp 'imagemagick-register-types)
   (imagemagick-register-types))
 
-(with-eval-after-load 'mu4e-alert
-  (mu4e-alert-set-default-style 'notifications))
+;; (with-eval-after-load 'mu4e-alert
+;;   (mu4e-alert-set-default-style 'notifications))
 ;;mu4e
 ;; configure emmet
 (add-hook 'sgml-mode-hook 'emmet-mode)
@@ -1082,6 +1090,17 @@ Best Regards,
 (add-hook 'c++-mode-hook (lambda ()
                            (lsp-deferred)
                            (platformio-conditionally-enable)))
+;; flycheck-swift and company-sourcekit
+(eval-after-load 'flycheck '(flycheck-swift-setup))
+(add-hook 'swift-mode-hook (lambda ()
+                             (require 'company-sourcekit)
+                             (add-to-list 'company-backends 'company-sourcekit)))
+
+;; refer to tabnine jupyter: https://www.tabnine.com/install/jupyter
+(add-hook 'ein:notebook-mode-hook (lambda ()
+                                    (company-mode t)
+                                    (require 'company-tabnine)
+                                    (add-to-list 'company-backends 'company-tabnine)))
 )
 
 
