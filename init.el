@@ -154,7 +154,6 @@ This function should only modify configuration layer settings."
      (node :variables node-add-modules-path t)
      semantic
      selectric
-     github
      ;; (geolocation :variables
      ;;              geolocation-enable-automatic-theme-changer t
      ;;              geolocation-enable-location-service t
@@ -224,15 +223,6 @@ This function should only modify configuration layer settings."
           osx-right-control-as 'left
           osx-swap-option-and-command nil)
      treemacs
-     (slack :variables
-            slack-prefer-current-team "Streem"
-            )
-     (mu4e :variables
-           mu4e-enable-notifications t
-           mu4e-enable-mode-line t
-           mu4e-mu-binary "/usr/local/bin/mu"
-           ;; mu4e-enable-async-operations t
-           )
      )
 
 
@@ -297,7 +287,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-projectile)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -341,7 +331,7 @@ It should only modify the values of Spacemacs settings."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -476,7 +466,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '(
-                               "Lucida Console"
+                               "Ubuntu Mono"
                                :size 18.0
                                :weight normal
                                :width normal
@@ -839,42 +829,25 @@ before packages are loaded."
   )
 
 
-(spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
+;; (spacemacs/declare-prefix "o" "custom" "Leslie Binbin")
 ;; config for toggle company mode
-(spacemacs/declare-prefix "oR" "reset" "Reset")
-(spacemacs/set-leader-keys "oRc" 'reset-the-cmake-flag)
-(spacemacs/declare-prefix "of" "format" "Format")
-(spacemacs/set-leader-keys "ofr" 'rubocopfmt)
-(spacemacs/set-leader-keys "ofn" 'pretty-the-nim)
-(spacemacs/declare-prefix "oc" "completion" "Completions")
-(spacemacs/set-leader-keys "occ" 'completion-at-point)
-(spacemacs/set-leader-keys "oct" 'company-tabnine)
-(spacemacs/declare-prefix "or" "roam" "Org Roam")
-(spacemacs/set-leader-keys "ori" 'org-id-get-create)
-(spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
-(spacemacs/set-leader-keys "ordt" 'org-roam-dailies-capture-today)
-(spacemacs/set-leader-keys "ordy" 'org-roam-dailies-capture-yesterday)
-(spacemacs/set-leader-keys "ordT" 'org-roam-dailies-capture-tomorrow)
-(spacemacs/set-leader-keys "ordd" 'org-roam-dailies-capture-date)
-(spacemacs/set-leader-keys "ordn" 'org-roam-dailies-goto-next-note)
-(spacemacs/set-leader-keys "ordp" 'org-roam-dailies-goto-previous-note)
-  ;; slack configuration
-  (slack-register-team
-   :name (getenv "SLACK_NAME")
-   :default t
-   :full-and-display-names t
-   :modeline-enabled t
-   :visible-threads t
-   :websocket-event-log-enabled t
-   :animate-image t
-   :client-id (getenv "SLACK_CLIENT_ID")
-   :client-secret (getenv "SLACK_CLIENT_SECRET")
-   :token (getenv "SLACK_TOKEN")
-   :subscribed-channels (->> "SLACK_CHANNELS"
-                            (getenv)
-                            (s-split ",")
-                            )
-  )
+;; (spacemacs/declare-prefix "oR" "reset" "Reset")
+;; (spacemacs/set-leader-keys "oRc" 'reset-the-cmake-flag)
+;; (spacemacs/declare-prefix "of" "format" "Format")
+;; (spacemacs/set-leader-keys "ofr" 'rubocopfmt)
+;; (spacemacs/set-leader-keys "ofn" 'pretty-the-nim)
+;; (spacemacs/declare-prefix "oc" "completion" "Completions")
+;; (spacemacs/set-leader-keys "occ" 'completion-at-point)
+;; (spacemacs/set-leader-keys "oct" 'company-tabnine)
+;; (spacemacs/declare-prefix "or" "roam" "Org Roam")
+;; (spacemacs/set-leader-keys "ori" 'org-id-get-create)
+;; (spacemacs/declare-prefix "ord" "daily" "Dailies Capture")
+;; (spacemacs/set-leader-keys "ordt" 'org-roam-dailies-capture-today)
+;; (spacemacs/set-leader-keys "ordy" 'org-roam-dailies-capture-yesterday)
+;; (spacemacs/set-leader-keys "ordT" 'org-roam-dailies-capture-tomorrow)
+;; (spacemacs/set-leader-keys "ordd" 'org-roam-dailies-capture-date)
+;; (spacemacs/set-leader-keys "ordn" 'org-roam-dailies-goto-next-note)
+;; (spacemacs/set-leader-keys "ordp" 'org-roam-dailies-goto-previous-note)
   ;; org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
